@@ -10,7 +10,11 @@
 /node_modules
 npm-debug.log
 yarn-error.log
-
+#ignore images and Stocks.json
+/public/*
+#ignore environments and response files
+/src/environments
+/src/model/respons*.json
 # IDEs and editors
 .idea/
 .project

@@ -155,3 +155,7 @@ main {
 .social-links a:hover svg path {
       fill: var(--gray-900);
 }
+
+a {
+      margin: 3px 3px;
+}

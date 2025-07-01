@@ -1,0 +1,42 @@
+<div class="firstDiv">
+      {{status}}
+      <table>
+            <thead>
+                  <tr>
+                        <td>ticker</td>
+                        <td>category</td>
+                        <td>quantity</td>
+                        <td>market value</td>
+                        <td>cost basis</td>
+                        <td>gain/loss</td>
+                        <td>yahoo price</td>
+                        <td>52 Week Range</td>
+                        <td title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price
+                              Percentile</td>
+                        <td>Dividend Yield</td>
+                        <td>Comment</td>
+                  </tr>
+            </thead>
+            <tbody>
+                  <tr *ngFor=" let stock of stocks; let i=index">
+                        <td>{{stock.ticker}}</td>
+                        <td>{{stock.category}}</td>
+                        <td>{{stock.quantity}}</td>
+                        <td>{{stock.marketvalue}}</td>
+                        <td>{{stock.costbasis}}</td>
+                        <td [ngClass]="{'loss':stock.gainloss<0}">{{stock.gainloss}}</td>
+                        <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
+                        <td>{{stock.fiftytwowkrng}}</td>
+                        <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
+                              'sell':stock.percentage >=80 && stock.percentage <=100,
+                               'potentialsell':stock.percentage >=70 && stock.percentage <=79,
+                                'potentialbuy':stock.percentage >=20 && stock.percentage <=30
+                        }">{{stock.percentage}}</td>
+                        <td>{{stock.dividendYield}}</td>
+                        <td>{{stock.comment}}</td>
+
+                  </tr>
+            </tbody>
+      </table>
+
+</div>

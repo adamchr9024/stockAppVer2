@@ -1,0 +1,61 @@
+<div class="firstDiv">
+      <app-header></app-header>
+      <h1>Watchlist with potential yield with $500 investment</h1>
+      <h2>Potential Securities to Buy / Sell</h2>
+      <h2 class="loss"> ALWAYS BUY WITH LIMIT ORDER TO AVOID RAPID CHANGES IN PRICES
+            <br /> <i> PUSH TO GIT PLEASE</i>
+      </h2>
+      <ol>TODO!
+            <li><s>set quantity to $500/yahoo_price</s></li>
+            <li><s>calculate 1 year dividend</s></li>
+            <li><s> formula = quantity * yield/100 *yahoo_price </s></li>
+            <li><s> maybe create you own table using &#64;for etc</s></li>
+            <li><s>add ability to calculate yield to securtiy class</s></li>
+            <li>Getting the yearly dividend depends on Extends Dividend Date</li>
+            <li><i>"May??"</i> need to turn <b>OFF</b> cache to get the updated value during trading hours </li>
+            <li><s>Use map to update data to stocks</s></li>
+            <li><s>put API KEYs in angular configuration files and DO NOT PUSH These files or system variables</s></li>
+      </ol>
+      @if(waiting=='done'){
+      <table>
+            <thead>
+                  <tr>
+                        <td>ticker</td>
+                        <td>category</td>
+                        <td>quantity</td>
+                        <td>yahoo price</td>
+                        <td>52 Week Range</td>
+                        <td title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price
+                              Percentile</td>
+                        <td>Dividend Yield</td>
+                        <td>Potential Yearly Dividend ($500)</td>
+                        <td>Comment</td>
+                  </tr>
+            </thead>
+            <tbody>
+                  @for (stock of stocksArray; track stock.ticker){
+
+                  <tr>
+                        <td>{{stock.ticker}}</td>
+                        <td>{{stock.category}}</td>
+                        <td>{{stock.watchQuantity}}</td>
+                        <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
+                        <td>{{stock.fiftytwowkrng}}</td>
+                        <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
+                              'sell':stock.percentage >=80 && stock.percentage <=100,
+                               'potentialsell':stock.percentage >=70 && stock.percentage <=79,
+                                'potentialbuy':stock.percentage >=20 && stock.percentage <=30
+                        }">{{stock.percentage}}</td>
+                        <td>{{stock.dividendYield}}</td>
+                        <td>{{stock.potentialYearlyDividend}}</td>
+                        <td>{{stock.comment}}</td>
+                  </tr>
+                  }
+            </tbody>
+      </table>
+      }
+      @else{
+      {{waiting}}
+      }
+
+</div>

@@ -1,3 +1,12 @@
 import { Routes } from '@angular/router';
-
-export const routes: Routes = [];
+import { MystocksComponent } from './mystocks/mystocks.component';
+import { StocktableComponent } from './stocktable/stocktable.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
+import { HomeComponent } from './home/home.component';
+//import { Component } from '@angular/core';
+export const routes: Routes = [
+      { path: "", component: HomeComponent, },
+      { path: 'mystock', component: MystocksComponent },
+      { path: "table", component: StocktableComponent },
+      { path: "watchlist", component: WatchlistComponent }
+];   

@@ -1,7 +1,10 @@
 # StockAppNg18
-
+nvm use twenty
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
-
+enviroments were created unsing ng g environments
+  CREATE src/environments/environment.ts (31 bytes)
+  CREATE src/environments/environment.development.ts (31 bytes)
+  UPDATE angular.json (2841 bytes)
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
