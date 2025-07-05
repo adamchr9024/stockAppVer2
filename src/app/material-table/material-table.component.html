@@ -1,0 +1,79 @@
+<div class="firstDiv">
+      <app-header></app-header>
+      {{waiting}}
+      <ol>To Do
+            <li class="loss">optimize web pack get rid of unused calls</li>
+            <li class="loss">verify all subscriptions are UNSUBSCRIBED</li>
+            <li>Add ERROR HANDLING TO API CALLS</li>
+            <li><s>Fix CSS on Price Percentage</s></li>
+            <li><s>ADD ANGULAR MATERIAL FOR SORTING AND FILTERING</s> </li>
+
+      </ol>
+      <div style="width:95%; margin:100px;">
+            <mat-form-field style="width:40%">
+                  <mat-label>Filter</mat-label>
+                  <input matInput (input)="filterData($event)">
+            </mat-form-field>
+            <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource" matSort>
+                  <ng-container cdkColumnDef="ticker">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
+                  </ng-container>
+                  <!-- ticker category -->
+                  <ng-container cdkColumnDef="category">
+                        <mat-header-cell *cdkHeaderCellDef>Category </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.category}} </mat-cell>
+                  </ng-container>
+                  <!-- quantity Definition -->
+                  <ng-container cdkColumnDef="quantity">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.watchQuantity}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="yahooprice">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
+                        <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="fiftytwowkrng">
+                        <mat-header-cell *cdkHeaderCellDef> 52 Week Range </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="percentage">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Price Percentile</mat-header-cell>
+                        <mat-cell *cdkCellDef="let row" [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
+                              'sell':row.percentage >=80 && row.percentage <=100,
+                               'potentialsell':row.percentage >=70 && row.percentage <=79,
+                                'potentialbuy':row.percentage >=20 && row.percentage <=30
+                        }"> {{row.percentage}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="dividendYield">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="potentialYearlyDividend">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Potential Yearly Dividend ($500)
+                        </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.potentialYearlyDividend}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="comment">
+                        <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
+                  <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
+                  <!-- <ng-container [matColumnDef]="column" *ngFor="let column of columnsToDisplay; let i=index">
+                        <th mat-header-cell *matHeaderCellDef>{{column|titlecase}}</th>
+                        < <td mat-cell *matCellDef="let element">{{element[column]}}</td> >
+                  </ng-container>
+                  <ng-container *ngIf="let column of colToDisplay">
+                        <td mat-cell *matCellDef="let element">{{element.column}}</td>
+                  </ng-container>
+                  < <ng-container>
+                          <td mat-cell *matCellDef="let element">{{element[column]}}</td> 
+                  </ng-container> 
+                  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr> -->
+            </mat-table>
+
+      </div>
+</div>

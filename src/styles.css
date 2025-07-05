@@ -12,19 +12,24 @@
 }
 
 table,
+mat-table,
+mat-header-cell,
+mat-cell,
 th,
 td,
 thead {
       border: 1px solid;
 }
 
-thead {
+thead,
+mat-header-cell {
       font-weight: bold;
       /* color: white; */
       background-color: rgb(0, 255, 89);
 }
 
-tr:nth-child(even) {
+tr:nth-child(even),
+mat-row:nth-child(even) {
       background-color: yellowgreen;
 }
 
@@ -33,3 +38,22 @@ tr:nth-child(even) {
 }
 
 /* tr:has */
+html,
+body {
+      height: 100%;
+}
+
+body {
+      margin: 0;
+      font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-label {
+      width: fit-content
+}
+
+thead,
+mat-header-row {
+      top: 0;
+      position: sticky;
+}
