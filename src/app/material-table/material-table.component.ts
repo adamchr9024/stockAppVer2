@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnInit, ViewChild, } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-material-table',
   standalone: true,
@@ -21,8 +22,8 @@ import { MatSort } from '@angular/material/sort'
   styleUrl: './material-table.component.css'
 })
 //https://marmo.dev/angular-material-sort-objects#the-complex-scenario-a-structured-object-with-nested-properties
-export class MaterialTableComponent implements OnInit, AfterViewInit {
-  // stocks: Security[] = [];
+export class MaterialTableComponent implements OnInit, AfterViewInit, OnDestroy {
+  subscription!: Subscription
   stocksmap: Map<string, Security> = new Map();
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
@@ -40,6 +41,9 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
         })
         this.initialize();
       })
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
   ngAfterViewInit(): void {
     //throw new Error('Method not implemented.');
@@ -68,7 +72,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
     try {
       // console.log("initialize mystocks " + this.stocksmap.size)
       let moresymbols = Array.from(this.stocksmap.keys());
-      this.rapidApiService.getMutualFundPrices(moresymbols)
+      this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({//unsubscribe please...how to test  
           next: (n) => {
             n.forEach((val2: any) => {
@@ -81,7 +85,11 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
               }
             })
           },
-          error: (err) => { console.log(err) },
+          error: (err) => {
+            console.log("error 'getMutualFundPrices':", err?.error?.message)
+            this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
+
+          },
           complete: () => { console.log("complete called in materials table") }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
@@ -89,12 +97,14 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
 
 
       setTimeout(() => {
-        this.waiting = "done";
+        if (!this.waiting.includes("ERROR")) {
+          this.waiting = "done";
+        }
         // console.log("stocks array", this.stocksArray)
       }, 1400);
     }
     catch (err: any) {
-      console.log(err?.message)
+      console.log("error caught in material-table initialize", err?.message)
     }
 
   }

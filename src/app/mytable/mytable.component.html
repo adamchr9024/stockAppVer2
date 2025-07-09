@@ -1,5 +1,6 @@
 <div class="firstDiv">
-      {{status}}
+      <label [ngClass]="{'loss':status.includes('ERROR')}">{{status}}</label>
+
       <table>
             <thead>
                   <tr>

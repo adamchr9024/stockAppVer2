@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 //import { RouterLink } from '@angular/router';
 import { Security, Category, symbolprice } from '../../model/security';
@@ -9,6 +9,7 @@ import { MytableComponent } from '../mytable/mytable.component';
 import { FinnhubService } from '../finnhub.service';
 import { DefaultApi } from 'finnhub-ts'
 import { SignalswatchlistService } from '../signalswatchlist.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-stocktable',
   standalone: true,
@@ -17,7 +18,8 @@ import { SignalswatchlistService } from '../signalswatchlist.service';
   templateUrl: './stocktable.component.html',
   styleUrl: './stocktable.component.css'
 })
-export class StocktableComponent implements OnInit {
+export class StocktableComponent implements OnInit, OnDestroy {
+  subscription!: Subscription
   stocks: Security[] = [];
   stocksmap: Map<string, Security> = new Map();
   allbutWatchlist: string = Category.Alternative +
@@ -39,6 +41,9 @@ export class StocktableComponent implements OnInit {
         this.initialize();
       })
   }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
 
@@ -57,21 +62,39 @@ export class StocktableComponent implements OnInit {
         //this is added here because finnhub has sleep time add
 
         this.stocks = Array.from(this.stocksmap.values());
-        this.waiting = "done";
+        if (!this.waiting.includes("ERROR")) {
+          this.waiting = "done";
+        }
+      })
+      .catch(err => {
+        console.log('error caught stocktable initialize getAllPrices', err)
+        if (this.waiting.includes('ERROR')) {
+          this.waiting += " and error fetching securites from finnhub: " + err
+        }
+        else {
+          this.waiting = "Error fetching securities from finnhubb"
+        }
       })
     //let k = 24
     let moresymbols = this.stocks.filter(stoc => stoc?.category == Category.MutualFund).map(t => t.ticker);
-    this.rapidApiService.getMutualFundPrices(moresymbols)
-      .subscribe((body: any[]) => {//unsubscribe please...how to test
-        body.forEach(val2 => {
-          let updt = this.stocksmap.get(val2.symbol);
-          if (updt) {
-            updt.dividendYield = val2?.dividendYield;
-            updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-            updt.yahooprice = val2?.regularMarketPrice;
-            this.stocksmap.set(updt.ticker, updt);
-          }
-        })
+    this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
+      .subscribe({
+        next: (body: any[]) => {//unsubscribe please...how to test
+          body.forEach(val2 => {
+            let updt = this.stocksmap.get(val2.symbol);
+            if (updt) {
+              updt.dividendYield = val2?.dividendYield;
+              updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
+              updt.yahooprice = val2?.regularMarketPrice;
+              this.stocksmap.set(updt.ticker, updt);
+            }
+          })
+        },
+        error: (err) => {
+          console.log("error caught in stocktable.ts: ", err?.error?.message)
+          this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
+        },
+        complete: () => { console.log("complete called in stocktable") }
       })
   }
 }

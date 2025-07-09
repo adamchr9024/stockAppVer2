@@ -45,5 +45,9 @@ export class WatchlistComponent implements OnInit {
         })
         this.waiting = "done";
       })
+      .catch(err => {
+        console.log("error caught in watchlist.component intialize", err)
+        this.waiting = "ERROR from finnhub getAllPrices: " + err;
+      })
   }
 }

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
 import { Security, symbolprice } from '../model/security';
 //import { Observable, of, } from 'rxjs';
-import { take, map } from "rxjs/operators"
+import { take, map, catchError } from "rxjs/operators"
 @Injectable({
   providedIn: 'root'
 })
@@ -85,8 +85,12 @@ export class RapidapiService {
             symbol: x?.quoteSummary?.result[0]?.price?.symbol,
             price: x?.quoteSummary?.result[0]?.price?.regularMarketPrice?.raw
           }
+        }),
+        catchError(err => {
+          console.log("error caught and rethrown in rapidapiService.getAstockPrice: ", err);
+          throw err
         })
-      );
+      )
   }
 
   sleep(ms: number) {
@@ -103,6 +107,10 @@ export class RapidapiService {
         take(1),
         map((x: any) => {
           return x?.body
+        }),
+        catchError(err => {
+          console.log("error caught and rethrown in rapidapiService.getMutualFundPrices: ", err);
+          throw err;
         })
       )
     // console.log("mutualurl", mutualurl);

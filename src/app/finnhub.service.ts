@@ -49,7 +49,8 @@ export class FinnhubService implements OnInit {
       return { symbol: symbol, price: stockdata.data.c }
     }
     catch (error: any) {
-      throw new Error("error encountered getting symbol: " + symbol);
+      console.log("Error in finnHubService (getStockPrice): ", error?.message)
+      throw new Error("error encountered getting symbol: " + symbol + " " + error?.message);
     }
   }
   async getAllPrices(symbols: string[]) {
@@ -66,7 +67,8 @@ export class FinnhubService implements OnInit {
       //return funddata.data;
     }
     catch (error: any) {
-      throw new Error("error encountered getting symbols: getAllPrices");
+      console.log("error during getAllPrices: ", error)
+      throw new Error("error encountered getting symbols: " + error);
     }
   }
   async getSymTid(stocks: string[]) {

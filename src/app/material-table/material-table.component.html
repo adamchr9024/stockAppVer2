@@ -1,10 +1,10 @@
 <div class="firstDiv">
       <app-header></app-header>
-      {{waiting}}
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
       <ol>To Do
             <li class="loss">optimize web pack get rid of unused calls</li>
             <li class="loss">verify all subscriptions are UNSUBSCRIBED</li>
-            <li>Add ERROR HANDLING TO API CALLS</li>
+            <li><s>Add ERROR HANDLING TO API CALLS</s></li>
             <li><s>Fix CSS on Price Percentage</s></li>
             <li><s>ADD ANGULAR MATERIAL FOR SORTING AND FILTERING</s> </li>
 

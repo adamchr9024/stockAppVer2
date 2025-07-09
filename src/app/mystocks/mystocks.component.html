@@ -55,7 +55,8 @@
       </table>
       }
       @else{
-      {{waiting}}
+      <!-- {{waiting}} -->
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
       }
 
 </div>
