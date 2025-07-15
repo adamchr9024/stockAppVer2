@@ -1,0 +1,28 @@
+.sell {
+      background-color: lightgreen;
+      font-weight: bolder;
+}
+
+.buy {
+      background-color: red;
+      font-weight: bolder;
+}
+
+.potentialsell {
+      background-color: yellow;
+      font-weight: bolder;
+}
+
+.potentialbuy {
+      background-color: pink;
+      font-weight: bolder;
+}
+
+thead {
+      top: 0;
+      position: sticky;
+}
+
+.bordergreen {
+      border: 2px solid gold;
+}

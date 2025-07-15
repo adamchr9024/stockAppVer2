@@ -1,0 +1,67 @@
+<div class="firstDiv">
+      <app-header></app-header>
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
+</div>
+<div style="width:95%; margin:15px;">
+      <mat-form-field style="width:40%">
+            <mat-label>Filter</mat-label>
+            <input matInput (input)="filterData($event)">
+      </mat-form-field>
+      <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource" matSort>
+            <ng-container cdkColumnDef="ticker">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
+            </ng-container>
+            <!-- ticker category -->
+            <ng-container cdkColumnDef="category">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Category </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.category}} </mat-cell>
+            </ng-container>
+            <!-- quantity Definition -->
+            <ng-container cdkColumnDef="quantity">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.watchQuantity}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="marketvalue">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Market Value </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.marketvalue}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="costbasis">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Cost Basis </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.costbasis}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="gainloss">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain / Loss </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.gainloss}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="yahooprice">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
+                  <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="fiftytwowkrng">
+                  <mat-header-cell *cdkHeaderCellDef> 52 Week Range </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="percentage">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Price Percentile</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row" [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
+                              'sell':row.percentage >=80 && row.percentage <=100,
+                               'potentialsell':row.percentage >=70 && row.percentage <=79,
+                                'potentialbuy':row.percentage >=20 && row.percentage <=30
+                        }"> {{row.percentage}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="dividendYield">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="comment">
+                  <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
+            <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
+      </mat-table>
+
+</div>
