@@ -31,11 +31,11 @@ export class Security {
 
       }
       setPercentage() {
-            if (this.fifty_twowkrng.includes("-")) {
+            if (this.fifty_twowkrng?.includes("-")) {
                   let small_large = this.fifty_twowkrng.split("-");
                   let min = +small_large[0];
                   let max = +small_large[1];
-                  if (this.yahooprice) {
+                  if (this.yahooprice && max != min) {
                         this._percentage = +(100 * (this.yahooprice - min) / (max - min)).toFixed(0)
                         // console.log("setPercentage", min, max, this.yahooprice)
                   }
