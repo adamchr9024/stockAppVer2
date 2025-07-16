@@ -96,10 +96,13 @@ export class RapidapiService {
   sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
-  getMutualFundPrices(tickers: string[]) {
-    let joinOn = '%2C'
+  initalizeheader2() {
     this.headers2 = this.headers2.append(this.hostheader2, this.hostvalue2);
     this.headers2 = this.headers2.append(this.keyheader2, this.keyvalue);
+  }
+  getMutualFundPrices(tickers: string[]) {
+    let joinOn = '%2C'
+    this.initalizeheader2();
     let urltickers = tickers.slice(0, tickers.length - 1).join(joinOn)
     let mutualurl = this.urlTwo + urltickers + joinOn + tickers[tickers.length - 1];
     return this.http.get(mutualurl, { headers: this.headers2 })
@@ -115,5 +118,23 @@ export class RapidapiService {
       )
     // console.log("mutualurl", mutualurl);
   }
+  getFinancials(ticker: string) {
+    this.initalizeheader2();
+    let url = `https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/modules?ticker=${ticker}&module=financial-data`
+    return this.http.get(url, { headers: this.headers2 })
+      .pipe(
+        take(1),
+        map((s: any) => {
+          //return JSON.parse(s?.body)
+          //console.log(s?.body)
+          return s?.body;
+        }),
+        catchError(err => {
+          console.log("error caught and rethrown in rapidapiService.getFinancials(): ", err);
+          throw err;
+        })
 
+
+      )
+  }
 }

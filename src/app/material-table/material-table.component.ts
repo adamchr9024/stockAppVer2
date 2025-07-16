@@ -81,6 +81,8 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnDestroy 
                 updt.dividendYield = val2?.dividendYield;
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
                 updt.yahooprice = val2?.regularMarketPrice;
+                // console.log("trailingAnnualDividendRate=", val2.symbol, val2.trailingAnnualDividendRate)
+                updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
                 this.stocksmap.set(updt.ticker, updt)
               }
             })

@@ -6,7 +6,7 @@ export class Security {
       private _yahooprice: number = 0;
       private _marketvalue: number = 0;
       private _gainloss: number = 0;
-      //private _fiftytwowkrng: string = "";
+      private _trailingAnnualDividendRate: Number = 0;
       private _percentage: number = 80;
       private _dividendYield: number = 0;
       //private _potentialYearlyDividend:number=0;
@@ -51,6 +51,10 @@ export class Security {
             this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
 
       }
+      set trailingAnnualDividendRate(val: Number) {
+            this._trailingAnnualDividendRate = val;
+            // this.
+      }
       set yahooprice(val: number | undefined) {
             if (val) {
                   this._yahooprice = val;
@@ -81,7 +85,13 @@ export class Security {
       get costbasis() { return this._costbasis; }
       get potentialYearlyDividend() {//use with Watchlist to calcualte a $500 investment for one year
             let qty = Math.floor(Security.initialInvestment / this._yahooprice)
-            return Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
+            if (this._trailingAnnualDividendRate) {//none zero and not undefined
+                  return (qty * Number(this._trailingAnnualDividendRate)).toFixed(2);
+            } //6.24 = divAmt * 4 * price 
+            else {
+                  return Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
+
+            }
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
 }

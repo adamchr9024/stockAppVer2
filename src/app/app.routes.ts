@@ -5,6 +5,7 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
 import { HomeComponent } from './home/home.component';
 import { MaterialTableComponent } from './material-table/material-table.component';
 import { TableMatComponent } from './table-mat/table-mat.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 //import { Component } from '@angular/core';
 export const routes: Routes = [
       { path: "", component: HomeComponent, },
@@ -12,5 +13,6 @@ export const routes: Routes = [
       { path: "table", component: StocktableComponent },
       { path: "watchlist", component: WatchlistComponent },
       { path: "material-watchlist", component: MaterialTableComponent },
-      { path: "table-mat", component: TableMatComponent }
+      { path: "table-mat", component: TableMatComponent },
+      { path: "analysis", component: AnalysisComponent }
 ];   
