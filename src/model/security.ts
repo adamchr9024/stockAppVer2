@@ -86,10 +86,22 @@ export class Security {
       get potentialYearlyDividend() {//use with Watchlist to calcualte a $500 investment for one year
             let qty = Math.floor(Security.initialInvestment / this._yahooprice)
             if (this._trailingAnnualDividendRate) {//none zero and not undefined
-                  return (qty * Number(this._trailingAnnualDividendRate)).toFixed(2);
+                  let val = Number((qty * Number(this._trailingAnnualDividendRate)).toFixed(2));
+                  if (isNaN(val)) {
+                        return 0;
+                  }
+                  else {
+                        return val;
+                  }
             } //6.24 = divAmt * 4 * price 
             else {
-                  return Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
+                  let val = Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
+                  if (isNaN(val)) {
+                        return 0;
+                  }
+                  else {
+                        return val;
+                  }
 
             }
       }
