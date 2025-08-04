@@ -1,6 +1,7 @@
 # StockAppNg18
 nvm use twenty
 curl commands are in public/watchlist.json
+HARVEST ETFs  moved watchlist.json
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
 enviroments were created unsing ng g environments
   CREATE src/environments/environment.ts (31 bytes)
