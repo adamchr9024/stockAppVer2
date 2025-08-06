@@ -48,4 +48,21 @@ export class SignalswatchlistService implements OnInit {
         })
       )
   }
+  getAphas() {
+    let httpheader = new HttpHeaders();
+    httpheader = httpheader.append("accepts", "application/json");
+    return this.http.get<SecurityType[]>('dividendarist.json', { headers: httpheader })
+      .pipe(
+        take(1),
+        map(data => {
+          return data
+            .map(thesec => {
+              return new Security(thesec.ticker,
+                thesec.quantity, thesec.price, thesec.unit_cost,
+                thesec.category, thesec.fiftytwowkrng, thesec.comment)
+
+            })
+        })
+      )
+  }
 }

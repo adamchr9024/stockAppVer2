@@ -22,7 +22,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.subscription = this.rapidApiService.getFinancials("BGY").subscribe({
+    this.subscription = this.rapidApiService.getFinancials('INTC').subscribe({
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);
