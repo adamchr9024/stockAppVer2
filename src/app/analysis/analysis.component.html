@@ -1,5 +1,9 @@
 <div class="firstDiv">
       <app-header></app-header>
       <label>{{waiting}}</label>
+      <div>
+            Analysis: <input type="text" name="ticker" [(ngModel)]="ticker"><button (click)="analyze()">Analyze</button>
+      </div>
+      <h5>Financials for ticker: {{ticker.toUpperCase()}}</h5>
       {{financialstring}}
 </div>

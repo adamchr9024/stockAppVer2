@@ -16,5 +16,6 @@ export const routes: Routes = [
       { path: "material-watchlist", component: MaterialTableComponent },
       { path: "table-mat", component: TableMatComponent },
       { path: "aristocrats", component: AristocratStockComponent },
+      // { path: "analysis/:ticker", component: AnalysisComponent }
       { path: "analysis", component: AnalysisComponent }
 ];   

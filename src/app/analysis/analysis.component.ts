@@ -1,36 +1,57 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 //import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
 //import { Category, Security } from '../../model/security';
 import { financialBodyType } from '../../model/financialBody';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap, switchScan } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-analysis',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, FormsModule],
   templateUrl: './analysis.component.html',
   styleUrl: './analysis.component.css'
 })
 export class AnalysisComponent implements OnDestroy, OnInit {
+  // @Input()
+  // set ticker(symbol: string) {
+  //   this.ticker = symbol;
+  // }
+  ticker = "";
   subscription!: Subscription
   financialdata!: financialBodyType;
-  waiting: string = "fetching";
+  waiting: string = "ready to fetch";
   financialstring = "";
-  constructor(private rapidApiService: RapidapiService) { }
+  constructor(private rapidApiService: RapidapiService, private route: ActivatedRoute) { }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.subscription = this.rapidApiService.getFinancials('INTC').subscribe({
+    //this.getFinancials();
+
+  }
+  analyze() {
+    console.log("in analyze:", this.ticker);
+    if (this.ticker.trim()) {
+      this.getFinancials();
+    }
+    else {
+      alert("enter a valid ticker");
+    }
+  }
+  getFinancials() {
+    this.waiting = "fetching..."
+    this.subscription = this.rapidApiService.getFinancials(this.ticker.toUpperCase()).subscribe({
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);
         //console.log("BGY Financial Data:  ", n)
       },
       error: (err) => {
-        console.log("error 'getFinancials':", err)
-        this.waiting = "ERROR OCCURRED fetching 'getFinancials':" + err?.message;
+        // console.log("error 'getFinancials':", err, err?.error?.message)
+        this.waiting = "ERROR OCCURRED fetching 'getFinancials':" + err?.message + "\n Message: " + err?.error?.message;
 
       },
       complete: () => {
