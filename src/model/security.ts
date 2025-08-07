@@ -17,7 +17,9 @@ export class Security {
             private unit_cost: number,
             public readonly category: Category = Category.Stock,
             private fifty_twowkrng: string,
-            public readonly comment: string = ""
+            public readonly comment: string = "",
+            public readonly effective_year_low: number = 0,
+            public readonly effective_year_high: number = 100
       ) {  //see what this is generating in Javascript repeated variables
             this.init();
       }
@@ -106,6 +108,16 @@ export class Security {
             }
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
+      get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
+      get effectivePercentage() {
+            let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
+            if (isNaN(val)) {
+                  return 0;
+            }
+            else {
+                  return val;
+            }
+      }
 }
 export interface symbolprice {
       symbol: string;
@@ -119,5 +131,8 @@ export type SecurityType = {
       unit_cost: number,
       category: Category,
       fiftytwowkrng: string
-      comment?: string
+      comment?: string,
+      effective_year_low?: number,
+      effective_year_high?: number
+
 }

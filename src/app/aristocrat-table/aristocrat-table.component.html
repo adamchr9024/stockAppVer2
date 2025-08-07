@@ -10,8 +10,8 @@
                         <td>52 Week Range</td>
                         <td title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price
                               Percentile</td>
-                        <!-- <td>Dividend Yield</td> -->
-
+                        <td>Effective Year Range</td>
+                        <td>Effective Year Percentile</td>
                   </tr>
             </thead>
             <tbody>
@@ -26,6 +26,12 @@
                                'potentialsell':stock.percentage >=70 && stock.percentage <=79,
                                 'potentialbuy':stock.percentage >=20 && stock.percentage <=30
                         }">{{stock.percentage}}</td>
+                        <td>{{stock.effectiveRange}}</td>
+                        <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
+                              'sell':stock.percentage >=80 && stock.percentage <=100,
+                               'potentialsell':stock.percentage >=70 && stock.percentage <=79,
+                                'potentialbuy':stock.percentage >=20 && stock.percentage <=30
+                        }">{{stock.effectivePercentage}}</td>
                   </tr>
             </tbody>
       </table>

@@ -59,7 +59,7 @@ export class SignalswatchlistService implements OnInit {
             .map(thesec => {
               return new Security(thesec.ticker,
                 thesec.quantity, thesec.price, thesec.unit_cost,
-                thesec.category, thesec.fiftytwowkrng, thesec.comment)
+                thesec.category, thesec.fiftytwowkrng, thesec.comment, thesec.effective_year_low, thesec.effective_year_high)
 
             })
         })
