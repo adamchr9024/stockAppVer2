@@ -57,3 +57,7 @@ mat-header-row {
       top: 0;
       position: sticky;
 }
+
+.hide {
+      display: none;
+}

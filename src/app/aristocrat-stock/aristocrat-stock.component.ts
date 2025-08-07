@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
@@ -23,7 +23,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './aristocrat-stock.component.html',
   styleUrl: './aristocrat-stock.component.css'
 })
-export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   subscription!: Subscription
   stocksmap: Map<string, Security> = new Map();
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
@@ -49,6 +49,12 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
         })
         this.initialize();
       })
+  }
+  // ngDoCheck(): void {
+  //   console.log("doCheck called")
+  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("onchanges called")
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

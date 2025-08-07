@@ -1,16 +1,26 @@
 <div class="firstDiv">
       <app-header></app-header>
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
+      <!-- <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label> -->
       <h2 class="loss">ALWAYS BUY WITH LIMIT ORDER AND VALIDATE WITH DIVIDEND CALCULATOR!!!</h2>
-      <h3>Todo: Fix sorting when going between components</h3>
-      <h3>Use Ng if on entire compoment so life cycle is complete??</h3>
+      <ul>
+            <li><s>Todo: Fix sorting when going between components</s></li>
+            <li>Todo: Add Effective Range and Effective Percentile to Components</li>
+            <li>Possible Todo: Write a File to Libre Calc </li>
+            <li>
+                  <h5>Used To Copy Data From Browser to Libre Calc</h5>
+            </li>
+      </ul>
       <fieldset>
             Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked" value="mat">
             Original<input type="radio" name="originalOrMat" (change)="handleRadio(false)" value="original">
       </fieldset>
 
       <div style="width:95%; margin:15px;">
-            <div *ngIf="matOrig; else original ">
+            <ng-container *ngIf="!matOrig">
+                  <app-aristocrat-table [stocks]="tableDataSource.filteredData"></app-aristocrat-table>
+            </ng-container>
+            <div>
+                  <!-- <div [ngClass]="{'hide':!matOrig}"> -->
                   <mat-form-field style="width:40%">
                         <mat-label>Filter</mat-label>
                         <input matInput (input)="filterData($event)">
@@ -67,10 +77,14 @@
 
                   </mat-table>
             </div>
-            <ng-template #original>
+            <!-- <ng-container *ngIf="!matOrig">
                   <app-aristocrat-table [status]="waiting"
                         [stocks]="tableDataSource.filteredData"></app-aristocrat-table>
-            </ng-template>
+            </ng-container> -->
+            <!-- <ng-template #original>
+                  <app-aristocrat-table [status]="waiting"
+                        [stocks]="tableDataSource.filteredData"></app-aristocrat-table>
+            </ng-template> -->
 
       </div>
 
