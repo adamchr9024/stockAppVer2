@@ -20,13 +20,13 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   //   this.ticker = symbol;
   // }
   ticker = "";
-  subscription!: Subscription
+  // subscription!: Subscription
   financialdata!: financialBodyType;
   waiting: string = "ready to fetch";
   financialstring = "";
   constructor(private rapidApiService: RapidapiService, private route: ActivatedRoute) { }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
   ngOnInit(): void {
     //this.getFinancials();
@@ -43,7 +43,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   }
   getFinancials() {
     this.waiting = "fetching..."
-    this.subscription = this.rapidApiService.getFinancials(this.ticker.toUpperCase()).subscribe({
+    this.rapidApiService.getFinancials(this.ticker.toUpperCase()).subscribe({
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);
@@ -58,6 +58,6 @@ export class AnalysisComponent implements OnDestroy, OnInit {
         // console.log("complete called in analysis")
         this.waiting = "done"
       }
-    })
+    });
   }
 }
