@@ -12,6 +12,7 @@
                               Percentile</td>
                         <td>Effective Year Range</td>
                         <td>Effective Year Percentile</td>
+                        <td>View Yahoo Data</td>
                   </tr>
             </thead>
             <tbody>
@@ -32,6 +33,8 @@
                                'potentialsell':stock.percentage >=70 && stock.percentage <=79,
                                 'potentialbuy':stock.percentage >=20 && stock.percentage <=30
                         }">{{stock.effectivePercentage}}</td>
+                        <td><a href="https://finance.yahoo.com/quote/{{stock.ticker}}/" target="_blank">{{stock.ticker}}
+                                    Yahoo</a></td>
                   </tr>
             </tbody>
       </table>
