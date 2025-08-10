@@ -13,6 +13,7 @@
                         <td>Effective Year Range</td>
                         <td>Effective Year Percentile</td>
                         <td>View Yahoo Data</td>
+                        <td>Potential Yield</td>
                   </tr>
             </thead>
             <tbody>
@@ -23,18 +24,20 @@
                         <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
                         <td>{{stock.fiftytwowkrng}}</td>
                         <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
-                              'sell':stock.percentage >=80 && stock.percentage <=100,
+                              'sell':stock.percentage >=80 ,
                                'potentialsell':stock.percentage >=70 && stock.percentage <=79,
                                 'potentialbuy':stock.percentage >=20 && stock.percentage <=30
                         }">{{stock.percentage}}</td>
                         <td>{{stock.effectiveRange}}</td>
-                        <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
-                              'sell':stock.percentage >=80 && stock.percentage <=100,
-                               'potentialsell':stock.percentage >=70 && stock.percentage <=79,
-                                'potentialbuy':stock.percentage >=20 && stock.percentage <=30
+                        <td [ngClass]="{'buy':stock.effectivePercentage >=0 && stock.effectivePercentage <=20,
+                              'sell':stock.effectivePercentage >=80 ,
+                               'potentialsell':stock.effectivePercentage >=70 && stock.effectivePercentage <=79,
+                                'potentialbuy':stock.effectivePercentage >=20 && stock.effectivePercentage <=30
                         }">{{stock.effectivePercentage}}</td>
                         <td><a href="https://finance.yahoo.com/quote/{{stock.ticker}}/" target="_blank">{{stock.ticker}}
                                     Yahoo</a></td>
+                        <td><a href="https://dividend-calculator.org/{{stock.ticker}}" target="_blank">{{stock.ticker}}
+                                    Dividend-Calculator</a></td>
                   </tr>
             </tbody>
       </table>
