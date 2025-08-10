@@ -91,7 +91,11 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
                 updt.dividendYield = val2?.dividendYield;
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
                 updt.yahooprice = val2?.regularMarketPrice;
-                // console.log("trailingAnnualDividendRate=", val2.symbol, val2.trailingAnnualDividendRate)
+                updt.fiftyDayAverage = val2?.fiftyDayAverage;
+                updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
+                updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
+                updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
+                console.log("twoHundredDayAverage=", val2.symbol, val2?.twoHundredDayAverage);
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
                 // updt.comment=val2?llongName;
                 this.stocksmap.set(updt.ticker, updt)

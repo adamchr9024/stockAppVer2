@@ -19,7 +19,11 @@ export class Security {
             private fifty_twowkrng: string,
             public readonly comment: string = "",
             public readonly effective_year_low: number = 0,
-            public readonly effective_year_high: number = 100
+            public readonly effective_year_high: number = 100,
+            public fiftyDayAverage = 4.44,
+            public fiftyDayAverageChange = 2.22,
+            public twoHundredDayAverage = 44.44,
+            public twoHundredDayAverageChange = 22.22,
       ) {  //see what this is generating in Javascript repeated variables
             this.init();
       }
@@ -109,6 +113,13 @@ export class Security {
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
       get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
+      get fifty50_200DayAvg() {
+            // let fiftyrange = (this.fiftyDayAverage - this.fiftyDayAverageChange).toFixed(4) + "-" + (this.fiftyDayAverage + this.fiftyDayAverageChange).toFixed(4);
+            // let twohundredrange = (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4) + "-" +
+            //       (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4);
+            // return fiftyrange + " , " + twohundredrange;
+            return this.fiftyDayAverage.toFixed(4) + " , " + this.twoHundredDayAverage.toFixed(4)
+      }
       get effectivePercentage() {
             let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
             if (isNaN(val)) {
