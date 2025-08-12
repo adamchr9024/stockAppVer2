@@ -10,8 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './aristocrat-table.component.css'
 })
 export class AristocratTableComponent {
-  // @Input()
-  // status = "fetching / done";
+
   @Input()
   stocks: Security[] = []
 }
