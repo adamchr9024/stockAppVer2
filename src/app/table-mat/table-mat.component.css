@@ -26,3 +26,23 @@ thead {
 .bordergreen {
       border: 2px solid gold;
 }
+mat-table{
+      width:100%;
+}
+.mat-mdc-table , .mat-mdc-table tfoot, .mat-mdc-table thead,  .mat-mdc-footer-cell, .mat-mdc-header-row, .mat-mdc-row, .mat-mdc-footer-row, .mat-mdc-table .mat-mdc-header-cell
+{
+     
+      padding-left: 2px;
+
+}
+.mat-mdc-cell{
+      
+      padding-left: 2px;
+      
+}
+/* @media screen and (min-width: 800px) and (max-width: 1440px) {
+  body {
+    font-size: 9px;
+     background-color: #f0f0f0; 
+  }
+}*/
