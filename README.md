@@ -39,3 +39,4 @@ Implement file upload functionality to read .ods files using Angular's file inpu
 Utilize the FileReader API to read the contents of the uploaded .ods file.
 Write data back to .ods format using the same libraries or convert it back after processing.
 Ensure proper handling of asynchronous operations when reading and writing files.
+npm i xlsx

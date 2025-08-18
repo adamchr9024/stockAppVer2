@@ -9,7 +9,7 @@ export class Security {
       private _trailingAnnualDividendRate: Number = 0;
       private _percentage: number = 80;
       private _dividendYield: number = 0;
-      //private _potentialYearlyDividend:number=0;
+      // private _potentialYearlyDividend:number=0;
       static initialInvestment: number = 500.00;
       constructor(public readonly ticker: string,
             public readonly quantity: number,
@@ -24,6 +24,7 @@ export class Security {
             public fiftyDayAverageChange = 2.22,
             public twoHundredDayAverage = 44.44,
             public twoHundredDayAverageChange = 22.22,
+            public readonly est_annual_income = 3.33
       ) {  //see what this is generating in Javascript repeated variables
             this.init();
       }
@@ -32,7 +33,7 @@ export class Security {
             this._yahooprice = this.price;
             this._marketvalue = Number((this.quantity * this.price).toFixed(2));
             this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
-            // this._fiftytwowkrng = this.fifty_twowkrng;
+            //this._potentialYearlyDividend = this.est_annual_income;
             this.setPercentage();
 
       }
@@ -94,18 +95,23 @@ export class Security {
             if (this._trailingAnnualDividendRate) {//none zero and not undefined
                   let val = Number((qty * Number(this._trailingAnnualDividendRate)).toFixed(2));
                   if (isNaN(val)) {
+                        //  this._potentialYearlyDividend=0;
                         return 0;
                   }
                   else {
+                        // this._potentialYearlyDividend=val;
                         return val;
                   }
             } //6.24 = divAmt * 4 * price 
             else {
                   let val = Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
                   if (isNaN(val)) {
+                        // this._potentialYearlyDividend=0;
                         return 0;
+
                   }
                   else {
+                        //  this._potentialYearlyDividend=val;
                         return val;
                   }
 
@@ -113,6 +119,14 @@ export class Security {
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
       get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
+      get annualIncome() {
+            if (this.est_annual_income !== 3.33) {
+                  return this.est_annual_income;
+            }
+            else {
+                  return "default: " + this.est_annual_income;
+            }
+      }
       get fifty50_200DayAvg() {
             // let fiftyrange = (this.fiftyDayAverage - this.fiftyDayAverageChange).toFixed(4) + "-" + (this.fiftyDayAverage + this.fiftyDayAverageChange).toFixed(4);
             // let twohundredrange = (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4) + "-" +
