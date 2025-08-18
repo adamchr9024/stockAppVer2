@@ -30,7 +30,7 @@ mat-header-cell {
 
 tr:nth-child(even),
 mat-row:nth-child(even) {
-      background-color: yellowgreen;
+      background-color: yellow;
 }
 
 .loss {
@@ -60,4 +60,34 @@ mat-header-row {
 
 .hide {
       display: none;
+}
+
+@media only screen and (max-width:950px) {
+      body {
+            /* font-size: 14px; */
+            /* background-color: #f0f0f0; */
+            background-color: antiquewhite;
+      }
+
+      .mat-mdc-table,
+      .mat-mdc-table tfoot,
+      .mat-mdc-table thead,
+      .mat-mdc-footer-cell,
+      .mat-mdc-header-row,
+      .mat-mdc-row,
+      .mat-mdc-footer-row,
+      .mat-mdc-table .mat-mdc-header-cell {
+
+            padding-left: 2px;
+
+
+      }
+
+      .mat-mdc-cell {
+
+            padding-left: 2px;
+
+
+      }
+
 }
