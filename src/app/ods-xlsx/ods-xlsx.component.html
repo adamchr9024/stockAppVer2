@@ -1,9 +1,17 @@
 <div class="firstDiv">
+
       <app-header></app-header>
+
       <h3>todo: use tabs or nav component from angular materials</h3>
-      <button (click)="exportToOds()" class="button2">Export to Excel(ods)</button><br />
-      <label for="inputfile">Enter File to Upload</label>
-      <input id="inputfile" (change)="onFileChange($event)" type="file" multiple="false" class="button1" />
+      <label>{{waiting}}</label>
+      <div class="divrow">
+            <button (click)="exportToOds()" class="button2">Export to Excel(ods)</button><br />
+            <label for="inputfile">Upload Spread Sheet (.xls .ods)</label>
+            <input id="inputfile" (change)="onFileChange($event)" type="file" multiple="false" class="button1" />
+            <button [disabled]="waiting =='Wait for ready to fetch'" class="button3" (click)="callYahoo()">Refresh /
+                  Update Data</button>
+
+      </div>
       <br /><br />
       <table>
             <thead>
@@ -13,11 +21,55 @@
                         </td>
                   </tr>
             </thead>
-            <tbody>
-
+            <!-- <tbody>
                   <tr *ngFor="let row of data">
                         <td *ngFor="let cell of row">
                               {{cell}}
+                        </td>
+                  </tr>
+            </tbody> -->
+            <tbody>
+                  <tr *ngFor="let row of stocksArray">
+                        <td>
+                              {{row.ticker}}
+                        </td>
+                        <td>
+                              {{row.quantity}}
+                        </td>
+                        <td>
+                              {{row.category}}
+                        </td>
+                        <td>
+                              {{row.unitcost}}
+                        </td>
+                        <td class="bordergreen">
+                              {{row.yahooprice}}
+                        </td>
+                        <td>
+                              {{row.gainloss}}
+                        </td>
+                        <td>
+                              {{row.fiftytwowkrng}}
+                        </td>
+                        <td [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
+                              'sell':row.percentage >=80 && row.percentage <=100,
+                               'potentialsell':row.percentage >=70 && row.percentage <=79,
+                                'potentialbuy':row.percentage >=20 && row.percentage <=30
+                        }">
+                              {{row.percentage}}
+                        </td>
+                        <td [ngClass]="{'buy':row.effectivePercentage >=0 && row.effectivePercentage <=20,
+                              'sell':row.effectivePercentage >=80 && row.effectivePercentage <=100,
+                               'potentialsell':row.effectivePercentage >=70 && row.effectivePercentage <=79,
+                                'potentialbuy':row.effectivePercentage >=20 && row.effectivePercentage <=30
+                        }">
+                              {{row.effectivePercentage}}
+                        </td>
+                        <td>
+                              {{row.est_annual_income}}
+                        </td>
+                        <td>
+                              {{row.comment}}
                         </td>
                   </tr>
             </tbody>

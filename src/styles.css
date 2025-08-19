@@ -30,7 +30,7 @@ mat-header-cell {
 
 tr:nth-child(even),
 mat-row:nth-child(even) {
-      background-color: yellow;
+      background-color: aquamarine;
 }
 
 .loss {

@@ -38,6 +38,7 @@ export class Security {
 
       }
       setPercentage() {
+            // console.log("50 2 week range", this.fifty_twowkrng)
             if (this.fifty_twowkrng?.includes("-")) {
                   let small_large = this.fifty_twowkrng.split("-");
                   let min = +small_large[0];

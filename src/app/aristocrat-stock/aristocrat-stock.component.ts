@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, DoCheck, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
