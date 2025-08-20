@@ -79,7 +79,7 @@ thead {
 
 button:disabled {
       cursor: not-allowed;
-      pointer-events: all;
+      pointer-events: auto;
       /* pointer-events: all !important; */
 }
 

@@ -69,25 +69,12 @@ mat-header-row {
             background-color: antiquewhite;
       }
 
-      .mat-mdc-table,
-      .mat-mdc-table tfoot,
-      .mat-mdc-table thead,
-      .mat-mdc-footer-cell,
-      .mat-mdc-header-row,
-      .mat-mdc-row,
-      .mat-mdc-footer-row,
-      .mat-mdc-table .mat-mdc-header-cell {
-
-            padding-left: 2px;
-
-
+      mat-header-cell {
+            padding: 0px 33px 0px 1px !important;
       }
 
-      .mat-mdc-cell {
-
-            padding-left: 2px;
-
-
+      mat-cell {
+            padding: 0px 5px !important;
       }
 
 }

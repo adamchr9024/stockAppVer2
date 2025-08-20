@@ -1,7 +1,7 @@
-import { Component, OnDestroy, inject, } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import * as XLSX from "xlsx";
-import { Category, Security, SecurityType } from '../../model/security';
+import { Category, Security } from '../../model/security';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RapidapiService } from '../rapidapi.service';
@@ -146,7 +146,7 @@ export class OdsXlsxComponent implements OnDestroy {
 
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) { this.subscription.unsubscribe(); }
   }
 
 }
