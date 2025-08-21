@@ -6,14 +6,23 @@
       </a>
       <label>{{waiting}}</label>
       <div>
-            Enter Ticker: <input type="text" name="ticker" [(ngModel)]="ticker">
+            <label class="button3">Enter Ticker:</label> <input type="text" name="ticker" [(ngModel)]="ticker">
             <button class="button2" (click)="analyze()">Fetch Financials</button>
       </div>
       <h5>Financials for ticker: {{ticker.toUpperCase()}}</h5>
       <!-- {{financialstring}} -->
       <span> <label>currentPrice: </label> {{financialdata.currentPrice.raw}} </span>
       <span> <label class="loss">profitMargins:</label> {{financialdata.profitMargins.fmt}}
-            <strong>(Net_Sales − COGS​)/Net_Sales</strong>​
+            <strong style="color:blue">
+                  <math display="inline">
+                        <mfrac>
+                              <msup>
+                                    <mi>Net_Sales - COGS</mi>
+                              </msup>
+                              <mn>COGS</mn>
+                        </mfrac>
+                  </math>
+            </strong>​
       </span>
       <span><label>targetHighPrice:</label> {{financialdata.targetHighPrice.raw}}</span>
       <span><label>targetLowPrice:</label>{{financialdata.targetLowPrice.raw}}</span>
