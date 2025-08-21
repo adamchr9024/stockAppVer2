@@ -1,0 +1,38 @@
+button {
+      margin: 5px 5px;
+}
+
+label {
+      margin: 5px 5px;
+}
+
+input {
+      margin: 5px 5px;
+}
+
+
+
+.greenlabel {
+      color: rgba(255, 0, 238, 0.952);
+}
+
+
+.button2 {
+      background-image: linear-gradient(90deg, #fa80d2, #fed757);
+      height: 40px;
+      font-size: medium;
+}
+
+.button2:before {
+      background-image: linear-gradient(90deg, #fa80d2, transparent);
+}
+
+.button2:after {
+      background-image: linear-gradient(90deg, transparent, #fed757);
+}
+
+.body {
+      /* font-size: 14px; */
+      /* background-color: #f0f0f0; */
+      background-color: antiquewhite;
+}

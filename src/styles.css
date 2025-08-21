@@ -38,6 +38,10 @@ mat-row:nth-child(even) {
 }
 
 /* tr:has */
+.bordergreen {
+      border: 2px solid gold;
+}
+
 html,
 body {
       height: 100%;

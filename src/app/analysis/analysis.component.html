@@ -1,10 +1,45 @@
-<div class="firstDiv">
+<div class="firstDiv body">
       <app-header></app-header>
+      <a href="https://www.investopedia.com/financial-term-dictionary-4769738" target="_blank"
+            title="Investopedia Terms">
+            <img src="investopedia.svg" alt="Investopedia">
+      </a>
       <label>{{waiting}}</label>
       <div>
-            Enter Ticker: <input type="text" name="ticker" [(ngModel)]="ticker"><button
-                  (click)="analyze()">Analyze</button>
+            Enter Ticker: <input type="text" name="ticker" [(ngModel)]="ticker">
+            <button class="button2" (click)="analyze()">Fetch Financials</button>
       </div>
       <h5>Financials for ticker: {{ticker.toUpperCase()}}</h5>
-      {{financialstring}}
+      <!-- {{financialstring}} -->
+      <span> <label>currentPrice: </label> {{financialdata.currentPrice.raw}} </span>
+      <span> <label class="loss">profitMargins:</label> {{financialdata.profitMargins.fmt}}
+            <strong>(Net_Sales − COGS​)/Net_Sales</strong>​
+      </span>
+      <span><label>targetHighPrice:</label> {{financialdata.targetHighPrice.raw}}</span>
+      <span><label>targetLowPrice:</label>{{financialdata.targetLowPrice.raw}}</span>
+      <span><label> targetMeanPrice:</label>{{financialdata.targetMeanPrice.raw}}</span>
+      <span><label>targetMedianPrice:</label>{{financialdata.targetMedianPrice.raw}}</span>
+      <span><label>recommendationMean:</label>{{json.stringify(financialdata.recommendationMean)}}</span>
+      <span><label>recommendationKey:</label> {{financialdata.recommendationKey}}</span>
+      <span><label>numberOfAnalystOpinions:</label> {{json.stringify(financialdata.numberOfAnalystOpinions)}} </span>
+      <span><label>totalCash:</label> {{financialdata.totalCash.raw}}</span>
+      <span><label>totalCashPerShare:</label>{{json.stringify(financialdata.totalCashPerShare)}}</span>
+      <span><label>ebitda: earnings before interest, taxes, depreciation, and amortization (EBITDA). </label>
+            {{json.stringify(financialdata.ebitda)}}</span>
+      <span><label>totalDebt:</label>{{financialdata.totalDebt.raw}}</span>
+      <span> <label>quickRatio:</label> {{json.stringify(financialdata.quickRatio)}}</span>
+      <span> <label> currentRatio: </label>{{json.stringify(financialdata.currentRatio)}}</span>
+      <span> <label> totalRevenue:</label>{{financialdata.totalRevenue.raw}}</span>
+      <span> <label>debtToEquity:</label>{{json.stringify(financialdata.debtToEquity)}}</span>
+      <span> <label>revenuePerShare: </label>{{financialdata.revenuePerShare.raw}} </span>
+      <span> <label>returnOnAssets:</label>{{financialdata.returnOnAssets.raw}} </span>
+      <span> <label>returnOnEquity:</label>{{financialdata.returnOnEquity.raw}} </span>
+      <span> <label class="greenlabel">grossProfits:</label>{{financialdata.grossProfits.raw}} </span>
+      <span> <label>freeCashflow:</label>{{json.stringify(financialdata.freeCashflow)}}</span>
+      <span> <label> operatingCashflow:</label>{{financialdata.operatingCashflow.raw}} </span>
+      <span> <label> earningsGrowth:</label>{{financialdata.earningsGrowth.raw}} </span>
+      <span> <label>revenueGrowth:</label>{{financialdata.revenueGrowth.raw}} </span>
+      <span><label>grossMargins: </label>{{financialdata.grossMargins.raw}} </span>
+      <span> <label>ebitdaMargins:</label> {{financialdata.ebitdaMargins.raw}}</span>
+      <span><label>operatingMargins:</label>{{financialdata.operatingMargins.raw}} </span>
 </div>

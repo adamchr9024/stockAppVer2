@@ -20,7 +20,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   //   this.ticker = symbol;
   // }
   ticker = "";
-  // subscription!: Subscription
+  json = JSON;
   financialdata!: financialBodyType;
   waiting: string = "ready to fetch";
   financialstring = "";
@@ -33,7 +33,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
 
   }
   analyze() {
-    console.log("in analyze:", this.ticker);
+    console.log("in analyze:", this.ticker.trim().toUpperCase());
     if (this.ticker.trim()) {
       this.getFinancials();
     }
@@ -43,7 +43,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   }
   getFinancials() {
     this.waiting = "fetching..."
-    this.rapidApiService.getFinancials(this.ticker.toUpperCase()).subscribe({
+    this.rapidApiService.getFinancials(this.ticker.trim().toUpperCase()).subscribe({
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);
