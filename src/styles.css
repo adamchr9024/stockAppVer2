@@ -60,6 +60,27 @@ thead,
 mat-header-row {
       top: 0;
       position: sticky;
+
+}
+
+
+.sticky {
+      top: 0;
+      position: sticky;
+      background-color: #fed757;
+      height: auto;
+}
+
+.active-link {
+      font-weight: bolder;
+      text-shadow: 1px 1px orange;
+
+}
+
+button:disabled {
+      cursor: not-allowed;
+      pointer-events: auto;
+      /* pointer-events: all !important; */
 }
 
 .hide {

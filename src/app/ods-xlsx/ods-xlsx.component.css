@@ -33,11 +33,7 @@ thead {
 
 }
 
-button:disabled {
-      cursor: not-allowed;
-      pointer-events: auto;
-      /* pointer-events: all !important; */
-}
+
 
 .sell {
       background-color: lightgreen;

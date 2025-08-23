@@ -18,6 +18,6 @@ export const routes: Routes = [
       { path: "table-mat", component: TableMatComponent },
       { path: "aristocrats", component: AristocratStockComponent },
       // { path: "analysis/:ticker", component: AnalysisComponent }
-      { path: "analysis", component: AnalysisComponent },
+      { path: "analyze", component: AnalysisComponent },
       { path: "ods-xlsx", component: OdsXlsxComponent }
 ];   

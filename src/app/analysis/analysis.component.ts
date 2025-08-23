@@ -1,11 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
-//import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
 //import { Category, Security } from '../../model/security';
 import { financialBodyType } from '../../model/financialBody';
 import { Subscription, switchMap, switchScan } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-analysis',
@@ -15,25 +13,20 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './analysis.component.css'
 })
 export class AnalysisComponent implements OnDestroy, OnInit {
-  // @Input()
-  // set ticker(symbol: string) {
-  //   this.ticker = symbol;
-  // }
+  subscription!: Subscription;
   ticker = "";
   json = JSON;
   financialdata!: financialBodyType;
   waiting: string = "ready to fetch";
   financialstring = "";
-  constructor(private rapidApiService: RapidapiService, private route: ActivatedRoute) { }
+  constructor(private rapidApiService: RapidapiService) { }
   ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
-  ngOnInit(): void {
-    //this.getFinancials();
-
-  }
+  ngOnInit(): void { }
   analyze() {
-    console.log("in analyze:", this.ticker.trim().toUpperCase());
     if (this.ticker.trim()) {
       this.getFinancials();
     }
@@ -43,7 +36,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   }
   getFinancials() {
     this.waiting = "fetching..."
-    this.rapidApiService.getFinancials(this.ticker.trim().toUpperCase()).subscribe({
+    this.subscription = this.rapidApiService.getFinancials(this.ticker.trim().toUpperCase()).subscribe({
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);

@@ -1,3 +1,17 @@
+/* .body {
+      /* font-size: 14px; */
+/* background-color: #f0f0f0; */
+/* background-color: antiquewhite; */
+/* margin: 10px 10px; */
+/* } */
+.cb {
+      color: blue
+}
+
+.cv {
+      color: blueviolet
+}
+
 button {
       margin: 5px 5px;
 }
@@ -10,14 +24,18 @@ input {
       margin: 5px 5px;
 }
 
-
+.firstDiv1 {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+}
 
 .greenlabel {
       color: rgba(255, 0, 238, 0.952);
 }
 
 
-.button2 {
+/* .button2 {
       background-image: linear-gradient(90deg, #fa80d2, #fed757);
       height: 40px;
       font-size: medium;
@@ -30,9 +48,41 @@ input {
 .button2:after {
       background-image: linear-gradient(90deg, transparent, #fed757);
 }
+ */
+mfrac {
+      font-size: larger;
+      /* line-height: 1rem; */
+}
 
-.body {
-      /* font-size: 14px; */
-      /* background-color: #f0f0f0; */
-      background-color: antiquewhite;
+.headerDiv1 {
+      display: flex;
+      flex-direction: row;
+      height: 90vh;
+      justify-content: space-between;
+      width: 90%;
+}
+
+@media only screen and (max-width:1320px) {
+
+      .headerDiv1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+      }
+
+      /* body {
+            /* font-size: 14px; */
+      /* background-color: #f0f0f0; 
+            background-color: antiquewhite;
+      } 
+
+      /* mat-header-cell {
+            padding: 0px 33px 0px 1px !important;
+      }
+
+      mat-cell {
+            padding: 0px 5px !important;
+      } */
+
 }

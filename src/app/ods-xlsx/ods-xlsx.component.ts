@@ -39,10 +39,49 @@ export class OdsXlsxComponent implements OnDestroy {
       });
       //console.log(JSON.stringify(customValue))
       const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(customValue);
+      //console.log("export worksheet", worksheet);
+      for (let c in worksheet) {
+        if (typeof (worksheet[c]) != "object") continue;
+        let cell = XLSX.utils.decode_cell(c);
+        //console.log(cell);  //cell.c ==4 add background color
+        if (cell.c === 4) { //yahoo.price
+          worksheet[c].s = { //add style
+            alignment: {
+              vertical: "center",
+              horizontal: "center",
+              wrapText: '1', // any truthy value here
+            },
+            border: {
+              right: {
+                style: "thin",
+                color: "141413"
+              },
+              left: {
+                style: "thin",
+                color: "141413" //blackish
+              },
+            },
+            fill: { // background color
+              patternType: "solid",
+              fgColor: { rgb: "ffff00" },//ffff00
+              bgColor: { rgb: "ffff00" } //choose yellow
+            }
+          };
+        }
+      }
+      //console.log("after for export worksheet", worksheet);
+      // }  https://npm.io/package/xlsx-js-style
+      //highlight yahoo.price E2-e60 background color yellow
+      //                    AGG-TLTW
+      //https://docs.sheetjs.com/docs/csf/cell
+      //https://stackoverflow.com/questions/50147526/sheetjs-xlsx-cell-styling
+      //https://www.npmjs.com/package/xlsx-style
+      //https://www.npmjs.com/package/xlsx-style
+      // return;
       const workbook: XLSX.WorkBook = XLSX.utils.book_new();
       let filename = "stock_ods" + new Date().getMilliseconds();
       XLSX.utils.book_append_sheet(workbook, worksheet, filename);
-      XLSX.writeFile(workbook, filename + ".ods"); //where is this going (downloads)
+      XLSX.writeFile(workbook, filename + ".xlsx"); //where is this going (downloads)
     }
     catch (err: any) {
       console.log("error caught in exportToOds: ", err?.message)
@@ -56,10 +95,12 @@ export class OdsXlsxComponent implements OnDestroy {
       const reader: FileReader = new FileReader();
       reader.onload = (e: any) => {
         const fileContent = e.target.result;
-        const workBook: XLSX.WorkBook = XLSX.read(fileContent, { type: 'binary' });
+        //const workBook: XLSX.WorkBook = XLSX.read(fileContent, { type: 'binary' });
+        const workBook: XLSX.WorkBook = XLSX.read(fileContent, { type: 'binary', cellStyles: true });
+
         const workSheetName: string = workBook.SheetNames[0];
         const workSheet: XLSX.WorkSheet = workBook.Sheets[workSheetName];
-        // console.log(workSheet);
+        console.log("read worksheet with styles", workSheet);
         this.data = (XLSX.utils.sheet_to_json(workSheet, { header: 1 }));
         //this.headData = this.data[0];
 
