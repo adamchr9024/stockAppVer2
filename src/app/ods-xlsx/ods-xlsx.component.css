@@ -15,16 +15,10 @@ thead {
       position: sticky;
 }
 
-.bordergreen {
-      border: 2px solid gold;
-}
-
 .loss {
       color: red;
 }
 
-/* @colour3: #fa80d2;
-@colour4: #fed757; */
 
 .divrow {
       display: flex;
@@ -32,8 +26,6 @@ thead {
       align-items: center;
 
 }
-
-
 
 .sell {
       background-color: lightgreen;

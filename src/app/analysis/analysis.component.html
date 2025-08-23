@@ -7,7 +7,8 @@
             </a>
             <label>{{waiting}}</label>
             <div>
-                  <label class="button3">Enter Ticker:</label> <input type="text" name="ticker" [(ngModel)]="ticker">
+                  <label class="button3">Enter Ticker:</label>
+                  <input type="text" name="ticker" [(ngModel)]="ticker">
                   <button class="button2" (click)="analyze()" [disabled]="ticker.trim().length ===0">Fetch
                         Financials</button>
             </div>
