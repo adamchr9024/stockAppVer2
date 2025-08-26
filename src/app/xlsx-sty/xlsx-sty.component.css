@@ -11,7 +11,7 @@ input {
 }
 
 thead {
-      top: 0;
+      top: 14px;
       position: sticky;
 }
 

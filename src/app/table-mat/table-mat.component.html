@@ -1,5 +1,4 @@
 <div class="firstDiv">
-      <app-header></app-header>
       <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
 </div>
 <div style="width:95%; margin:15px;">
@@ -7,7 +6,7 @@
             <mat-label>Filter</mat-label>
             <input matInput (input)="filterData($event)">
       </mat-form-field>
-      <mat-table #table  [dataSource]="tableDataSource" matSort>
+      <mat-table #table [dataSource]="tableDataSource" matSort>
             <ng-container cdkColumnDef="ticker">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>

@@ -22,3 +22,8 @@ thead {
       top: 0;
       position: sticky;
 }
+
+mat-table {
+      top: 15;
+      position: sticky;
+}

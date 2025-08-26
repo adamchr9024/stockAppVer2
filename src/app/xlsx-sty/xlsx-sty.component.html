@@ -1,5 +1,4 @@
 <div class="firstDiv">
-      <app-header></app-header>
       <label>{{waiting}}</label>
       <div class="divrow">
             <button (click)="exportToOds()" class="button2">Export to Excel(ods)</button><br />
@@ -49,14 +48,14 @@
                               {{row.fiftytwowkrng}}
                         </td>
                         <td [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
-                              'sell':row.percentage >=80 && row.percentage <=100,
+                              'sell':row.percentage >=80 ,
                                'potentialsell':row.percentage >=70 && row.percentage <=79,
                                 'potentialbuy':row.percentage >=20 && row.percentage <=30
                         }">
                               {{row.percentage}}
                         </td>
                         <td [ngClass]="{'buy':row.effectivePercentage >=0 && row.effectivePercentage <=20,
-                              'sell':row.effectivePercentage >=80 && row.effectivePercentage <=100,
+                              'sell':row.effectivePercentage >=80,
                                'potentialsell':row.effectivePercentage >=70 && row.effectivePercentage <=79,
                                 'potentialbuy':row.effectivePercentage >=20 && row.effectivePercentage <=30
                         }">

@@ -1,5 +1,4 @@
 <div class="firstDiv">
-      <app-header></app-header>
       <h1>Watchlist with potential yield with $500 investment</h1>
       <h2>Potential Securities to Buy / Sell</h2>
       <h2 class="loss"> ALWAYS BUY WITH LIMIT ORDER TO AVOID RAPID CHANGES IN PRICES
@@ -55,7 +54,6 @@
       </table>
       }
       @else{
-      <!-- {{waiting}} -->
       <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
       }
 

@@ -37,7 +37,6 @@ mat-row:nth-child(even) {
       color: red;
 }
 
-/* tr:has */
 .bordergreen {
       border: 2px solid gold;
 }
@@ -45,6 +44,7 @@ mat-row:nth-child(even) {
 html,
 body {
       height: 100%;
+      margin-top: 44px;
 }
 
 body {
@@ -58,29 +58,29 @@ mat-label {
 
 thead,
 mat-header-row {
-      top: 0;
+      top: 11px;
       position: sticky;
-
 }
 
-
+app-header,
 .sticky {
       top: 0;
-      position: sticky;
+      left: 10px;
+      right: 10px;
+      height: 25px;
+      position: fixed;
       background-color: #fed757;
-      height: auto;
+      width: 99%;
 }
 
 .active-link {
       font-weight: bolder;
       text-shadow: 1px 1px orange;
-
 }
 
 button:disabled {
       cursor: not-allowed;
       pointer-events: auto;
-      /* pointer-events: all !important; */
 }
 
 .hide {
@@ -116,6 +116,10 @@ button:disabled {
       background-image: linear-gradient(90deg, transparent, #3bd1d3);
 }
 
+.mat-typography h4 {
+      margin: 10px 0 .5em;
+}
+
 .button3 {
       background-image: linear-gradient(90deg, #ebf1d3, #5bd1ed);
       height: 40px;
@@ -131,13 +135,26 @@ button:disabled {
       background-image: linear-gradient(90deg, transparent, #ebf1d3);
 }
 
+mat-sidenav-container {
+      height: 100%;
 
+}
+
+.headerDiv1 {
+      display: flex;
+      flex-direction: row;
+      height: 90vh;
+      justify-content: space-between;
+      width: 90%;
+}
 
 @media only screen and (max-width:950px) {
-      body {
-            /* font-size: 14px; */
-            /* background-color: #f0f0f0; */
+      mat-sidenav-content {
             background-color: antiquewhite;
+      }
+
+      mat-toolbar {
+            font-size: small !important;
       }
 
       mat-header-cell {
@@ -147,5 +164,4 @@ button:disabled {
       mat-cell {
             padding: 0px 5px !important;
       }
-
 }
