@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
 import { Category, Security } from '../../model/security';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -8,7 +7,7 @@ import * as XLSXStyle from 'xlsx-js-style';
 @Component({
   selector: 'app-xlsx-sty',
   standalone: true,
-  imports: [HeaderComponent, CommonModule],
+  imports: [CommonModule],
   providers: [RapidapiService],
   templateUrl: './xlsx-sty.component.html',
   styleUrl: './xlsx-sty.component.css'
@@ -33,6 +32,17 @@ export class XlsxStyComponent implements OnDestroy {
         };
       });
       const worksheet: XLSXStyle.WorkSheet = XLSXStyle.utils.json_to_sheet(customValue);
+      const wscols = [ //used to set the width of each column ch for characters
+        { wch: 7 }, { wch: 9 }, { wch: 20 }, { wch: 10 }, { wch: 10 },
+        { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }, { wch: 25 },
+        { wch: 25 }]; //
+
+      /* create column metadata object if it does not exist */
+      if (!worksheet["!cols"]) {
+        worksheet["!cols"] = wscols;
+      }
+
+      //  console.log("worksheet['cols']", worksheet['cols']);
       for (let c in worksheet) {
         if (typeof (worksheet[c]) != "object") continue;
         let cell = XLSXStyle.utils.decode_cell(c);
@@ -61,8 +71,17 @@ export class XlsxStyComponent implements OnDestroy {
             }
           };
         }
+        else {
+          worksheet[c].s = { //add style
+            alignment: {
+              vertical: "center",
+              horizontal: "center",
+              wrapText: '1', // any truthy value here
+            }
+          };
+        }
       }
-      //console.log("after for export worksheet", worksheet);
+      // console.log("after for export worksheet", worksheet);
       // }  https://npm.io/package/xlsx-js-style
       //highlight yahoo.price E2-e60 background color yellow
       //                    AGG-TLTW
@@ -72,6 +91,7 @@ export class XlsxStyComponent implements OnDestroy {
       let filename = "stock_ods" + new Date().getMilliseconds();
       XLSXStyle.utils.book_append_sheet(workbook, worksheet, filename);
       XLSXStyle.writeFile(workbook, filename + ".xlsx"); //where is this going (downloads)
+
     }
     catch (err: any) {
       console.log("error caught in XlsxStyleComponent exportToOds: ", err?.message)

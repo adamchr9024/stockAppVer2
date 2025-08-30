@@ -1,5 +1,4 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
 import { RapidapiService } from '../rapidapi.service';
 //import { Category, Security } from '../../model/security';
 import { financialBodyType } from '../../model/financialBody';
@@ -8,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-analysis',
   standalone: true,
-  imports: [HeaderComponent, FormsModule],
+  imports: [FormsModule],
   templateUrl: './analysis.component.html',
   styleUrl: './analysis.component.css'
 })

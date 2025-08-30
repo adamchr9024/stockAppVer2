@@ -122,7 +122,7 @@ export class RapidapiService {
     this.initalizeheader2();
     let url = `https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/modules?ticker=${ticker}&module=financial-data`
     return this.http.get(url, { headers: this.headers2 })
-      .pipe(
+      .pipe(//MAYBE ADD SWITCH MAP
         take(1),
         map((s: any) => {
           //return JSON.parse(s?.body)

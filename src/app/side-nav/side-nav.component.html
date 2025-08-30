@@ -5,15 +5,15 @@
             </button>
             <!-- <h4>open/close</h4> -->
             <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a>
-            <a routerLink="/table" routerLinkActive="active-link">Table</a>
+            <!-- <a routerLink="/table" routerLinkActive="active-link">Table</a> -->
             <a routerLink="/table-mat" routerLinkActive="active-link" title="Table Material">Tbl-Mat</a>
-            <a routerLink="/analyze" routerLinkActive="active-link">Analyze</a>
-            <a routerLink="/mystock" routerLinkActive="active-link" title="Dividend Watch List">Dvd-Wth-Lst</a>
+            <a routerLink="/analyze" routerLinkActive="active-link" title="Get Financial Data">Analyze</a>
+            <!-- <a routerLink="/mystock" routerLinkActive="active-link" title="Dividend Watch List">Dvd-Wth-Lst</a> -->
             <a routerLink="/material-watchlist" routerLinkActive="active-link"
                   title="material-watchlist">Mat-Wth-Lst</a>
             <a routerLink="/aristocrats" routerLinkActive="active-link" title="Dividend Aristocrats">Dvd-Ast</a>
-            <a routerLink="/watchlist" routerLinkActive="active-link" title="Watch List">WthLst</a>
-            <a routerLink="/ods-xlsx" routerLinkActive="active-link" title="File Import Export">File-Imp-Expt</a>
+            <!-- <a routerLink="/watchlist" routerLinkActive="active-link" title="Watch List">WthLst</a> -->
+            <!-- <a routerLink="/ods-xlsx" routerLinkActive="active-link" title="File Import Export">File-Imp-Expt</a> -->
             <a routerLink="/xlsx-style" routerLinkActive="active-link" title="Import Export Style">Imp-Exp-Sty</a>
 
             <!-- <span class="ospan" (click)="toggleContent()">Change Category</span> -->
@@ -26,20 +26,36 @@
                   <!-- <a mat-list-item><mat-icon matTextPrefix="">whatshot</mat-icon>&nbsp;{{Calories}}</a>
             <a mat-list-item><mat-icon matTextPrefix="">alarm</mat-icon>&nbsp;{{Alarm}}</a>
             <a mat-list-item href="/"><mat-icon matTextPrefix="">add</mat-icon>&nbsp;Go Home</a> -->
-                  <a mat-list-item href="https://www.average-calculator.com/weighted.html" target="_blank">Weighted
+                  <a mat-list-item href="https://www.average-calculator.com/weighted.html" target="_blank"
+                        title="Weighted Average calculator">Weighted
                         average-calculator</a>
-                  <a mat-list-item href="https://seekingalpha.com/" target="_blank">seeking alpha</a>
-                  <a mat-list-item href="https://finance.yahoo.com/" target="_blank">yahoo finance $10 MTLY Pro Plan</a>
-                  <a mat-list-item href="https://dividend-calculator.org/" target="_blank">dividend calculator</a>
-                  <a mat-list-item href="https://www.morningstar.com/" target="_blank">morningstar</a>
-                  <a mat-list-item href="https://www.etfchannel.com/symbol/gxf/" target="_blank">ETF Channel</a>
+                  <a mat-list-item href="https://seekingalpha.com/" target="_blank" title="seeking alpha">Seeking
+                        alpha</a>
+                  <a mat-list-item href="https://finance.yahoo.com/" target="_blank" title="yahoo finance">Yahoo Finance
+                        $10 MTLY Pro Plan</a>
+                  <a mat-list-item href="https://dividend-calculator.org/" target="_blank"
+                        title="dividend calculator">dividend calculator</a>
+                  <a mat-list-item href="https://www.morningstar.com/" target="_blank"
+                        title="Morning Star">morningstar</a>
+                  <a mat-list-item href="https://www.etfchannel.com/symbol/gxf/" target="_blank" title="ETF channel">ETF
+                        Channel</a>
                   <a mat-list-item href="https://www.forbes.com/advisor/investing/the-best-money-market-mutual-funds/"
-                        target="_blank">Forbes</a>
+                        target="_blank" title="Forbes">Forbes</a>
                   <a mat-list-item href="https://www.forbes.com/advisor/investing/dividend-yield-calculator/"
-                        target="_blank">Forbes
-                        dividend-yield-calculator</a>
-                  <a mat-list-item href="https://www.etfrc.com/" target="_blank">ETF Analysis</a>
-                  <a mat-list-item href="https://harvestportfolios.com/" target="_blank">Harvest ETF Platform </a>
+                        target="_blank" title="Forbes dividend calculator">Forbes
+                        Dividend-Yield-Calculator</a>
+                  <a mat-list-item href="https://www.etfrc.com/" target="_blank" title="ETF Analysis">ETF Analysis</a>
+                  <a mat-list-item href="https://harvestportfolios.com/" target="_blank" title="HARVEST ETF">Harvest ETF
+                        Platform </a>
+                  <hr height="3px">
+                  <a mat-list-item routerLink="/table" routerLinkActive="active-link outline"
+                        title="Table Finnhub">Table</a>
+                  <!-- <a mat-list-item routerLink="/mystock" routerLinkActive="active-link"
+                        title="Dividend Watch List">Dvd-Wth-Lst</a> -->
+                  <a mat-list-item routerLink="/watchlist" routerLinkActive="active-link outline"
+                        title="Watch List">Watch List</a>
+                  <a mat-list-item routerLink="/ods-xlsx" routerLinkActive="active-link outline"
+                        title="File Import Export">File-Imp-Expt</a>
             </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>

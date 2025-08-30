@@ -133,7 +133,12 @@ export class Security {
             // let twohundredrange = (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4) + "-" +
             //       (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4);
             // return fiftyrange + " , " + twohundredrange;
-            return this.fiftyDayAverage.toFixed(4) + " , " + this.twoHundredDayAverage.toFixed(4)
+            if (this.fiftyDayAverage && this.twoHundredDayAverage) {
+                  return this.fiftyDayAverage.toFixed(4) + " , " + this.twoHundredDayAverage.toFixed(4);
+            }
+            else {
+                  return "1,1-avgs undefined";
+            }
       }
       get effectivePercentage() {
             let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));

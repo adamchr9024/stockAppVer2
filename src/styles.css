@@ -78,6 +78,10 @@ app-header,
       text-shadow: 1px 1px orange;
 }
 
+.outline {
+      border: 2px dotted black;
+}
+
 button:disabled {
       cursor: not-allowed;
       pointer-events: auto;

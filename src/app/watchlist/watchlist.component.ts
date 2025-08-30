@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
 import { FinnhubService } from '../finnhub.service'
 import { MytableComponent } from '../mytable/mytable.component';
 import { Category, Security } from '../../model/security';
@@ -8,7 +7,7 @@ import { DefaultApi } from 'finnhub-ts'
 @Component({
   selector: 'app-watchlist',
   standalone: true,
-  imports: [HeaderComponent, MytableComponent],
+  imports: [MytableComponent],
   providers: [SignalswatchlistService, DefaultApi, FinnhubService],
   templateUrl: './watchlist.component.html',
   styleUrl: './watchlist.component.css'
@@ -34,7 +33,6 @@ export class WatchlistComponent implements OnInit {
       })
   }
   initialize() {// ADD ERROR HANDLING
-    //console.log("in initialize", this.stocks.length)
     let i = 0 //DID NOT UPDATED TO MAP BECAUSE mystock component has better data from rapid api
     let thesymbols = this.watchlist().map(x => x.ticker);
     this.finnhubService.getAllPrices(thesymbols)

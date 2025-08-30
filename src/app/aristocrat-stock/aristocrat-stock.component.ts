@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
@@ -18,7 +17,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-aristocrat-stock',
   standalone: true,
-  imports: [HeaderComponent, MatFormFieldModule, AristocratTableComponent, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
+  imports: [MatFormFieldModule, AristocratTableComponent, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
   providers: [RapidapiService],
   templateUrl: './aristocrat-stock.component.html',
   styleUrl: './aristocrat-stock.component.css'

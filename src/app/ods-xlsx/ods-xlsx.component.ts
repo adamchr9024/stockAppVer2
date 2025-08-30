@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
 import * as XLSX from "xlsx";
 import { Category, Security } from '../../model/security';
 import { CommonModule } from '@angular/common';
@@ -12,7 +11,7 @@ import { RapidapiService } from '../rapidapi.service';
 @Component({
   selector: 'app-ods-xlsx',
   standalone: true,
-  imports: [HeaderComponent, CommonModule],
+  imports: [CommonModule],
   providers: [RapidapiService],
   templateUrl: './ods-xlsx.component.html',
   styleUrl: './ods-xlsx.component.css'

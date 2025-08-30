@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 //import { RouterLink } from '@angular/router';
 import { Security, Category, symbolprice } from '../../model/security';
 import { RapidapiService } from '../rapidapi.service';
-import { HeaderComponent } from '../header/header.component';
+
 //import { Observable, of } from 'rxjs';
 import { MytableComponent } from '../mytable/mytable.component';
 import { FinnhubService } from '../finnhub.service';
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-stocktable',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, MytableComponent],
+  imports: [CommonModule, MytableComponent],
   providers: [RapidapiService, DefaultApi, FinnhubService, SignalswatchlistService],
   templateUrl: './stocktable.component.html',
   styleUrl: './stocktable.component.css'
