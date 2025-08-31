@@ -50,8 +50,9 @@ export class SignalswatchlistService implements OnInit {
   getAphas() {
     let httpheader = new HttpHeaders();
     httpheader = httpheader.append("accepts", "application/json");
-    //return this.http.get<SecurityType[]>('dividendarist.json', { headers: httpheader })
-    return this.http.get<SecurityType[]>('dividendetf.json', { headers: httpheader })
+    // return this.http.get<SecurityType[]>('dividendarist.json', { headers: httpheader })
+    //return this.http.get<SecurityType[]>('dividendetf.json', { headers: httpheader })
+    return this.http.get<SecurityType[]>('chaseStocksAndETFs.json', { headers: httpheader })
       .pipe(
         take(1),
         map(data => {
