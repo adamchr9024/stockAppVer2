@@ -15,7 +15,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   subscription!: Subscription;
   ticker = "";
   json = JSON;
-  financialdata!: financialBodyType;
+  financialdata: financialBodyType | null = null;
   waiting: string = "ready to fetch";
   financialstring = "";
   constructor(private rapidApiService: RapidapiService) { }
@@ -35,6 +35,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
   }
   getFinancials() {
     this.waiting = "fetching..."
+    this.financialdata = null;
     this.subscription = this.rapidApiService.getFinancials(this.ticker.trim().toUpperCase()).subscribe({
       next: n => {
         this.financialdata = n;

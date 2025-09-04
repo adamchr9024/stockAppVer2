@@ -47,12 +47,12 @@ export class SignalswatchlistService implements OnInit {
         })
       )
   }
-  getAphas() {
+  getAphas(file: string) {
     let httpheader = new HttpHeaders();
     httpheader = httpheader.append("accepts", "application/json");
-    // return this.http.get<SecurityType[]>('dividendarist.json', { headers: httpheader })
-    //return this.http.get<SecurityType[]>('dividendetf.json', { headers: httpheader })
-    return this.http.get<SecurityType[]>('chaseStocksAndETFs.json', { headers: httpheader })
+    return this.http.get<SecurityType[]>(file, { headers: httpheader })
+      // return this.http.get<SecurityType[]>('dividendetf.json', { headers: httpheader })
+      // return this.http.get<SecurityType[]>('chaseStocksAndETFs.json', { headers: httpheader })
       .pipe(
         take(1),
         map(data => {
@@ -65,5 +65,9 @@ export class SignalswatchlistService implements OnInit {
             })
         })
       )
-  }
-}
+  }// EBKOF,BG.VI,OMV,VOE.VI,ADRZY,VER.VI,WIE.VI,1DOC.MI,VIG.VI
+}  //ASIX,SAR,NCDL,BBDC,GECC,ACCO,SM,CMCSA,QFIN,WHF      HIGH-YIELD STOCKS
+//OZK, FLO, ORI, PRGO,VZ, TROW,QCOM, PB,USBI,BBY,CFR,NNN,FRT,EIX,NEE,O,TGT,JNJ,PPG,CINF,NFG,AMCR, CBU,ESS
+//TOP 25 SAFE DIVIDEND
+//HIND HOLDINGS
+//CAT, FAST, RTX, URI,GE,PH,ETN,GD,AME,DE,DAL,IR,TXT,UNP,CPRT,CP,RSG,UBER,LMT,UPS

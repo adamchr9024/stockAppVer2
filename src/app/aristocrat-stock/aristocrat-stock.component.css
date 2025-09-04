@@ -13,6 +13,12 @@
       font-weight: bolder;
 }
 
+.borderleft {
+      border-left: 6px solid green;
+      height: 25px;
+      display: inline-block;
+}
+
 .potentialbuy {
       background-color: pink;
       font-weight: bolder;

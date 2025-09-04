@@ -1,6 +1,6 @@
 <mat-toolbar class="sticky1">
       <mat-toolbar-row class="headerDiv1">
-            <button mat-icon-button>
+            <button mat-icon-button (keydown)="onKeyPress($event)">
                   <mat-icon title="open/close side navigation" (click)="toggleOpen()">menu</mat-icon>
             </button>
             <!-- <h4>open/close</h4> -->
@@ -60,7 +60,7 @@
                         title="File Import Export">File-Imp-Expt</a>
             </mat-nav-list>
       </mat-sidenav>
-      <mat-sidenav-content>
+      <mat-sidenav-content (click)=" handleBodyClick()">
             <router-outlet></router-outlet>
       </mat-sidenav-content>
 </mat-sidenav-container>

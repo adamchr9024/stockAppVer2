@@ -76,6 +76,7 @@ app-header,
 .active-link {
       font-weight: bolder;
       text-shadow: 1px 1px orange;
+      border: 2px dotted black;
 }
 
 .outline {

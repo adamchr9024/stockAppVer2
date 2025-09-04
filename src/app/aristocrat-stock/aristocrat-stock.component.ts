@@ -41,7 +41,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
 
-    this.signalsService.getAphas()
+    //this.signalsService.getAphas('dividendarist.json')//'dividendetf.json'
+    this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
       .subscribe(next => {
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)
@@ -49,14 +50,13 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
         this.initialize();
       })
   }
-  // ngDoCheck(): void {
-  //   console.log("doCheck called")
-  // }
+
   ngOnChanges(changes: SimpleChanges): void {
     console.log("onchanges called")
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+
   }
   ngAfterViewInit(): void {
     this.tableDataSource.sort = this.sort;
@@ -75,11 +75,10 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
       }
     }
   }
-  waiting: string = "fetching ..."
+  waiting: string = "ready to fetch"
   signalsService = inject(SignalswatchlistService);
   initialize() {
     try {
-      //console.log("initialize aristocrats " + this.stocksmap.size)
       let moresymbols = Array.from(this.stocksmap.keys());
       this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({
@@ -133,4 +132,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
 
   }
+  // handleFile(theFile: string) {
+  //   console.log("in handleFile ", theFile);
+  //   this.loadData(theFile);
+  // }
 }

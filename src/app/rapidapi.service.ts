@@ -22,7 +22,6 @@ export class RapidapiService {
   hostvalue2 = 'yahoo-finance15.p.rapidapi.com';
   keyheader2 = 'x-rapidapi-key'
 
-  //apikey = 'afffa0c1a8mshae9aa24d2821b2fp10fbfajsn3b93c9c1e52b'
   urlTwo = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker=";
 
   constructor(private http: HttpClient) { }

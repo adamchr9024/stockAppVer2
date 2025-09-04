@@ -21,4 +21,15 @@ export class SideNavComponent {
   toggleOpen() {
     this.opened = !this.opened;
   }
+  onKeyPress(event: KeyboardEvent) {
+    console.log(event.key)
+    if (event.key === 'Enter') {
+      this.toggleOpen();
+    }
+  }
+  handleBodyClick() {
+    if (this.opened) {
+      this.toggleOpen();
+    }
+  }
 }
