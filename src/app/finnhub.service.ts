@@ -1,6 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit, inject } from '@angular/core';
 import { symbolprice } from '../model/security';
 import { environment } from '../environments/environment.development';
+import { SpinCtrlService } from './spin-ctrl.service';
 /*import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
     c-Current price
     d-Change 
@@ -15,10 +16,15 @@ import { DefaultApi } from 'finnhub-ts'
 @Injectable({
   providedIn: 'root'
 })
-export class FinnhubService implements OnInit {
+export class FinnhubService implements OnInit, OnDestroy {
+  spinControl = inject(SpinCtrlService);
   apikey: string = environment.finnhub_apikey
   authHeader: string = "X-Finnhub-Token";
   constructor(private defaultApi: DefaultApi) { }
+  ngOnDestroy(): void {
+    //console.log("in ondestroy finnhubservice");
+    this.spinControl.hideSpinner();
+  }
   ngOnInit(): void {//getting 401 add headers or apikey to url
     this.defaultApi = new DefaultApi({
       basePath: "https://finnhub.io/api/v1/quote", accessToken: this.apikey, apiKey: this.apikey, isJsonMime: (input) => {
@@ -57,6 +63,7 @@ export class FinnhubService implements OnInit {
     //call get stock prices for every symbol every second
     let symprice = [];
     try {
+      this.spinControl.showSpinner("...fetching");
       symprice = await this.getSymTid(symbols);
 
       return Promise.resolve(symprice);
@@ -69,6 +76,10 @@ export class FinnhubService implements OnInit {
     catch (error: any) {
       console.log("error during getAllPrices: ", error)
       throw new Error("error encountered getting symbols: " + error);
+    }
+    finally {//finallyCode - Code block to be executed regardless of the try result ...check synchronization
+      this.spinControl.hideSpinner();
+
     }
   }
   async getSymTid(stocks: string[]) {

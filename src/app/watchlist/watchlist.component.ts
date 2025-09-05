@@ -1,9 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FinnhubService } from '../finnhub.service'
 import { MytableComponent } from '../mytable/mytable.component';
-import { Category, Security } from '../../model/security';
+import { Security } from '../../model/security';
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { DefaultApi } from 'finnhub-ts'
+//import { SpinCtrlService } from '../spin-ctrl.service';
 @Component({
   selector: 'app-watchlist',
   standalone: true,
@@ -24,7 +25,7 @@ export class WatchlistComponent implements OnInit {
   //and pass that value to stocktable which will need to be rewitten
   //stocks: Security[] = []; //("wtlt", 3, 3.45, 3.38, Category.WatchList, "2.75-4.20");
   ngOnInit(): void {
-    this.signalsService.readSecurities(Category.WatchList)
+    this.signalsService.getAphas('new_watchlist.json')
       .subscribe(data => {
         //console.log("watchlist", data)
         this.watchlist.set(data);

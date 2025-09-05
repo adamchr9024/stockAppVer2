@@ -153,6 +153,45 @@ mat-sidenav-container {
       width: 90%;
 }
 
+.loader {
+      /*/media/chris/Windows/ProcademyAngular/angular-16-complete-course-main/10-angular-router/final/src/styles.css*/
+      width: 48px;
+      height: 48px;
+      border: 5px solid #FFF;
+      border-bottom-color: #FF3D00;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+}
+
+@keyframes rotation {
+
+      /*/media/chris/Windows/ProcademyAngular/angular-16-complete-course-main/10-angular-router/final/src/styles.css*/
+      0% {
+            transform: rotate(0deg);
+      }
+
+      100% {
+            transform: rotate(360deg);
+      }
+}
+
+.overlay {
+      /*/media/chris/Windows/ProcademyAngular/angular-16-complete-course-main/10-angular-router/final/src/styles.css*/
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      background: #222;
+      opacity: 0.3;
+}
+
 @media only screen and (max-width:950px) {
       mat-sidenav-content {
             background-color: antiquewhite;
