@@ -26,3 +26,11 @@ thead {
 mat-table {
       width: 100%;
 }
+
+p {
+      border: 2px dashed darkorchid;
+      color: darkgreen;
+      font-weight: bolder;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: fit-content;
+}

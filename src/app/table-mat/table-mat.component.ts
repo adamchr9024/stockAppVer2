@@ -119,4 +119,10 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
     //  console.log("in filter", filterValue)
   }
+  getTotalLosses() {
+    return Security.getTotalGainLoss(this.stocksArray).toFixed(2);
+  }
+  getTotalMarketValues() {
+    return Security.getTotalMarketValue(this.stocksArray).toFixed(2);
+  }
 }

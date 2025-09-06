@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
@@ -16,7 +15,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-material-table',
   standalone: true,
-  imports: [HeaderComponent, MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
+  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
   providers: [RapidapiService],
   templateUrl: './material-table.component.html',
   styleUrl: './material-table.component.css'

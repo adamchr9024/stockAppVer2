@@ -11,6 +11,9 @@ export class Security {
       private _dividendYield: number = 0;
       // private _potentialYearlyDividend:number=0;
       static initialInvestment: number = 500.00;
+      // static totalMarketValue:number = 0;
+      // static totalGainLoss:number = 0;
+
       constructor(public readonly ticker: string,
             public readonly quantity: number,
             private price: number, //might should only be one price
@@ -129,10 +132,6 @@ export class Security {
             }
       }
       get fifty50_200DayAvg() {
-            // let fiftyrange = (this.fiftyDayAverage - this.fiftyDayAverageChange).toFixed(4) + "-" + (this.fiftyDayAverage + this.fiftyDayAverageChange).toFixed(4);
-            // let twohundredrange = (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4) + "-" +
-            //       (this.twoHundredDayAverageChange - this.twoHundredDayAverageChange).toFixed(4);
-            // return fiftyrange + " , " + twohundredrange;
             if (this.fiftyDayAverage && this.twoHundredDayAverage) {
                   return this.fiftyDayAverage.toFixed(4) + " , " + this.twoHundredDayAverage.toFixed(4);
             }
@@ -148,6 +147,20 @@ export class Security {
             else {
                   return val;
             }
+      }
+      static getTotalMarketValue(arr: Security[]): number {
+            let sum = 0;
+            arr.forEach((sec) => {
+                  sum += sec._marketvalue;
+            })
+            return sum;
+      }
+      static getTotalGainLoss(arr: Security[]): number {
+            let sum = 0;
+            arr.forEach((sec) => {
+                  sum += sec._gainloss;
+            })
+            return sum;
       }
 }
 export interface symbolprice {
