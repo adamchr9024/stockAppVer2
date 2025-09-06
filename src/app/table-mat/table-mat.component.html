@@ -2,8 +2,6 @@
       <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
 </div>
 <div style="width:95%; margin:15px;">
-      <p>Total Gains/Losses:&nbsp;&nbsp;{{getTotalLosses()}} Total Market Value:&nbsp;&nbsp;{{getTotalMarketValues()}}
-      </p>
       <mat-form-field style="width:40%">
             <mat-label>Filter</mat-label>
             <input matInput (input)="filterData($event)">
@@ -68,5 +66,6 @@
             <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
             <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
       </mat-table>
-
+      <p>Total Gains/Losses:&nbsp;&nbsp;{{getTotalLosses()}} Total Market Value:&nbsp;&nbsp;{{getTotalMarketValues()}}
+      </p>
 </div>

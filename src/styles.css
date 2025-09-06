@@ -141,8 +141,12 @@ button:disabled {
 }
 
 mat-sidenav-container {
-      height: 100%;
+      height: auto;
 
+}
+
+html {
+      overflow: hidden;
 }
 
 .headerDiv1 {
