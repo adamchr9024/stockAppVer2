@@ -10,10 +10,10 @@ input {
       margin: 5px 5px;
 }
 
-thead {
+/* thead {
       top: 14px;
       position: sticky;
-}
+} */
 
 .loss {
       color: red;

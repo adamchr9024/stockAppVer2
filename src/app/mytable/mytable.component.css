@@ -20,10 +20,11 @@
       font-weight: bolder;
 }
 
+/* 
 thead {
-      top: 25px;
+      top: 1px;
       position: sticky;
-}
+} */
 
 .bordergreen {
       border: 2px solid gold;

@@ -58,7 +58,7 @@ mat-label {
 
 thead,
 mat-header-row {
-      top: 11px;
+      top: -12px;
       position: sticky;
 }
 
@@ -67,7 +67,7 @@ app-header,
       top: 0;
       left: 10px;
       right: 10px;
-      height: 25px;
+      /* height: 25px; */
       position: fixed;
       background-color: #fed757;
       width: 99%;
@@ -146,15 +146,17 @@ mat-sidenav-container {
 }
 
 html {
-      overflow: hidden;
+      overflow: visible;
 }
 
 .headerDiv1 {
       display: flex;
       flex-direction: row;
-      height: 90vh;
+      height: fit-content;
       justify-content: space-around;
       width: 90%;
+      /* flex: 0; */
+      /* align-items: center; */
 }
 
 .loader {

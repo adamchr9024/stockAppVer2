@@ -1,7 +1,7 @@
 <div class="firstDiv">
       <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
-</div>
-<div style="width:95%; margin:15px;">
+      <!-- </div>
+<div style="width:95%; margin:10px;"> -->
       <mat-form-field style="width:40%">
             <mat-label>Filter</mat-label>
             <input matInput (input)="filterData($event)">
