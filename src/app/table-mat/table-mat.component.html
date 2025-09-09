@@ -46,7 +46,8 @@
                   <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="percentage">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Price-%-tile</mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                        title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price-%-tile</mat-header-cell>
                   <mat-cell *cdkCellDef="let row" [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
                               'sell':row.percentage >=80 && row.percentage <=100,
                                'potentialsell':row.percentage >=70 && row.percentage <=79,

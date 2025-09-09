@@ -1,13 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RapidapiService } from '../rapidapi.service';
 //import { Category, Security } from '../../model/security';
+import { CommonModule } from '@angular/common';
 import { financialBodyType } from '../../model/financialBody';
 import { Subscription, switchMap, switchScan } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-analysis',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './analysis.component.html',
   styleUrl: './analysis.component.css'
 })
