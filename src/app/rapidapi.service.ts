@@ -23,7 +23,7 @@ export class RapidapiService {
   hostvalue2 = 'yahoo-finance15.p.rapidapi.com';
   keyheader2 = 'x-rapidapi-key'
 
-  urlTwo = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker=";
+  urlTwo = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker="; //paid service
 
   constructor(private http: HttpClient) { }
   async getAllStockPrices(stocks: Security[]) {
@@ -125,8 +125,9 @@ export class RapidapiService {
     }
 
   }
-  getFinancials(ticker: string) {
+  getFinancials(ticker: string) {//gives 403 intermittently
     this.initalizeheader2();
+    //"https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker="; 
     let url = `https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/modules?ticker=${ticker}&module=financial-data`
     return this.http.get(url, { headers: this.headers2 })
       .pipe(//MAYBE ADD SWITCH MAP
@@ -140,8 +141,23 @@ export class RapidapiService {
           console.log("error caught and rethrown in rapidapiService.getFinancials(): ", err);
           throw err;
         })
-
-
+      )
+  }
+  getFinancials166(ticker: string) {  //gives 403 intermittently
+    this.headers = this.headers.append(this.hostheader1, this.hostvalue1);
+    this.headers = this.headers.append(this.keyheader1, this.keyvalue);
+    let url = `https://yahoo-finance166.p.rapidapi.com/api/stock/get-financial-data?region=US&symbol=${ticker}`;
+    return this.http.get(url, { headers: this.headers })
+      .pipe(//MAYBE ADD SWITCH MAP
+        take(1),
+        map((s: any) => {
+          //  console.log(s?.quoteSummary?.result[0]?.financialData);
+          return s?.quoteSummary?.result[0]?.financialData;
+        }),
+        catchError(err => {
+          console.log("error caught and rethrown in rapidapiService.getFinancials166(): ", err);
+          throw err;
+        })
       )
   }
 

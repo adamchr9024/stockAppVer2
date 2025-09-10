@@ -1,11 +1,11 @@
 //import { ResolveFn } from '@angular/router';  //NOT USED
-import { inject, OnInit } from '@angular/core';
+import { inject, } from '@angular/core';
 import { Security, Category } from '../model/security';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, MaybeAsync, Resolve, RouterStateSnapshot } from '@angular/router';
 import { SignalswatchlistService } from './signalswatchlist.service';
 import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+//import { delay } from 'rxjs/operators';
 import { RapidapiService } from './rapidapi.service';
 @Injectable({
   providedIn: 'root'

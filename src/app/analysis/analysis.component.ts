@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RapidapiService } from '../rapidapi.service';
 //import { Category, Security } from '../../model/security';
 import { CommonModule } from '@angular/common';
 import { financialBodyType } from '../../model/financialBody';
-import { Subscription, switchMap, switchScan } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-analysis',
@@ -41,7 +41,7 @@ export class AnalysisComponent implements OnDestroy, OnInit {
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);
-        //console.log("BGY Financial Data:  ", n)
+        // console.log("166 Financial Data:  ", n)
       },
       error: (err) => {
         // console.log("error 'getFinancials':", err, err?.error?.message)

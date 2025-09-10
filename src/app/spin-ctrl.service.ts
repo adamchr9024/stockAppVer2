@@ -15,7 +15,7 @@ export class SpinCtrlService {
 
     this.ShowAndString.next({ displaySpinner: true, doneStatus: message });
   }
-  hideSpinner() {  //move to seperate component and use in FinnHub
+  hideSpinner() {
     this.ShowAndString.next({ displaySpinner: false, doneStatus: "done" })
   }
 }
