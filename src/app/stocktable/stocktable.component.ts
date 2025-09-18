@@ -25,7 +25,7 @@ export class StocktableComponent implements OnInit, OnDestroy {
   allbutWatchlist: string = Category.Alternative +
     Category.Bond + Category.MutualFund +
     Category.ETF + Category.FixedIncome + Category.Other
-    + Category.Stock + Category.CashAndShortTerm
+    + Category.Stock + Category.CashAndShortTerm + Category.CEF
 
   waiting: string = "fetching ..."
 
