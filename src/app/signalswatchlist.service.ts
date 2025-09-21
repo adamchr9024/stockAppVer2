@@ -10,23 +10,7 @@ export class SignalswatchlistService implements OnInit {
   data: any = null;
   http = inject(HttpClient);
   watchListSecurities: Security[] = []
-  constructor() {
-    // this.readSecurities(Category.WatchList)
-    // .subscribe(next=>this.watchListSecurities=next)
-  }
-
-  //readonly watchlist = signal<Security[]>(this.watchListSecurities);
-  //readonly watchlistvalues = computed(() => {
-  //  watchlistComputed: this.watchlist()
-  // })
-  //    readonly resource = rxResource({
-  //      request: () => this.watchlistvalues,
-  //      loader: () =>
-  //        this.http.get<PassengerList>(
-  // //           `https://api.com?page=${params.request.page}
-  // //             &size=${params.request.pageSize}`
-  // //         )
-  //  })
+  constructor() { }
   ngOnInit(): void {
     //console.log("in SignalsWatchlistservice read file")
   }
@@ -65,9 +49,5 @@ export class SignalswatchlistService implements OnInit {
             })
         })
       )
-  }// EBKOF,BG.VI,OMV,VOE.VI,ADRZY,VER.VI,WIE.VI,1DOC.MI,VIG.VI
-}  //ASIX,SAR,NCDL,BBDC,GECC,ACCO,SM,CMCSA,QFIN,WHF      HIGH-YIELD STOCKS
-//OZK, FLO, ORI, PRGO,VZ, TROW,QCOM, PB,USBI,BBY,CFR,NNN,FRT,EIX,NEE,O,TGT,JNJ,PPG,CINF,NFG,AMCR, CBU,ESS
-//TOP 25 SAFE DIVIDEND
-//HIND HOLDINGS
-//CAT, FAST, RTX, URI,GE,PH,ETN,GD,AME,DE,DAL,IR,TXT,UNP,CPRT,CP,RSG,UBER,LMT,UPS
+  }
+} 

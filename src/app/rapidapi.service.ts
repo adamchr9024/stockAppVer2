@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
-import { Security, symbolprice } from '../model/security';
+import { Category, Security, symbolprice } from '../model/security';
 
-import { take, map, catchError } from "rxjs/operators"
+import { take, map, catchError, exhaustMap, switchMap } from "rxjs/operators"
+//import { of } from 'rxjs/internal/observable/of';
+import { SignalswatchlistService } from './signalswatchlist.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,8 +26,15 @@ export class RapidapiService {
   keyheader2 = 'x-rapidapi-key'
 
   urlTwo = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker="; //paid service
-
-  constructor(private http: HttpClient) { }
+  stocksmap: Map<string, Security> = new Map();
+  constructor(private http: HttpClient, private signalsService: SignalswatchlistService) {
+    this.signalsService.readSecurities(Category.WatchList)
+      .subscribe(next => {
+        next.forEach(val => {
+          this.stocksmap.set(val.ticker, val)
+        })
+      })
+  }
   async getAllStockPrices(stocks: Security[]) {
     let symprice = [];
     // symprice = await this.getSymTid(stocks);
@@ -50,29 +59,8 @@ export class RapidapiService {
     })
     await this.sleep(1000); //make sure the value is pushed async
     return symprice;
-    // }
-    // console.log("symprice in getSymTid", symprice);
-    // return symprice;
+
   }
-
-
-  // getAstockPriceTest(ticker: string) {
-  //   return new Observable((observe) => {
-  //     observe.next({ symbol: ticker, price: 45.7 }),
-  //       observe.error("error from observer"),
-  //       observe.complete()
-
-  //   }).pipe(
-  //     take(1),
-  //     map((x: any) => {
-  //       return {
-  //         symbol: x.symbol,
-  //         price: x.price
-  //       }
-  //     }),
-  //     catchError(err => of(err.message))
-  //   )
-  // }
 
   getAstockPrice(ticker: string) {
     this.headers = this.headers.append(this.hostheader1, this.hostvalue1);
@@ -98,6 +86,7 @@ export class RapidapiService {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
   initalizeheader2() {
+    this.headers2 = new HttpHeaders();
     this.headers2 = this.headers2.append(this.hostheader2, this.hostvalue2);
     this.headers2 = this.headers2.append(this.keyheader2, this.keyvalue);
   }
@@ -159,6 +148,43 @@ export class RapidapiService {
           throw err;
         })
       )
+  }
+  getMutualFundPricesResolve(tickers: string[]) {
+
+    try {
+
+      let joinOn = '%2C';
+      this.initalizeheader2();
+      let urltickers = tickers.slice(0, tickers.length - 1).join(joinOn)
+      let mutualurl = this.urlTwo + urltickers + joinOn + tickers[tickers.length - 1];
+      return this.http.get(mutualurl, { headers: this.headers2 })
+        .pipe(
+          take(1),
+          switchMap(async (x: any) => { //async await??
+            await x.body.forEach((val2: any) => {
+              let updt = this.stocksmap.get(val2.symbol);
+              if (updt) {
+                updt.dividendYield = val2?.dividendYield;
+                updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
+                updt.yahooprice = val2?.regularMarketPrice;
+                updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
+                this.stocksmap.set(updt.ticker, updt)
+              }
+            })
+            return this.stocksmap;
+            // return x.body;
+
+          }),
+          catchError(err => {
+            console.log("error caught and rethrown in rapidapiService.getMutualFundPricesResolve catchError: ", err);
+            throw err;
+          })
+        )
+    } catch (err: any) {
+      console.log("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      throw err;
+    }
+
   }
 
 }
