@@ -16,10 +16,11 @@ export class SecurityResolver1 implements OnInit, Resolve<Map<string, Security>>
     Category.ETF + Category.FixedIncome + Category.Other + Category.CEF
     + Category.Stock + Category.CashAndShortTerm;
   signalsService = inject(SignalswatchlistService);
-  //snapShot = inject(ActivatedRouteSnapshot);
+  // snapShot = inject(ActivatedRouteSnapshot);
   stocksmap: Map<string, Security> = new Map();
   constructor(private rapidApiService: RapidapiService) {
-    this.signalsService.readSecurities(Category.WatchList)
+    // console.log(this.snapShot.url.join(""));
+    this.signalsService.readSecurities(this.allbutWatchlist)
       .subscribe(next => {//all I need is the tickers
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)
@@ -67,8 +68,8 @@ export class SecurityResolver1 implements OnInit, Resolve<Map<string, Security>>
 
     try {
 
-      let moresymbols = Array.from(this.stocksmap.keys());
-      return this.rapidApiService.getMutualFundPricesResolve(moresymbols)
+      // let moresymbols = Array.from(this.stocksmap.keys());
+      return this.rapidApiService.getMutualFundPricesResolve(Array.from(this.stocksmap.keys()))
 
     }
     catch (err: any) {

@@ -41,7 +41,7 @@
                         <td class="bordergreen">
                               {{row.yahooprice}}
                         </td>
-                        <td>
+                        <td [ngStyle]="{'border':row.gainloss < 0?'2px solid purple':'1px solid'}">
                               {{row.gainloss}}
                         </td>
                         <td>

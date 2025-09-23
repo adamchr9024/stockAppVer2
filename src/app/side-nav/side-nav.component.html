@@ -3,17 +3,12 @@
             <button mat-icon-button (keydown)="onKeyPress($event)">
                   <mat-icon title="open/close side navigation" (click)="toggleOpen()">menu</mat-icon>
             </button>
-            <!-- <h4>open/close</h4> -->
             <a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a>
-            <!-- <a routerLink="/table" routerLinkActive="active-link">Table</a> -->
             <a routerLink="/table-mat" routerLinkActive="active-link" title="Table Material">Tbl-Mat</a>
             <a routerLink="/analyze" routerLinkActive="active-link" title="Get Financial Data">Analyze</a>
-            <!-- <a routerLink="/mystock" routerLinkActive="active-link" title="Dividend Watch List">Dvd-Wth-Lst</a> -->
             <a routerLink="/material-watchlist" routerLinkActive="active-link"
                   title="material-watchlist">Mat-Wth-Lst</a>
             <a routerLink="/aristocrats" routerLinkActive="active-link" title="Dividend Aristocrats">Dvd-Ast</a>
-            <!-- <a routerLink="/watchlist" routerLinkActive="active-link" title="Watch List">WthLst</a> -->
-            <!-- <a routerLink="/ods-xlsx" routerLinkActive="active-link" title="File Import Export">File-Imp-Expt</a> -->
             <a routerLink="/xlsx-style" routerLinkActive="active-link" title="Import Export Style">Imp-Exp-Sty</a>
 
             <!-- <span class="ospan" (click)="toggleContent()">Change Category</span> -->
@@ -57,8 +52,8 @@
                   <hr height="3px">
                   <a mat-list-item routerLink="/table" routerLinkActive="active-link outline"
                         title="Table Finnhub">Table</a>
-                  <!-- <a mat-list-item routerLink="/mystock" routerLinkActive="active-link"
-                        title="Dividend Watch List">Dvd-Wth-Lst</a> -->
+                  <a mat-list-item routerLink="/mystock" routerLinkActive="active-link"
+                        title="Dividend Watch List">Dvd-Wth-Lst</a>
                   <a mat-list-item routerLink="/watchlist" routerLinkActive="active-link outline"
                         title="Watch List">Watch List</a>
                   <a mat-list-item routerLink="/ods-xlsx" routerLinkActive="active-link outline"
