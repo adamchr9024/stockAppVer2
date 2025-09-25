@@ -41,8 +41,10 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
 
+    //this.signalsService.getAphas('morehyetfs.json')
+    //this.signalsService.getAphas('new_watchlist.json')
     this.signalsService.getAphas('dividendarist.json')//'dividendetf.json'
-      //this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
+      // this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
       .subscribe(next => {
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)

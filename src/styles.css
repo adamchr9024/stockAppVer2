@@ -62,16 +62,6 @@ mat-header-row {
       position: sticky;
 }
 
-app-header,
-.sticky {
-      top: 0;
-      left: 10px;
-      right: 10px;
-      /* height: 25px; */
-      position: fixed;
-      background-color: #fed757;
-      width: 99%;
-}
 
 .active-link {
       font-weight: bolder;
