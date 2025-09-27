@@ -1,0 +1,36 @@
+.sell {
+      background-color: lightgreen;
+      font-weight: bolder;
+}
+
+.buy {
+      background-color: red;
+      font-weight: bolder;
+}
+
+.potentialsell {
+      background-color: yellow;
+      font-weight: bolder;
+}
+
+.potentialbuy {
+      background-color: pink;
+      font-weight: bolder;
+}
+
+thead {
+      top: 0;
+      position: sticky;
+}
+
+mat-table {
+      width: 100%;
+}
+
+p {
+      border: 2px dashed darkorchid;
+      color: darkgreen;
+      font-weight: bolder;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      width: fit-content;
+}

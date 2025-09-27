@@ -18,8 +18,6 @@ export const resolver1Resolver: ResolveFn<Map<string, Security>> = (route, state
   console.log(`The final number is ${ finalNumber }`);
   high return ETFs
   */
-  const keys2 = ["YINN", "BITX", "GDXJ", "URA", "BLOK", "ARKF", "RING", "IAUP", "EUAD", "GDX", "SHLD", "ARKK", "QTUM", "TSLL",
-    "USD", "BITO", "NVDL", "KWEB", "MCHI", "FXI"]//morehyetfs
 
   //These keys must be in Watchlist
   const keys = ["BGY", "BDJ", "GPIQ", "EXG", "TRTX", "SDIV", "SPYD", "ENB", "ASG", "VLT", "BRW", "CII", "AHITX", "PONAX", "MDLOX", "HAUZ",

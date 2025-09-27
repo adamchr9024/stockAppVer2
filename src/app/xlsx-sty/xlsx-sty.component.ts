@@ -17,22 +17,22 @@ export class XlsxStyComponent implements OnDestroy {
   stocksmap: Map<string, Security> = new Map()
   data!: [][];
   headData: string[] = ["ticker", "quantity", "category", "unit cost", "yahoo price", "gain/loss",
-    "52-wk-rng", "percentile", "effective-%", "potential annual income", "comment"];
+    "52-wk-rng", "percentile", "effective-%", "potential 1Yr income", "actual income", "gain/loss Wth dvd", "comment"];
   waiting: string = "Wait for ready to fetch";
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
-    2, 6, 3.1, 5.2, 5.4, 1.1, 45.0)];  //my data
+    2, 6, 3.1, 5.2, 5.4, 1.1, 45.0, 12.2)];  //my data
   constructor(private rapidApiService: RapidapiService) { }
   exportToOds() {
     try {
-      let customValue = this.stocksArray.map(val => {
+      let customValue = this.stocksArray.map(val => {   //EDIT HERE
         return {
           ticker: val.ticker, quantity: val.quantity, category: val.category, unit_cost: val.unitcost,
           yahooprice: val.yahooprice, gain_loss: val.gainloss, fiftytwowkrng: val.fiftytwowkrng, percentile: val.percentage,
-          effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.annualIncome, comment: val.comment
+          effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.est_annual_income, comment: val.comment
         };
       });
       const worksheet: XLSXStyle.WorkSheet = XLSXStyle.utils.json_to_sheet(customValue);
-      const wscols = [ //used to set the width of each column ch for characters
+      const wscols = [ //used to set the width of each column ch for characters (EDIT HERE)
         { wch: 7 }, { wch: 9 }, { wch: 20 }, { wch: 10 }, { wch: 10 },
         { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }, { wch: 25 },
         { wch: 25 }]; //
@@ -177,9 +177,10 @@ export class XlsxStyComponent implements OnDestroy {
     let security: Security;
     try {
       this.data.forEach((val: any[]) => {
-        let fifty2wkrng: string = val[9];
+        let actualdividend = val[10];
+        //  console.log("val.length", actualdividend);
         // console.log("test range:", typeof val[9] === "string");
-        security = new Security(val[0], val[1], val[2], val[3], val[4], val[5], val[9], val[6], val[7], 4.4, 2.2, 4.3, 4.11, val[8]);
+        security = new Security(val[0], val[1], val[2], val[3], val[4], val[5], val[9], val[6], val[7], 4.4, 2.2, 4.3, 4.11, val[8], val[10]);
 
         this.stocksmap.set(security.ticker, security);
         // [ "AGG", 17, 98, 102.93, "Fixed Income", "95.74 - 102.04", 96, 102, 64.65, "safe dividend" ]

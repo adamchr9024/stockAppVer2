@@ -1,0 +1,71 @@
+<div class="firstDiv">
+      <ol>Todo
+            <li>When you Sell part of a ETF or Stock, Actual Dividend and Gain/Loss with Dividend should be reset??</li>
+            <li><b> validate value with stock quotes_yahoo...ods file</b></li>
+            <li> modify xlsx-sty create security function to accept new field actual dividend</li>
+            <li><b>Write Directive to style gain loss with dividend with purple? border if negative (value will be
+                        passed in to directive)</b></li>
+      </ol>
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
+      <!-- </div>
+<div style="width:95%; margin:10px;"> -->
+      <mat-form-field style="width:40%">
+            <mat-label>Filter</mat-label>
+            <input matInput (input)="filterData($event)">
+      </mat-form-field>
+      <mat-table #table [dataSource]="tableDataSource" matSort>
+            <ng-container cdkColumnDef="ticker">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
+            </ng-container>
+            <!-- ticker category -->
+
+            <!-- quantity Definition -->
+            <ng-container cdkColumnDef="quantity">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.quantity}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="marketvalue">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Market Value </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.marketvalue}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="unitcost">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Unit Cost </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.unitcost}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="costbasis">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Cost Basis </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.costbasis}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="gainloss">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain / Loss </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.gainloss}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="yahooprice">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
+                  <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="actual_dividend">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Actual Dividends </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.actual_dividend}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="glwdiv">
+                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD </mat-header-cell>
+                  <mat-cell class="bordertbd" *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="est_annual_income">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>1Yr-Income-Est</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.est_annual_income}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="comment">
+                  <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
+            <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
+      </mat-table>
+      <p>Total Gains/Losses:&nbsp;&nbsp;{{getTotalLosses()}} Total Market Value:&nbsp;&nbsp;{{getTotalMarketValues()}}
+            Total Gain/Losses With Dividends:&nbsp;&nbsp;{{getTotalLossesWithDividends()}}
+      </p>
+</div>

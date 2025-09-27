@@ -41,6 +41,10 @@ mat-row:nth-child(even) {
       border: 2px solid gold;
 }
 
+.bordertbd {
+      border: 2px dashed red;
+}
+
 html,
 body {
       height: 100%;

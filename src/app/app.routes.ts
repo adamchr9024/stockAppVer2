@@ -11,12 +11,14 @@ import { OdsXlsxComponent } from './ods-xlsx/ods-xlsx.component';
 import { XlsxStyComponent } from './xlsx-sty/xlsx-sty.component';
 //import { SecurityResolver1 } from './security.resolver';
 import { resolver1Resolver } from './resolver1.resolver';
+import { SpreadshtComponent } from "./spreadsht/spreadsht.component";
 //import { Component } from '@angular/core';
 export const routes: Routes = [
       { path: "", component: HomeComponent, },
       { path: 'mystock', component: MystocksComponent },
       { path: "table", component: StocktableComponent },
       { path: "watchlist", component: WatchlistComponent },
+      { path: "sprdsht", component: SpreadshtComponent },
       //{ path: "material-watchlist", component: MaterialTableComponent, resolve: { stocksmap: SecurityResolver1 } }, //problem with refresh
       { path: "material-watchlist", component: MaterialTableComponent, resolve: { stocksmap: resolver1Resolver } },
       { path: "table-mat", component: TableMatComponent },

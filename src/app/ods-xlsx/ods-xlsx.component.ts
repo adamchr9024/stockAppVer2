@@ -33,7 +33,7 @@ export class OdsXlsxComponent implements OnDestroy {
         return {
           ticker: val.ticker, quantity: val.quantity, category: val.category, unit_cost: val.unitcost,
           yahooprice: val.yahooprice, gain_loss: val.gainloss, fiftytwowkrng: val.fiftytwowkrng, percentile: val.percentage,
-          effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.annualIncome, comment: val.comment
+          effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.est_annual_income, comment: val.comment
         };
       });
       //console.log(JSON.stringify(customValue))

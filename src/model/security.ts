@@ -27,7 +27,8 @@ export class Security {
             public fiftyDayAverageChange = 2.22,
             public twoHundredDayAverage = 44.44,
             public twoHundredDayAverageChange = 22.22,
-            public readonly est_annual_income = 3.33
+            public readonly est_annual_income = 3.33,
+            public readonly actual_dividend = 0.0
       ) {  //see what this is generating in Javascript repeated variables
             this.init();
       }
@@ -86,8 +87,9 @@ export class Security {
       set dividendYield(val: number) {
             this._dividendYield = val;
       }
-      get fiftytwowkrng() { return this.fifty_twowkrng }
-      get dividendYield() { return this._dividendYield }
+      //get actualdividend() { return this.actual_dividend; }
+      get fiftytwowkrng() { return this.fifty_twowkrng; }
+      get dividendYield() { return this._dividendYield; }
       get percentage() { return this._percentage }
       get yahooprice() { return this._yahooprice; }
       get gainloss() { return this._gainloss; }
@@ -123,13 +125,9 @@ export class Security {
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
       get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
-      get annualIncome() {
-            if (this.est_annual_income !== 3.33) {
-                  return this.est_annual_income;
-            }
-            else {
-                  return "default: " + this.est_annual_income;
-            }
+      get glwdiv() {
+            return Number((this.actual_dividend + this._gainloss).toFixed(2));
+
       }
       get fifty50_200DayAvg() {
             if (this.fiftyDayAverage && this.twoHundredDayAverage) {
@@ -162,6 +160,13 @@ export class Security {
             })
             return sum;
       }
+      static getGainLossWithDividend(arr: Security[]): number { //not tested
+            let sum = 0;
+            arr.forEach((sec) => {
+                  sum += sec.glwdiv;
+            })
+            return sum;
+      }
 }
 export interface symbolprice {
       symbol: string;
@@ -177,6 +182,11 @@ export type SecurityType = {
       fiftytwowkrng: string
       comment?: string,
       effective_year_low?: number,
-      effective_year_high?: number
-
+      effective_year_high?: number,
+      fiftyDayAverage?: number,
+      fiftyDayAverageChange?: number,
+      twoHundredDayAverage?: number,
+      twoHundredDayAverageChange?: number,
+      est_annual_income?: number,
+      actual_dividend?: number,
 }
