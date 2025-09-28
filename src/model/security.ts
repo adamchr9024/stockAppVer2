@@ -1,7 +1,6 @@
 import { OnInit } from "@angular/core";
 
 export class Security {
-      //dividendYield
       private _costbasis: number = 0;
       private _yahooprice: number = 0;
       private _marketvalue: number = 0;
@@ -9,10 +8,7 @@ export class Security {
       private _trailingAnnualDividendRate: Number = 0;
       private _percentage: number = 80;
       private _dividendYield: number = 0;
-      // private _potentialYearlyDividend:number=0;
-      static initialInvestment: number = 500.00;
-      // static totalMarketValue:number = 0;
-      // static totalGainLoss:number = 0;
+      private static initialInvestment: number = 500.00;
 
       constructor(public readonly ticker: string,
             public readonly quantity: number,
@@ -37,19 +33,15 @@ export class Security {
             this._yahooprice = this.price;
             this._marketvalue = Number((this.quantity * this.price).toFixed(2));
             this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
-            //this._potentialYearlyDividend = this.est_annual_income;
             this.setPercentage();
-
       }
       setPercentage() {
-            // console.log("50 2 week range", this.fifty_twowkrng)
             if (this.fifty_twowkrng?.includes("-")) {
                   let small_large = this.fifty_twowkrng.split("-");
                   let min = +small_large[0];
                   let max = +small_large[1];
                   if (this.yahooprice && max != min) {
                         this._percentage = +(100 * (this.yahooprice - min) / (max - min)).toFixed(0)
-                        // console.log("setPercentage", min, max, this.yahooprice)
                   }
             }
             else {
@@ -81,13 +73,11 @@ export class Security {
             }
       }
       set percentage(val: number) {
-            // console.log("set percentage called with value: ", val);
             this._percentage = val
       }
       set dividendYield(val: number) {
             this._dividendYield = val;
       }
-      //get actualdividend() { return this.actual_dividend; }
       get fiftytwowkrng() { return this.fifty_twowkrng; }
       get dividendYield() { return this._dividendYield; }
       get percentage() { return this._percentage }
@@ -101,26 +91,20 @@ export class Security {
             if (this._trailingAnnualDividendRate) {//none zero and not undefined
                   let val = Number((qty * Number(this._trailingAnnualDividendRate)).toFixed(2));
                   if (isNaN(val)) {
-                        //  this._potentialYearlyDividend=0;
                         return 0;
                   }
                   else {
-                        // this._potentialYearlyDividend=val;
                         return val;
                   }
             } //6.24 = divAmt * 4 * price 
             else {
                   let val = Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
                   if (isNaN(val)) {
-                        // this._potentialYearlyDividend=0;
                         return 0;
-
                   }
                   else {
-                        //  this._potentialYearlyDividend=val;
                         return val;
                   }
-
             }
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
@@ -136,6 +120,9 @@ export class Security {
             else {
                   return "1,1-avgs undefined";
             }
+      }
+      get glwdvdpct() {
+            return Number((100 * (this.glwdiv / this._marketvalue)).toFixed(2));//validate
       }
       get effectivePercentage() {
             let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
@@ -160,7 +147,7 @@ export class Security {
             })
             return sum;
       }
-      static getGainLossWithDividend(arr: Security[]): number { //not tested
+      static getGainLossWithDividend(arr: Security[]): number {
             let sum = 0;
             arr.forEach((sec) => {
                   sum += sec.glwdiv;

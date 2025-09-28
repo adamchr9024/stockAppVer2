@@ -2,7 +2,6 @@
       <ol>Todo
             <li>When you Sell part of a ETF or Stock, Actual Dividend and Gain/Loss with Dividend should be reset??</li>
             <li><b> validate value with stock quotes_yahoo...ods file</b></li>
-            <li> modify xlsx-sty create security function to accept new field actual dividend</li>
             <li><b>Write Directive to style gain loss with dividend with purple? border if negative (value will be
                         passed in to directive)</b></li>
       </ol>
@@ -52,6 +51,10 @@
             <ng-container cdkColumnDef="glwdiv">
                   <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD </mat-header-cell>
                   <mat-cell class="bordertbd" *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="glwdvdpct">
+                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD-% </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.glwdvdpct}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="est_annual_income">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>1Yr-Income-Est</mat-header-cell>

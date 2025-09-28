@@ -10,7 +10,7 @@
       </div>
       <br /><br />
       <table>
-            <thead>
+            <thead style="top:30px; position:sticky">
                   <tr>
                         <td *ngFor="let head of headData">
                               {{head}}
@@ -70,6 +70,7 @@
                         <td>
                               {{row.glwdiv}}
                         </td>
+                        <td>{{row.glwdvdpct}}</td>
                         <td>
                               {{row.comment}}
                         </td>

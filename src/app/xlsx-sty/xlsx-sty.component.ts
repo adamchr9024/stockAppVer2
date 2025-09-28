@@ -17,24 +17,24 @@ export class XlsxStyComponent implements OnDestroy {
   stocksmap: Map<string, Security> = new Map()
   data!: [][];
   headData: string[] = ["ticker", "quantity", "category", "unit cost", "yahoo price", "gain/loss",
-    "52-wk-rng", "percentile", "effective-%", "potential 1Yr income", "actual income", "gain/loss Wth dvd", "comment"];
+    "52-wk-rng", "percentile", "effective-%", "potential 1Yr income", "actual income", "gain/loss Wth dvd", "GnLs Wth Dvd %", "comment"];
   waiting: string = "Wait for ready to fetch";
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
     2, 6, 3.1, 5.2, 5.4, 1.1, 45.0, 12.2)];  //my data
   constructor(private rapidApiService: RapidapiService) { }
   exportToOds() {
     try {
-      let customValue = this.stocksArray.map(val => {   //EDIT HERE
+      let customValue = this.stocksArray.map(val => {
         return {
           ticker: val.ticker, quantity: val.quantity, category: val.category, unit_cost: val.unitcost,
-          yahooprice: val.yahooprice, gain_loss: val.gainloss, fiftytwowkrng: val.fiftytwowkrng, percentile: val.percentage,
+          yahooprice: val.yahooprice, gain_loss: val.gainloss, gain_loss_wth_dvd: val.glwdiv, gain_loss_div_pct: val.glwdvdpct, fiftytwowkrng: val.fiftytwowkrng, price_percentile: val.percentage,
           effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.est_annual_income, comment: val.comment
         };
       });
       const worksheet: XLSXStyle.WorkSheet = XLSXStyle.utils.json_to_sheet(customValue);
-      const wscols = [ //used to set the width of each column ch for characters (EDIT HERE)
+      const wscols = [ //used to set the width of each column ch for characters 
         { wch: 7 }, { wch: 9 }, { wch: 20 }, { wch: 10 }, { wch: 10 },
-        { wch: 15 }, { wch: 15 }, { wch: 10 }, { wch: 20 }, { wch: 25 },
+        { wch: 15 }, { wch: 17 }, { wch: 16 }, { wch: 15 }, { wch: 16 }, { wch: 20 }, { wch: 25 },
         { wch: 25 }]; //
 
       /* create column metadata object if it does not exist */
@@ -127,7 +127,7 @@ export class XlsxStyComponent implements OnDestroy {
     }
   }
   callYahoo() {
-    // console.log("in callYahoo")
+    this.waiting = 'fetching';
     try {
       //console.log("initialize aristocrats " + this.stocksmap.size)
       let moresymbols = Array.from(this.stocksmap.keys());
