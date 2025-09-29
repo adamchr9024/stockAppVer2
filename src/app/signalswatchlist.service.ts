@@ -14,15 +14,15 @@ export class SignalswatchlistService implements OnInit {
   ngOnInit(): void {
     //console.log("in SignalsWatchlistservice read file")
   }
-  readSecurities(sectype: string) {//watch list
+  readSecurities(file: string) {//watch list
 
     let httpheader = new HttpHeaders();
     httpheader = httpheader.append("accepts", "application/json");
-    return this.http.get<SecurityType[]>('Stocks.json', { headers: httpheader })
+    return this.http.get<SecurityType[]>(file, { headers: httpheader })
       .pipe(
         take(1),
         map(data => {
-          return data.filter(sec => sectype.includes(sec.category))
+          return data
             .map(thesec => {
               //new Security(              val[0],           val[1],       val[2],           val[3],          val[4],               val[5],         val[9],                    val[6],                     val[7],                    4.4,                          2.2,                         4.3,                             4.11,               val[8],          tbd         );
               //return new Security(thesec.ticker,  thesec.quantity, thesec.price, thesec.unit_cost, thesec.category, thesec.fiftytwowkrng, thesec.comment, thesec.effective_year_low, thesec.effective_year_high, thesec.fiftyDayAverage, thesec.fiftyDayAverageChange, thesec.twoHundredDayAverage, thesec.twoHundredDayAverageChange, thesec.annualincome, thesec.actual)

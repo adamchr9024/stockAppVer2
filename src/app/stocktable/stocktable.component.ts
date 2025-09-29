@@ -22,17 +22,17 @@ export class StocktableComponent implements OnInit, OnDestroy {
   subscription!: Subscription
   stocks: Security[] = [];
   stocksmap: Map<string, Security> = new Map();
-  allbutWatchlist: string = Category.Alternative +
-    Category.Bond + Category.MutualFund +
-    Category.ETF + Category.FixedIncome + Category.Other
-    + Category.Stock + Category.CashAndShortTerm + Category.CEF
+  // allbutWatchlist: string = Category.Alternative +
+  //   Category.Bond + Category.MutualFund +
+  //   Category.ETF + Category.FixedIncome + Category.Other
+  //   + Category.Stock + Category.CashAndShortTerm + Category.CEF
 
   waiting: string = "fetching ..."
 
   finnhubService = inject(FinnhubService);
   signalsService = inject(SignalswatchlistService)
   constructor(private rapidApiService: RapidapiService) {
-    this.signalsService.readSecurities(this.allbutWatchlist)
+    this.signalsService.readSecurities('Stocks.json')
       .subscribe(next => {
         this.stocks = next;
         next.forEach(val => {

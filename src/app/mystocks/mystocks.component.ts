@@ -18,7 +18,7 @@ export class MystocksComponent implements OnInit {
 
   constructor(private rapidApiService: RapidapiService) {
 
-    this.signalsService.readSecurities(Category.WatchList)
+    this.signalsService.readSecurities('realwatchlist.json')
       .subscribe(next => {
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)

@@ -24,10 +24,10 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   //https://marmo.dev/angular-material-sort-objects#the-complex-scenario-a-structured-object-with-nested-properties
   subscription!: Subscription
   stocksmap: Map<string, Security> = new Map();
-  allbutWatchlist: string = Category.Alternative +
-    Category.Bond + Category.MutualFund +
-    Category.ETF + Category.FixedIncome + Category.Other + Category.CEF
-    + Category.Stock + Category.CashAndShortTerm; //ignore money markets
+  // allbutWatchlist: string = Category.Alternative +
+  //   Category.Bond + Category.MutualFund +
+  //   Category.ETF + Category.FixedIncome + Category.Other + Category.CEF
+  //   + Category.Stock + Category.CashAndShortTerm; //ignore money markets
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
   //columnsToDisplay: string[] = ["ticker", "quantity", "marketvalue", "unitcost", "costbasis", "gainloss", "yahooprice", "actual_dividend", "gnls wth dvd", "est_annual_income", "Comment"];
@@ -37,7 +37,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
 
-    this.signalsService.readSecurities(this.allbutWatchlist)
+    this.signalsService.readSecurities('Stocks.json')
       .subscribe(next => {
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)

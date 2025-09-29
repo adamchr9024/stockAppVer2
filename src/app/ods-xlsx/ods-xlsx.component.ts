@@ -99,7 +99,7 @@ export class OdsXlsxComponent implements OnDestroy {
 
         const workSheetName: string = workBook.SheetNames[0];
         const workSheet: XLSX.WorkSheet = workBook.Sheets[workSheetName];
-        console.log("read worksheet with styles", workSheet);
+        // console.log("read worksheet with styles", workSheet);
         this.data = (XLSX.utils.sheet_to_json(workSheet, { header: 1 }));
         //this.headData = this.data[0];
 

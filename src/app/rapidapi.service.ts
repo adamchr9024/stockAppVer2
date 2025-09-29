@@ -28,7 +28,7 @@ export class RapidapiService {
   urlTwo = "https://yahoo-finance15.p.rapidapi.com/api/v1/markets/stock/quotes?ticker="; //paid service
   stocksmap: Map<string, Security> = new Map();
   constructor(private http: HttpClient, private signalsService: SignalswatchlistService) {
-    this.signalsService.readSecurities(Category.WatchList)
+    this.signalsService.readSecurities('realwatchlist.json')
       .subscribe(next => {
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)
