@@ -1,11 +1,13 @@
 mat-sidenav-container {
-      height: 100%;
-      /* margin-bottom: 20px; */
+      height: 97%;
+      overflow: visible;
+
 }
 
 mat-sidenav-content {
       padding: 10px;
       height: 95%;
+      /* overflow: visible; */
 }
 
 mat-sidenav {

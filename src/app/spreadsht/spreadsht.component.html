@@ -14,46 +14,50 @@
       </mat-form-field>
       <mat-table #table [dataSource]="tableDataSource" matSort>
             <ng-container cdkColumnDef="ticker">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
             </ng-container>
             <!-- ticker category -->
 
             <!-- quantity Definition -->
             <ng-container cdkColumnDef="quantity">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.quantity}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="marketvalue">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Market Value </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Market Value</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.marketvalue}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="unitcost">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Unit Cost </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Unit Cost</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.unitcost}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="costbasis">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Cost Basis </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Cost Basis</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.costbasis}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="gainloss">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain / Loss </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Gain/Loss</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.gainloss}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="yahooprice">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price</mat-header-cell>
                   <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
             </ng-container>
+            <ng-container cdkColumnDef="fiftytwowkrng">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>52 wk price-%</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
+            </ng-container>
             <ng-container cdkColumnDef="actual_dividend">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Actual Dividends </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Actual Income</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.actual_dividend}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="glwdiv">
-                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD </mat-header-cell>
+                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD</mat-header-cell>
                   <mat-cell class="bordertbd" *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="glwdvdpct">
-                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD-% </mat-header-cell>
+                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls W DvD-%</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.glwdvdpct}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="est_annual_income">
@@ -61,7 +65,7 @@
                   <mat-cell *cdkCellDef="let row"> {{row.est_annual_income}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="comment">
-                  <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef>Comment</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
             </ng-container>
 
