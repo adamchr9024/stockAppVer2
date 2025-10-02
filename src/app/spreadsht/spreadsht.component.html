@@ -44,9 +44,9 @@
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price</mat-header-cell>
                   <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
             </ng-container>
-            <ng-container cdkColumnDef="fiftytwowkrng">
+            <ng-container cdkColumnDef="percentage">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>52 wk price-%</mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
+                  <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="actual_dividend">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>Actual Income</mat-header-cell>

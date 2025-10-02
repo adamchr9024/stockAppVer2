@@ -12,10 +12,11 @@ import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
 import { Subscription } from 'rxjs'
+import { PercentDirective } from '../percent.directive';
 @Component({
   selector: 'app-spreadsht',
   standalone: true,
-  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
+  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule, PercentDirective],
   providers: [RapidapiService],
   templateUrl: './spreadsht.component.html',
   styleUrl: './spreadsht.component.css'
@@ -32,7 +33,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   tableDataSource: MatTableDataSource<Security>;
   //columnsToDisplay: string[] = ["ticker", "quantity", "marketvalue", "unitcost", "costbasis", "gainloss", "yahooprice", "actual_dividend", "gnls wth dvd", "est_annual_income", "Comment"];
   //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'fiftytwowkrng', 'actual_dividend', 'glwdiv', 'glwdvdpct', 'est_annual_income', 'comment'];
+  colToDisplay: string[] = ['ticker', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'percentage', 'actual_dividend', 'glwdiv', 'glwdvdpct', 'est_annual_income', 'comment'];
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
