@@ -47,19 +47,19 @@
                   <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="actual_dividend">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Actual Income</mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Real Income</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.actual_dividend}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="glwdiv">
-                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls wth DvD</mat-header-cell>
+                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>GnLs wth DvD</mat-header-cell>
                   <mat-cell class="bordertbd" *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="glwdvdpct">
-                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>Gn/Ls W DvD-%</mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.glwdvdpct}} </mat-cell>
+                  <mat-header-cell mat-sort-header *cdkHeaderCellDef>GnLsWDvD-%</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.glwdvdpct|percent:'1.1'}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="est_annual_income">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>1Yr-Income-Est</mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>1Yr-Inc-Est</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.est_annual_income}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="comment">
@@ -71,6 +71,6 @@
             <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
       </mat-table>
       <p>Total Gains/Losses:&nbsp;&nbsp;{{getTotalLosses()}} Total Market Value:&nbsp;&nbsp;{{getTotalMarketValues()}}
-            Total Gain/Losses With Dividends:&nbsp;&nbsp;{{getTotalLossesWithDividends()}}
+            Total Estimate Annual Income:&nbsp;&nbsp;{{getTotalLossesWithDividends()}}
       </p>
 </div>

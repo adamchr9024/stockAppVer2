@@ -122,7 +122,7 @@ export class Security {
             }
       }
       get glwdvdpct() {
-            return Number((100 * (this.glwdiv / this._marketvalue)).toFixed(2));//validate
+            return this.glwdiv / this._marketvalue;//validate
       }
       get effectivePercentage() {
             let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
@@ -147,10 +147,10 @@ export class Security {
             })
             return sum;
       }
-      static getGainLossWithDividend(arr: Security[]): number {
+      static getGainLossWithDividend(arr: Security[]): number { //estimate annual income
             let sum = 0;
             arr.forEach((sec) => {
-                  sum += sec.glwdiv;
+                  sum += sec.est_annual_income;
             })
             return sum;
       }

@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
-import { SecurityResolver } from './security.resolver';
+import { SecurityResolver1 } from './security.resolver';
 
 describe('securityResolver', () => {
-  //   const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
-  //       TestBed.runInInjectionContext(() => new SecurityResolver());
-
+  //const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
+  //     TestBed.runInInjectionContext(() => new SecurityResolver1());
   //   beforeEach(() => {
   //     TestBed.configureTestingModule({
   //     //  providers:[SecurityResolver]
