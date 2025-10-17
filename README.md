@@ -7,8 +7,18 @@ enviroments were created unsing ng g environments
   CREATE src/environments/environment.ts (31 bytes)
   CREATE src/environments/environment.development.ts (31 bytes)
   UPDATE angular.json (2841 bytes)
-## Development server
+## Development server   
+## error was during ng test
+## error:    Error: Module build failed (from ./node_modules/@ngtools/webpack/src/ivy/index.js):
+Error: data:text/javascript;base64,CiAgaW1wb3J0IHsgZ2V0VGVzdEJlZCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUvdGVzdGluZyc7CiAgaW1wb3J0IHsKICAgIEJyb3dzZXJEeW5hbWljVGVzdGluZ01vZHVsZSwKICAgIHBsYXRmb3JtQnJvd3NlckR5bmFtaWNUZXN0aW5nLAogICB9IGZyb20gJ0Bhbmd1bGFyL3BsYXRmb3JtLWJyb3dzZXItZHluYW1pYy90ZXN0aW5nJzsKCiAgLy8gSW5pdGlhbGl6ZSB0aGUgQW5ndWxhciB0ZXN0aW5nIGVudmlyb25tZW50LgogIGdldFRlc3RCZWQoKS5pbml0VGVzdEVudmlyb25tZW50KEJyb3dzZXJEeW5hbWljVGVzdGluZ01vZHVsZSwgcGxhdGZvcm1Ccm93c2VyRHluYW1pY1Rlc3RpbmcoKSwgewogICAgZXJyb3JPblVua25vd25FbGVtZW50czogdHJ1ZSwKICAgIGVycm9yT25Vbmtub3duUHJvcGVydGllczogdHJ1ZQogIH0pOwo= is missing from the TypeScript compilation. Please make sure it is in your tsconfig via the 'files' or 'include' property.
 
+FIX:   "angularCompilerOptions": {  //from tsconfig.json
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+## "allowJs": false  ##This line was the FIX after deleting nodemodules and clearing npm cache...was set to ##'allowJS": true
+  }
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding

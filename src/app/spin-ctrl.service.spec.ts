@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SpinCtrlService } from './spin-ctrl.service';
 
-fdescribe('SpinCtrlService', () => {
+describe('SpinCtrlService', () => {
   let service: SpinCtrlService;
 
   beforeEach(() => {
@@ -17,7 +17,7 @@ fdescribe('SpinCtrlService', () => {
   it("show spinner", () => {
     service.ShowAndString.next({ displaySpinner: true, doneStatus: "fetching" })
     service.ShowAndString.subscribe(next => {
-      expect(next).toEqual({ displaySpinner: false, doneStatus: "fetching" })
+      expect(next).toEqual({ displaySpinner: true, doneStatus: "fetching" })
     })
 
   })
@@ -25,7 +25,7 @@ fdescribe('SpinCtrlService', () => {
     service.ShowAndString.next({ displaySpinner: false, doneStatus: "done" })
     //  let expectedValue;
     service.ShowAndString.subscribe(next => {
-      expect(next).toEqual({ displaySpinner: true, doneStatus: "done" })
+      expect(next).toEqual({ displaySpinner: false, doneStatus: "done" })
     })
 
   })
