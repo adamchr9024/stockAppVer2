@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StocktableComponent } from './stocktable.component';
+import { FinnhubService } from '../finnhub.service';
+import { DefaultApi } from 'finnhub-ts';
+import { SignalswatchlistService } from '../signalswatchlist.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('StocktableComponent', () => {
   let component: StocktableComponent;
@@ -8,9 +12,10 @@ describe('StocktableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StocktableComponent]
+      imports: [StocktableComponent],
+      providers: [FinnhubService, DefaultApi, SignalswatchlistService, HttpClient, HttpHandler]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(StocktableComponent);
     component = fixture.componentInstance;

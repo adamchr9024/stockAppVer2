@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClient, HttpHandler } from '@angular/common/http';
-
+import { provideHttpClient, } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { RapidapiService } from './rapidapi.service';
 
 describe('RapidapiService', () => {
@@ -8,7 +8,8 @@ describe('RapidapiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RapidapiService, HttpClient, HttpHandler]
+      providers: [provideHttpClient(),  //must come first
+      provideHttpClientTesting()]
     });
     service = TestBed.inject(RapidapiService);
   });

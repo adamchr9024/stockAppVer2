@@ -46,7 +46,8 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
       })
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription)
+      this.subscription.unsubscribe();
   }
   ngAfterViewInit(): void {
     //throw new Error('Method not implemented.');

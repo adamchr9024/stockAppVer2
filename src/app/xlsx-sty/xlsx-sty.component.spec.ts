@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RapidapiService } from '../rapidapi.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { XlsxStyComponent } from './xlsx-sty.component';
 
 describe('XlsxStyComponent', () => {
@@ -8,9 +9,10 @@ describe('XlsxStyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [XlsxStyComponent]
+      imports: [XlsxStyComponent],
+      providers: [RapidapiService, HttpClient, HttpHandler]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(XlsxStyComponent);
     component = fixture.componentInstance;

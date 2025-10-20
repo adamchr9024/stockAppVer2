@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AristocratStockComponent } from './aristocrat-stock.component';
+import { RapidapiService } from '../rapidapi.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('AristocratStockComponent', () => {
   let component: AristocratStockComponent;
@@ -8,9 +11,10 @@ describe('AristocratStockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AristocratStockComponent]
+      imports: [AristocratStockComponent],
+      providers: [RapidapiService, HttpClient, HttpHandler, provideAnimations()]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AristocratStockComponent);
     component = fixture.componentInstance;

@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RapidapiService } from '../rapidapi.service';
 import { AnalysisComponent } from './analysis.component';
-
+import { HttpClient, HttpHandler } from '@angular/common/http';
 describe('AnalysisComponent', () => {
   let component: AnalysisComponent;
   let fixture: ComponentFixture<AnalysisComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AnalysisComponent]
+      imports: [AnalysisComponent],
+      providers: [RapidapiService, HttpClient, HttpHandler]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AnalysisComponent);
     component = fixture.componentInstance;

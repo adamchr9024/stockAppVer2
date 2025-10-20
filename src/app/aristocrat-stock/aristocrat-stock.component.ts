@@ -41,9 +41,9 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
 
-    this.signalsService.getAphas('morehyetfs.json')
-      // this.signalsService.getAphas('recenthyetfs.json')
-      //this.signalsService.getAphas('new_watchlist.json')
+    //this.signalsService.getAphas('morehyetfs.json')
+    //this.signalsService.getAphas('recenthyetfs.json')
+    this.signalsService.getAphas('new_watchlist.json')
       //this.signalsService.getAphas('dividendarist.json')//'dividendarist.json'
       //this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
       .subscribe(next => {
@@ -58,7 +58,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     console.log("onchanges called")
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription)
+      this.subscription.unsubscribe();
 
   }
   ngAfterViewInit(): void {
