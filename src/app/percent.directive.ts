@@ -7,7 +7,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 export class PercentDirective {
 
   constructor(private element: ElementRef, private renderer: Renderer2) { }
-  @Input() set appPercent(percentval: number) { //NOTE: the names as the selector (appPercent)
+  @Input() set appPercent(percentval: number) { //NOTE: the name is same as the selector (appPercent)
     let clz = ""
     if (percentval >= 0 && percentval <= 20) {
       clz = 'buy';

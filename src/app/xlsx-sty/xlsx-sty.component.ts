@@ -32,6 +32,7 @@ export class XlsxStyComponent implements OnDestroy {
         };
       });
       const worksheet: XLSXStyle.WorkSheet = XLSXStyle.utils.json_to_sheet(customValue);
+      // worksheet.
       const wscols = [ //used to set the width of each column ch for characters 
         { wch: 7 }, { wch: 9 }, { wch: 20 }, { wch: 10 }, { wch: 10 },
         { wch: 15 }, { wch: 17 }, { wch: 16 }, { wch: 15 }, { wch: 16 }, { wch: 20 }, { wch: 25 },
@@ -44,9 +45,16 @@ export class XlsxStyComponent implements OnDestroy {
 
       //  console.log("worksheet['cols']", worksheet['cols']);
       for (let c in worksheet) {
-        if (typeof (worksheet[c]) != "object") continue;
+        if (typeof (worksheet[c]) != "object") { //ship rows and columns without data
+          //ws["!cols"][COL_INDEX].hidden = true; 
+          //  let cell = XLSXStyle.utils.decode_cell(c) //added maybe error
+          //  worksheet["!cols"][cell.r].hidden=true;  //added maybe error
+          //  worksheet["!cols"][cell.c].hidden=true;  //added maybe error
+          // console.log("non object cell", c);
+          continue;
+        }
         let cell = XLSXStyle.utils.decode_cell(c);
-        //console.log(cell);  //cell.c ==4 add background color
+        //  console.log(cell);  //cell.c ==4 add background color
         if (cell.c === 4) { //yahoo.price
           worksheet[c].s = { //add style
             alignment: {
@@ -71,15 +79,18 @@ export class XlsxStyComponent implements OnDestroy {
             }
           };
         }
-        else {
-          worksheet[c].s = { //add style
-            alignment: {
-              vertical: "center",
-              horizontal: "center",
-              wrapText: '1', // any truthy value here
-            }
-          };
-        }
+        //else {
+
+        // worksheet[c].s = { 
+
+        //add style
+        //     alignment: {
+        //       vertical: "center",
+        //       horizontal: "center",
+        //       wrapText: '1', // any truthy value here
+        //     }
+        //   };
+        //  }
       }
       // console.log("after for export worksheet", worksheet);
       // }  https://npm.io/package/xlsx-js-style
@@ -101,10 +112,19 @@ export class XlsxStyComponent implements OnDestroy {
 
     try {
       const target: DataTransfer = <DataTransfer>(eve.target);
+      //console.log("file", eve.target.files[0])
       if (target.files.length !== 1) { throw new Error("cannot use multiple files") }
+
       const reader: FileReader = new FileReader();
+      //const writer:Filew
       reader.onload = (e: any) => {
         const fileContent = e.target.result;
+        const view = new DataView(fileContent, 0);
+        // console.log(new Uint8Array(view.buffer))
+        // console.log(view.byteLength)
+        // console.log("reader.result", reader.result)
+        //console.log(view.)
+        //console.log("e.target.result", e.target.result)
         //const workBook: XLSXStyle.WorkBook = XLSXStyle.read(fileContent, { type: 'binary' });
         const workBook: XLSXStyle.WorkBook = XLSXStyle.read(fileContent, { type: 'binary', cellStyles: true });
 
@@ -114,11 +134,12 @@ export class XlsxStyComponent implements OnDestroy {
         this.data = (XLSXStyle.utils.sheet_to_json(workSheet, { header: 1 }));
         //this.headData = this.data[0];
 
-        this.data.splice(0, 1);
+        this.data.splice(0, 1); //get rid of the row for the column header text
         this.createSecurity();
 
       };
       reader.readAsArrayBuffer(target.files[0]);
+
       //https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer
 
     }
@@ -177,7 +198,7 @@ export class XlsxStyComponent implements OnDestroy {
     let security: Security;
     try {
       this.data.forEach((val: any[]) => {
-        let actualdividend = val[10];
+        // let actualdividend = val[10];
         //  console.log("val.length", actualdividend);
         // console.log("test range:", typeof val[9] === "string");
         security = new Security(val[0], val[1], val[2], val[3], val[4], val[5], val[9], val[6], val[7], 4.4, 2.2, 4.3, 4.11, val[8], val[10]);

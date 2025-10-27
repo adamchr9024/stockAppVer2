@@ -44,6 +44,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnDestroy 
   ngOnInit(): void {
     try {
       this.stocksmap = this.activeRoute.snapshot.data['stocksmap'];
+      // console.log("stocksmap", this.stocksmap)
       this.tableDataSource.data = Array.from(this.stocksmap.values());
       this.waiting = "done";
       this.tableDataSource.sortingDataAccessor = (item: any, property) => {
