@@ -1,5 +1,7 @@
 <div class="firstDiv">
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin-left: 3px;"
+                  (click)="initialize()">Refresh/Fetch
+                  Stocks</button></label>
       <!-- </div>
 <div style="width:95%; margin:10px;"> -->
       <mat-form-field style="width:40%">
