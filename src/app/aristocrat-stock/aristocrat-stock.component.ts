@@ -42,8 +42,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
 
     //this.signalsService.getAphas('morehyetfs.json')
-    // this.signalsService.getAphas('recenthyetfs.json')  // NUBIA INDEX FUNDS
-    this.signalsService.getAphas('new_watchlist.json')  //NUBIA INDEX ETF INCLUDED
+    this.signalsService.getAphas('recenthyetfs.json')  // NUBIA INDEX FUNDS
+      //this.signalsService.getAphas('new_watchlist.json')  //NUBIA INDEX ETF INCLUDED
       //this.signalsService.getAphas('Stocks.json')
 
       //this.signalsService.getAphas('dividendarist.json')//'dividendarist.json'

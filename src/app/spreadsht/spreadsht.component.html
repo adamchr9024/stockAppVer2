@@ -1,9 +1,13 @@
 <div class="firstDiv">
+
       <ol>Todo
             <li>When you Sell part of a ETF or Stock, Actual Dividend and Gain/Loss with Dividend should be reset??</li>
             <li><b> validate <i>values</i> with stock quotes_yahoo...ods file</b></li>
       </ol>
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}</label>
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin-left: 3px;"
+                  (click)="initialize()">Refresh/Fetch
+                  Stocks</button></label>
+
       <!-- </div>
 <div style="width:95%; margin:10px;"> -->
       <mat-form-field style="width:40%">

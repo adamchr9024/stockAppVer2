@@ -31,6 +31,17 @@ export class PercentDirective {
       }
     }
     if (clz) { //ERROR DOMException: DOMTokenList.add: The empty string is not a valid token.  FIX
+      ['buy', 'potentialbuy', 'sell', 'potentialsell'].forEach(cls => {//remove old class
+        try {//https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/contains
+          if (this.element.nativeElement.classList.contains(cls)) { //maybe should be classList
+            this.renderer.removeClass(this.element.nativeElement, cls)
+          }
+        }
+        catch (err) {
+          console.log("error in percent directive ", err)
+        }
+      })
+
       this.renderer.addClass(this.element.nativeElement, clz)
     }
   }

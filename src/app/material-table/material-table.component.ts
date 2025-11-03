@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 //import { SignalswatchlistService } from '../signalswatchlist.service';
-import { RapidapiService } from '../rapidapi.service';
-import { Category, Security } from '../../model/security';
+//import { RapidapiService } from '../rapidapi.service';
+import { Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from "@angular/material/table";
@@ -17,13 +17,13 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-material-table',
   standalone: true,
   imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
-  providers: [RapidapiService],
+  //providers: [RapidapiService],
   templateUrl: './material-table.component.html',
   styleUrl: './material-table.component.css'
 })
 //https://marmo.dev/angular-material-sort-objects#the-complex-scenario-a-structured-object-with-nested-properties
-export class MaterialTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  waiting: string = "fetching ..."
+export class MaterialTableComponent implements OnInit, AfterViewInit {
+  waiting: string = "fetching ..."  //works with resolve
   stocksmap: Map<string, Security> = new Map();
   tableDataSource: MatTableDataSource<Security>;
   columnsToDisplay: string[] = ["ticker", "category", "quantity", "yahoo price", "52 Week Range", "Price Precentile", "Dividend Yield", "Potential Yearly Dividend ($500)", "comment"]
@@ -34,9 +34,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit, OnDestroy 
     this.tableDataSource = new MatTableDataSource();
   }
   activeRoute = inject(ActivatedRoute)
-  ngOnDestroy(): void {
 
-  }
   ngAfterViewInit(): void {
 
     this.tableDataSource.sort = this.sort;
