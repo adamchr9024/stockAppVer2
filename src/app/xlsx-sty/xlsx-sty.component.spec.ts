@@ -1,36 +1,45 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+//import { inject } from '@angular/core';
+import { test_securitys } from '../../model/security';
 import { RapidapiService } from '../rapidapi.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { XlsxStyComponent } from './xlsx-sty.component';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs/internal/observable/of';
+//import { SecurityType } from '../../model/security';
+import { provideHttpClient, } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 describe('XlsxStyComponent', () => {
   let component: XlsxStyComponent;
   let fixture: ComponentFixture<XlsxStyComponent>;
-  let mockRapidApiService;
-  let securitys = [
-    { "priceEpsCurrentYear": 35.588608, "bookValue": 4.431, "fiftyDayAverage": 243.541, "fiftyDayAverageChange": 19.907211, "fiftyDayAverageChangePercent": 0.0817407, "twoHundredDayAverage": 222.37805, "twoHundredDayAverageChange": 41.07016, "twoHundredDayAverageChangePercent": 0.18468621, "marketCap": 3909674074112, "forwardPE": 31.70255, "priceToBook": 59.455696, "sourceInterval": 15, "exchangeDataDelayedBy": 0, "averageAnalystRating": "2.0 - Buy", "tradeable": false, "cryptoTradeable": false, "regularMarketChangePercent": 1.4901862, "regularMarketPrice": 263.4482, "marketState": "REGULAR", "hasPrePostMarketData": true, "firstTradeDateMilliseconds": 345479400000, "priceHint": 2, "regularMarketChange": 3.868225, "regularMarketDayHigh": 264.13, "regularMarketDayRange": "259.18 - 264.13", "regularMarketDayLow": 259.18, "regularMarketVolume": 25871653, "regularMarketPreviousClose": 259.58, "bid": 263.43, "ask": 263.29, "bidSize": 1, "askSize": 1, "fullExchangeName": "NasdaqGS", "financialCurrency": "USD", "regularMarketOpen": 261.19, "averageDailyVolume3Month": 54759101, "averageDailyVolume10Day": 47327910, "fiftyTwoWeekLowChange": 94.238205, "fiftyTwoWeekLowChangePercent": 0.5569304, "fiftyTwoWeekRange": "169.21 - 265.29", "fiftyTwoWeekHighChange": -1.8417969, "fiftyTwoWeekHighChangePercent": -0.006942579, "fiftyTwoWeekLow": 169.21, "fiftyTwoWeekHigh": 265.29, "fiftyTwoWeekChangePercent": 12.1732, "dividendDate": 1755129600, "trailingAnnualDividendRate": 1.01, "trailingPE": 39.976967, "dividendRate": 1.04, "trailingAnnualDividendYield": 0.0038909009, "dividendYield": 0.4, "epsTrailingTwelveMonths": 6.59, "epsForward": 8.31, "epsCurrentYear": 7.4026, "shortName": "Apple Inc.", "longName": "Apple Inc.", "displayName": "Apple", "symbol": "AAPL" },
-    { "fiftyDayAverage": 20.4252, "fiftyDayAverageChange": 0.30480003, "fiftyDayAverageChangePercent": 0.014922745, "twoHundredDayAverage": 19.30565, "twoHundredDayAverageChange": 1.4243488, "twoHundredDayAverageChangePercent": 0.07377885, "netExpenseRatio": 1.48, "sourceInterval": 15, "exchangeDataDelayedBy": 0, "tradeable": false, "cryptoTradeable": false, "regularMarketChangePercent": 0.4360465, "regularMarketPrice": 20.73, "marketState": "REGULAR", "hasPrePostMarketData": false, "firstTradeDateMilliseconds": 867677400000, "priceHint": 2, "regularMarketChange": 0.09, "regularMarketPreviousClose": 20.64, "fullExchangeName": "Nasdaq", "averageDailyVolume3Month": 0, "averageDailyVolume10Day": 0, "fiftyTwoWeekLowChange": 3.7299995, "fiftyTwoWeekLowChangePercent": 0.21941173, "fiftyTwoWeekRange": "17.0 - 20.73", "fiftyTwoWeekHighChange": 0, "fiftyTwoWeekHighChangePercent": 0, "fiftyTwoWeekLow": 17, "fiftyTwoWeekHigh": 20.73, "fiftyTwoWeekChangePercent": 7.6323986, "dividendRate": 0.13504, "dividendYield": 2.07, "ytdReturn": 11.71071, "trailingThreeMonthReturns": 5.13476, "netAssets": 5208834000, "shortName": "JPMorgan Investor Growth and In", "longName": "JPMorgan Investor Growth & Income C", "messageBoardId": "finmb_28117639", "exchangeTimezoneName": "America\/New_York", "exchangeTimezoneShortName": "EDT", "gmtOffSetMilliseconds": -14400000, "market": "us_market", "esgPopulated": false, "symbol": "ONECX" }
-  ]
-  beforeEach(async () => {
-    mockRapidApiService = jasmine.createSpyObj("RapidapiService", ['getMutualFundPrices']);
+  let mockRapidApiService = jasmine.createSpyObj("RapidapiService", ['getMutualFundPrices']);
 
-    mockRapidApiService.getMutualFundPrices.and.returnValue(of(securitys));
+  beforeEach(async () => {
+    jasmine.clock().install();
+
+    mockRapidApiService.getMutualFundPrices.and.returnValue(of(test_securitys));
 
     await TestBed.configureTestingModule({
       imports: [XlsxStyComponent],
-      providers: [HttpClient, HttpHandler]
+      providers: [HttpClient, HttpHandler,
+        provideHttpClient(), //must come first
+        provideHttpClientTesting()]
     })
       .compileComponents();
-    TestBed.overrideProvider(RapidapiService, { useValue: mockRapidApiService });
+    TestBed.overrideProvider(RapidapiService, { useValue: mockRapidApiService }); //may need to move to it
     fixture = TestBed.createComponent(XlsxStyComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  })
   /*
   it('should upload spread sheet successfully', async () => {
     //https://stackoverflow.com/questions/55356093/how-to-write-the-unit-testing-for-the-file-upload-method-in-the-angular-7-or-2
@@ -82,14 +91,30 @@ describe('XlsxStyComponent', () => {
      // component.exportToOds()
      //verify contents of XLSXStyle
    });*/
-  it("fetch security data and load in table on Refresh/Update Data button click", () => {
-    //upload the test file
+  it("fetch security data and load in table on Refresh/Update Data button click", async () => {
+    let http: HttpClient;
+    const file = "stocktest.json"
+    let httpheader = new HttpHeaders();
+    httpheader = httpheader.append("accepts", "application/json");
+    await TestBed.runInInjectionContext(() => {
+      // Your test code here where you can access injected services
+      http = TestBed.inject(HttpClient);
+      http.get(file, { headers: httpheader }).subscribe((dat) => {
+        console.log("data", dat);
+      })
+    })
+    // need to mock createSecurity method or this.data
+
+
+
     //mock this.rapidApiService.getMutualFundPrices(moresymbols) //done above
     //upload a .ods document.
-    component.callYahoo();
+    component.callYahoo(); //method has setTimeout()
+    jasmine.clock().tick(5000)
     //validate value in stockmaps
     fixture.detectChanges();
     expect(component.stocksmap.size).toBe(3);//should be 2
+    expect(mockRapidApiService.getMutualFundPrices).toHaveBeenCalled();
     //get table body <td> data with query  and validate AAPL data
     //verify content of table in html
     //

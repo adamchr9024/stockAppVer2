@@ -30,9 +30,9 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   //   + Category.Stock + Category.CashAndShortTerm; //ignore money markets
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
-  columnsToDisplay: string[] = ["ticker", "category", "quantity", "market value", "unit cost", "cost basis", "gain/loss", "yahoo price", "52 Week Range", "Price Percentile", "Dividend Yield", "Comment"];
+  // columnsToDisplay: string[] = ["ticker", "category", "quantity", "market value", "unit cost", "cost basis", "gain/loss", "yahoo price", "52 Week Range", "Price Percentile", "Dividend Yield", "Comment"];
   //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'category', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'fiftytwowkrng', 'percentage', 'dividendYield', 'comment'];
+  colToDisplay: string[] = ['ticker', 'category', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'fiftytwowkrng', 'percentage', 'effectivePercentage', 'dividendYield', 'comment'];
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);

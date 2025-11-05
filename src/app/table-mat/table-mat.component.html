@@ -1,6 +1,6 @@
 <div class="firstDiv">
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin-left: 3px;"
-                  (click)="initialize()">Refresh/Fetch
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button
+                  style="margin-left: 3px; margin-bottom: 3px;" (click)="initialize()">Refresh/Fetch
                   Stocks</button></label>
       <!-- </div>
 <div style="width:95%; margin:10px;"> -->
@@ -51,6 +51,12 @@
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header
                         title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price-%-tile</mat-header-cell>
                   <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="effectivePercentage">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                        title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Effective-%</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row" [appPercent]="row.effectivePercentage"> {{row.effectivePercentage}}
+                  </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="dividendYield">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield </mat-header-cell>

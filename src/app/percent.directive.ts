@@ -8,6 +8,7 @@ export class PercentDirective {
 
   constructor(private element: ElementRef, private renderer: Renderer2) { }
   @Input() set appPercent(percentval: number) { //NOTE: the name is same as the selector (appPercent)
+    //console.log("in set input ", percentval)
     let clz = ""
     if (percentval >= 0 && percentval <= 20) {
       clz = 'buy';
@@ -30,20 +31,21 @@ export class PercentDirective {
         }
       }
     }
-    if (clz) { //ERROR DOMException: DOMTokenList.add: The empty string is not a valid token.  FIX
-      ['buy', 'potentialbuy', 'sell', 'potentialsell'].forEach(cls => {//remove old class
-        try {//https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/contains
-          if (this.element.nativeElement.classList.contains(cls)) { //maybe should be classList
-            this.renderer.removeClass(this.element.nativeElement, cls)
-          }
+    //if (clz) { //ERROR DOMException: DOMTokenList.add: The empty string is not a valid token.  FIX
+    ['buy', 'potentialbuy', 'sell', 'potentialsell'].forEach(cls => {//remove old class
+      try {//https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/contains
+        if (this.element.nativeElement.classList.contains(cls)) { //maybe should be classList
+          this.renderer.removeClass(this.element.nativeElement, cls)
         }
-        catch (err) {
-          console.log("error in percent directive ", err)
-        }
-      })
-
+      }
+      catch (err) {
+        console.log("error in percent directive ", err)
+      }
+    })
+    if (clz) {
       this.renderer.addClass(this.element.nativeElement, clz)
     }
   }
+  //}
 
 }

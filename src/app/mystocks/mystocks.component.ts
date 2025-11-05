@@ -61,6 +61,7 @@ export class MystocksComponent implements OnInit {
       {
         setTimeout(() => {
           if (!this.waiting.includes("ERROR")) {
+            console.log("in settimeout if ...testing purposes")
             this.waiting = "done";
           }
         }, 1400);
