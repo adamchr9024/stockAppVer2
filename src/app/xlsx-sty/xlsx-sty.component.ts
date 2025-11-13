@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Category, Security } from '../../model/security';
+import { Component, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Category, Security, SecurityType } from '../../model/security';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RapidapiService } from '../rapidapi.service';
@@ -12,16 +12,19 @@ import * as XLSXStyle from 'xlsx-js-style';
   templateUrl: './xlsx-sty.component.html',
   styleUrl: './xlsx-sty.component.css'
 })
-export class XlsxStyComponent implements OnDestroy {
+export class XlsxStyComponent implements OnChanges, OnDestroy {
   subscription!: Subscription;
   stocksmap: Map<string, Security> = new Map()
-  data!: [][];
+  data!: Array<Array<SecurityType>>;
   headData: string[] = ["ticker", "quantity", "category", "unit cost", "yahoo price", "gain/loss",
     "52-wk-rng", "percentile", "effective-%", "potential 1Yr income", "actual income", "gain/loss Wth dvd", "GnLs Wth Dvd %", "comment"];
   waiting: string = "Wait for ready to fetch";
-  stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
+  stocksArray: Array<Security> = [new Security("AAPL", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
     2, 6, 3.1, 5.2, 5.4, 1.1, 45.0, 12.2)];  //my data
   constructor(private rapidApiService: RapidapiService) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    // console.log(JSON.parse(JSON.stringify(changes)))
+  }
   exportToOds() {
     try {
       let customValue = this.stocksArray.map(val => {
@@ -112,14 +115,14 @@ export class XlsxStyComponent implements OnDestroy {
 
     try {
       const target: DataTransfer = <DataTransfer>(eve.target);
-      //console.log("file", eve.target.files[0])
+      // console.log("file", eve.target.files[0])
       if (target.files.length !== 1) { throw new Error("cannot use multiple files") }
 
       const reader: FileReader = new FileReader();
       //const writer:Filew
       reader.onload = (e: any) => {
         const fileContent = e.target.result;
-        const view = new DataView(fileContent, 0);
+        //const view = new DataView(fileContent, 0);
         // console.log(new Uint8Array(view.buffer))
         // console.log(view.byteLength)
         // console.log("reader.result", reader.result)
@@ -133,8 +136,9 @@ export class XlsxStyComponent implements OnDestroy {
         // console.log("read worksheet with styles", workSheet);
         this.data = (XLSXStyle.utils.sheet_to_json(workSheet, { header: 1 }));
         //this.headData = this.data[0];
-
+        // console.log("data", this.data)
         this.data.splice(0, 1); //get rid of the row for the column header text
+
         this.createSecurity();
 
       };
@@ -181,6 +185,7 @@ export class XlsxStyComponent implements OnDestroy {
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       //this.tableDataSource.data = this.stocksArray
+      //debugger;
       setTimeout(() => {
         if (!this.waiting.includes("ERROR")) {
           this.waiting = "done";
@@ -194,7 +199,10 @@ export class XlsxStyComponent implements OnDestroy {
 
   }
   createSecurity() {
-    //console.log(" in createSecurity");
+    //get rid of old data
+    const len = this.stocksArray.length;
+    this.stocksArray.splice(0, len);
+    // console.log(" in createSecurity", this.data[0].length);
     let security: Security;
     try {
       this.data.forEach((val: any[]) => {

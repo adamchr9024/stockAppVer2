@@ -5,7 +5,8 @@
             <label for="inputfile">Upload Spread Sheet (.xls .ods)</label>
             <input id="inputfile" name="inputfile" (change)="onFileChange($event)" type="file" multiple="false"
                   class="button1" />
-            <button [disabled]="waiting =='Wait for ready to fetch'" class="button3" (click)="callYahoo()">Refresh /
+            <button [disabled]="waiting =='Wait for ready to fetch'" class="button3" (click)="callYahoo()"
+                  data-testid="fetch-button">Refresh /
                   Update Data</button>
 
       </div>
