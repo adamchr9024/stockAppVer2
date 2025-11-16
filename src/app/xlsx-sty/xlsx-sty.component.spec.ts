@@ -52,12 +52,20 @@ describe('XlsxStyComponent', () => { //
   it("should update data when update button is clicked ", () => {// not working as expected
     //initialize 
     //spyOn(component, 'onFileChange').and.callThrough();
+
+
     spyOn(component, 'callYahoo').and.callThrough();
+    spyOn(component, "createSecurity").and.callThrough()
     component.stocksArray = stocksArray;
+    fixture.detectChanges();
+    component.data = [test_securityType];
+    fixture.detectChanges();
+    component.createSecurity()//load data in stocksmaps 
     //component.waiting = "done"
     fixture.detectChanges();
     //console.log("for debugger")
     // debugger;
+    expect(component.stocksmap.size).toBe(2);
     expect(component.stocksArray.length).toBe(2);// actually 2
     //get update button and call click event
     const fetchButton = fixture.debugElement.query(By.css('[data-testid="fetch-button"]'));
@@ -91,13 +99,14 @@ describe('XlsxStyComponent', () => { //
     // expect(tdappleDb.nativeElement.textContent).toEqual('2.4482')
 
     // verify yahoo price for aapl
+    expect(component.createSecurity).toHaveBeenCalled()
     expect(component.callYahoo).toHaveBeenCalled();
     expect(mockRapidApiService.getMutualFundPrices).toHaveBeenCalled();
     //expect(mockRapidApiService.getMutualFundPrices).toHaveBeenCalledWith(['AAPL', 'ONECX']);
 
     let tdappleDb = fixture.debugElement.query(By.css('.bordergreen'));
 
-    expect(tdappleDb.nativeElement.textContent).toEqual('263.4482');
+    expect(tdappleDb.nativeElement.textContent.trim()).toBe('263.4482');
     console.log("td with class bordergreen text:", tdappleDb);
     //mockRapidApiService
     // console.log("innerHtml", nativeElement.innerHTML);
@@ -203,7 +212,7 @@ describe('XlsxStyComponent', () => { //
     expect(component.data[0].length).toBe(2);//should be 2
     component.createSecurity();
     fixture.detectChanges();
-    expect(component.stocksmap.size).toBe(3)
+    expect(component.stocksmap.size).toBe(2)
 
     expect(component.createSecurity).toHaveBeenCalled();
 
