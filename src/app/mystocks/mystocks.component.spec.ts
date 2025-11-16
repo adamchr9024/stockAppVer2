@@ -53,7 +53,8 @@ describe('MystocksComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should have yahoo price of 263.4482 for apple (AAPL) after fetch ', () => {
-    component.initialize() //method usess setTimeOut
+    // component.initialize() //method usess setTimeOut
+    debugger;
     jasmine.clock().tick(5000)
     fixture.detectChanges()
     //const { debugElement } = fixture;

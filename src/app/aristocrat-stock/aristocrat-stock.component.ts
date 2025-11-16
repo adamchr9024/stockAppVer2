@@ -45,7 +45,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.signalsService.getAphas('recenthyetfs.json')  // NUBIA INDEX FUNDS
       //this.signalsService.getAphas('new_watchlist.json')  //NUBIA INDEX ETF INCLUDED
       //this.signalsService.getAphas('Stocks.json')
-      //this.signalsService.getAphas('alpha2hy.json')
+      //this.signalsService.getAphas('growth_global.json')
       //this.signalsService.getAphas('dividendarist.json')//'dividendarist.json'
       //this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
       .subscribe(next => {

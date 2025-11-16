@@ -12,19 +12,19 @@ import * as XLSXStyle from 'xlsx-js-style';
   templateUrl: './xlsx-sty.component.html',
   styleUrl: './xlsx-sty.component.css'
 })
-export class XlsxStyComponent implements OnChanges, OnDestroy {
+export class XlsxStyComponent implements OnDestroy {
   subscription!: Subscription;
   stocksmap: Map<string, Security> = new Map()
-  data!: Array<Array<SecurityType>>;
+  data!: SecurityType[][]
   headData: string[] = ["ticker", "quantity", "category", "unit cost", "yahoo price", "gain/loss",
     "52-wk-rng", "percentile", "effective-%", "potential 1Yr income", "actual income", "gain/loss Wth dvd", "GnLs Wth Dvd %", "comment"];
   waiting: string = "Wait for ready to fetch";
-  stocksArray: Array<Security> = [new Security("AAPL", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
+  stocksArray: Security[] = [new Security("AAPL", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
     2, 6, 3.1, 5.2, 5.4, 1.1, 45.0, 12.2)];  //my data
   constructor(private rapidApiService: RapidapiService) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(JSON.parse(JSON.stringify(changes)))
-  }
+  //  ngOnChanges(changes: SimpleChanges): void {
+  // console.log(JSON.parse(JSON.stringify(changes)))
+  // }
   exportToOds() {
     try {
       let customValue = this.stocksArray.map(val => {
