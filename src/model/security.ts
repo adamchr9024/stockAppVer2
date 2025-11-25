@@ -28,6 +28,12 @@ export class Security {
       ) {  //see what this is generating in Javascript repeated variables
             this.init();
       }
+      static getSecurityFromSecurityType(sectype: SecurityType): Security {
+            return new Security(sectype.ticker, sectype.quantity, sectype.price, sectype.unit_cost, sectype.category, sectype.fiftytwowkrng,
+                  sectype.comment, sectype.effective_year_low, sectype.effective_year_high, sectype.fiftyDayAverage, sectype.fiftyDayAverageChange,
+                  sectype.twoHundredDayAverage, sectype.twoHundredDayAverageChange, sectype.est_annual_income, sectype.actual_dividend
+            )
+      }
       init(): void {
             this._costbasis = Number((this.quantity * this.unit_cost).toFixed(2));
             this._yahooprice = this.price;
@@ -154,6 +160,7 @@ export class Security {
             })
             return sum;
       }
+
 }
 export interface symbolprice {
       symbol: string;

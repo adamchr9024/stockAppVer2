@@ -22,7 +22,7 @@ export const Resolver1Resolver: ResolveFn<Map<string, Security>> = (route, state
   const keys2 = ["IEP", "VOC", "NFE", "MNR", "ICON", "TXO", "EPM", "ARLP", "VTS", "TEN", "GPRK", "AESI", "HWSM"]
   // const etfs = ["PRFZ", "EBIT", "AVSC", "VTWO", "RSSL", "DES"];
   //These keys must be in Watchlist
-  const keys = ["BGY", "BDJ", "GPIQ", "EXG", "TRTX", "SDIV", "SPYD", "NEE", "UPS", "GNL", "ENB", "ASG", "VLT", "BRW", "CII", "AHITX", "PONAX", "MDLOX", "HAUZ",
+  const keys = ["BGY", "BDJ", "GPIQ", "EXG", "TRTX", "SDIV", "SPYD", "NEE", "UPS", "GNL", "ENB", "ASG", "VLT", "QDPL", "CII", "AHITX", "PONAX", "MDLOX", "HAUZ",
     "WTPI", "FWGIX", "QQQI", "FNPFX", "HYZD", "NXTG", "HSEIX", "EVC", "PCEF", "TMET", "MPLX", "IAUI", "FBDC", "CHI", "AMZA",
     "PRFZ", "EBIT", "AVSC", "VTWO", "RSSL", "TRMD", "MPLX", "O"
   ];

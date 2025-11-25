@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import * as XLSX from "xlsx";
-import { Category, Security } from '../../model/security';
+import { Category, Security, SecurityType } from '../../model/security';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RapidapiService } from '../rapidapi.service';
+//import { WindowRef } from "@angular/platform-browser"
 //https://www.youtube.com/watch?v=PBpcM2xRHj0    EXPORT
 //https://www.youtube.com/watch?v=qjuJRYm68mw    IMPORT
 
@@ -17,9 +18,10 @@ import { RapidapiService } from '../rapidapi.service';
   styleUrl: './ods-xlsx.component.css'
 })
 export class OdsXlsxComponent implements OnDestroy {
+  window!: Window
   subscription!: Subscription;
   stocksmap: Map<string, Security> = new Map()
-  data!: [][];
+  data!: SecurityType[][];
   headData: string[] = ["ticker", "quantity", "category", "unit cost", "yahoo price", "gain/loss",
     "52-wk-rng", "percentile", "effective-%", "potential annual income", "comment"];
   waiting: string = "Wait for ready to fetch";
@@ -27,6 +29,12 @@ export class OdsXlsxComponent implements OnDestroy {
     2, 6, 3.1, 5.2, 5.4, 1.1, 45.0)];  //my data
 
   constructor(private rapidApiService: RapidapiService) { }
+  /* const beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+         event.preventDefault();
+        return 'Are you sure you want to leave? You may have unsaved changes.'
+    }
+       window.addEventListener('beforeunload', beforeUnloadHandler);
+ */
   exportToOds() {
     try {
       let customValue = this.stocksArray.map(val => {
@@ -36,6 +44,9 @@ export class OdsXlsxComponent implements OnDestroy {
           effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.est_annual_income, comment: val.comment
         };
       });
+
+
+
       //console.log(JSON.stringify(customValue))
       const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(customValue);
       //console.log("export worksheet", worksheet);
@@ -105,7 +116,8 @@ export class OdsXlsxComponent implements OnDestroy {
 
         this.data.splice(0, 1);
         //console.log(this.data);
-        this.createSecurity();
+        //this.createSecurity();
+        this.createSecurity4loop();
 
       };
       reader.readAsArrayBuffer(target.files[0]);
@@ -172,8 +184,37 @@ export class OdsXlsxComponent implements OnDestroy {
       console.log("error caught in createSecurity(): ", err?.message);
     }
   }
+  createSecurity4loop() {
+    let security: Security;
+    let val: any[]
+    try {
+      for (val of this.data) {
+        let val2: SecurityType = {
+          ticker: val[0], quantity: val[1], price: val[2], unit_cost: val[3], category: val[4], fiftytwowkrng: val[5], comment: val[6],
+          effective_year_low: val[7], effective_year_high: val[8], fiftyDayAverage: val[9], fiftyDayAverageChange: val[10], twoHundredDayAverage: val[11], twoHundredDayAverageChange: val[12],
+          est_annual_income: val[13], actual_dividend: val[14]
+        }
+        security = Security.getSecurityFromSecurityType(val2);
+        this.stocksmap.set(security.ticker, security);
+        // [ "AGG", 17, 98, 102.93, "Fixed Income", "95.74 - 102.04", 96, 102, 64.65, "safe dividend" ]
+        // }
+      };
+      this.stocksArray = Array.from(this.stocksmap.values());
+      this.waiting = "ready to fetch";
+    }
+    catch (err: any) {
+      console.log("error caught in createSecurity(): ", err?.message);
+    }
+  }
   ngOnDestroy(): void {
+    console.log("in ondestroy")
     if (this.subscription) { this.subscription.unsubscribe(); }
+    if (window) {
+      console.log("in window if")
+      //window.removeEventListener<"beforeunload">()
+      //  window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+      // window.removeEventListener("beforeunload", handleBeforeDown, { passive: true });
+    }
   }
 
 }

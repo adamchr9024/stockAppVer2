@@ -43,9 +43,9 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
 
     //this.signalsService.getAphas('morehyetfs.json')
     this.signalsService.getAphas('recenthyetfs.json')  // NUBIA INDEX FUNDS
-      //this.signalsService.getAphas('new_watchlist.json')  //NUBIA INDEX ETF INCLUDED
+      // this.signalsService.getAphas('new_watchlist.json')  //NUBIA INDEX ETF INCLUDED
       //this.signalsService.getAphas('Stocks.json')
-      //this.signalsService.getAphas('growth_global.json')
+      // this.signalsService.getAphas('growth_global.json')
       //this.signalsService.getAphas('dividendarist.json')//'dividendarist.json'
       //this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
       .subscribe(next => {
@@ -85,6 +85,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   signalsService = inject(SignalswatchlistService);
   initialize() {
     try {
+      this.waiting = "...fetching";
       let moresymbols = Array.from(this.stocksmap.keys());
       this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({
