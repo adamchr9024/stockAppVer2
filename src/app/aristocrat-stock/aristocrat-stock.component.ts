@@ -31,7 +31,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile", "category", "quantity", "Dividend Yield", "Potential Yearly Dividend ($500)",]
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
-
+  securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json", "dividendetf.json", "allenergy.json"]
   /*
     columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile"]
     //Table columns will be displayed in the same order of values in the array
@@ -40,20 +40,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
-
-    //this.signalsService.getAphas('morehyetfs.json')
-    this.signalsService.getAphas('recenthyetfs.json')  // NUBIA INDEX FUNDS
-      // this.signalsService.getAphas('new_watchlist.json')  //NUBIA INDEX ETF INCLUDED
-      //this.signalsService.getAphas('Stocks.json')
-      // this.signalsService.getAphas('growth_global.json')
-      //this.signalsService.getAphas('dividendarist.json')//'dividendarist.json'
-      //this.signalsService.getAphas('dividendetf.json')//'dividendetf.json'
-      .subscribe(next => {
-        next.forEach(val => {
-          this.stocksmap.set(val.ticker, val)
-        })
-        this.initialize();
-      })
+    this.preinitial(this.securityFiles[1])
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -83,9 +70,21 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   waiting: string = "ready to fetch"
   signalsService = inject(SignalswatchlistService);
+  preinitial(securityFile: string) {
+    //clear stocksmap
+    this.stocksmap.clear();
+    this.waiting = "...fetching";
+    this.signalsService.getAphas(securityFile)  // NUBIA INDEX FUNDS
+      .subscribe(next => {
+        next.forEach(val => {
+          this.stocksmap.set(val.ticker, val)
+        })
+        this.initialize();
+      })
+  }
   initialize() {
     try {
-      this.waiting = "...fetching";
+      //this.waiting = "...fetching";
       let moresymbols = Array.from(this.stocksmap.keys());
       this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({
@@ -138,6 +137,10 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     const filterValue = event.target.value;
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
 
+  }
+  handelInputFileChange(theFile: string) {
+    //console.log(theFile)
+    this.preinitial(theFile);
   }
   // handleFile(theFile: string) {
   //   console.log("in handleFile ", theFile);

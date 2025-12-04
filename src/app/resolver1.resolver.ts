@@ -24,7 +24,7 @@ export const Resolver1Resolver: ResolveFn<Map<string, Security>> = (route, state
   //These keys must be in Watchlist
   const keys = ["BGY", "BDJ", "GPIQ", "EXG", "TRTX", "SDIV", "SPYD", "NEE", "UPS", "GNL", "ENB", "ASG", "VLT", "QDPL", "CII", "AHITX", "PONAX", "MDLOX", "HAUZ",
     "WTPI", "FWGIX", "QQQI", "FNPFX", "HYZD", "NXTG", "HSEIX", "EVC", "PCEF", "TMET", "MPLX", "IAUI", "FBDC", "CHI", "AMZA",
-    "PRFZ", "EBIT", "AVSC", "VTWO", "RSSL", "TRMD", "MPLX", "O"
+    "PRFZ", "EBIT", "AVSC", "VTWO", "RSSL", "TRMD", "MPLX", "O", "AGNC"
   ];
   return rapidApiService.getMutualFundPricesResolve(keys);
 }
