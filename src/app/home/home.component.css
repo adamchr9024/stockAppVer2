@@ -53,7 +53,11 @@ p {
       color: var(--gray-700);
 }
 
-main {
+.left-side a {
+      margin: 15px 15px;
+}
+
+.main {
       width: 100%;
       min-height: 100%;
       display: flex;
@@ -62,6 +66,10 @@ main {
       padding: 1rem;
       box-sizing: inherit;
       position: relative;
+      background-image: url("/icbs_logo.png");
+      background-repeat: no-repeat;
+      background-size: 30em;
+      /* Cover the entire screen */
 }
 
 .angular-logo {
