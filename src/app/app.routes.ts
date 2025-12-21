@@ -12,6 +12,7 @@ import { XlsxStyComponent } from './xlsx-sty/xlsx-sty.component';
 //import { SecurityResolver1 } from './security.resolver';
 import { Resolver1Resolver } from './resolver1.resolver';
 import { SpreadshtComponent } from "./spreadsht/spreadsht.component";
+import { StmcComponent } from './stmc/stmc.component';
 export const routes: Routes = [
       { path: "", component: HomeComponent, },
       { path: 'mystock', component: MystocksComponent },
@@ -24,5 +25,6 @@ export const routes: Routes = [
       { path: "aristocrats", component: AristocratStockComponent },
       { path: "xlsx-style", component: XlsxStyComponent },
       { path: "analyze", component: AnalysisComponent },
-      { path: "ods-xlsx", component: OdsXlsxComponent }
+      { path: "ods-xlsx", component: OdsXlsxComponent },
+      { path: "smtc", component: StmcComponent }
 ];   

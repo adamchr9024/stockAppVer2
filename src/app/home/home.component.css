@@ -66,9 +66,10 @@ p {
       padding: 1rem;
       box-sizing: inherit;
       position: relative;
-      background-image: url("/icbs_logo.png");
+      /* background-image: url("/icbs_logo.png"); */
+      background-image: url("/two_dollar_tutor.png");
       background-repeat: no-repeat;
-      background-size: 30em;
+      background-size: 20em;
       /* Cover the entire screen */
 }
 

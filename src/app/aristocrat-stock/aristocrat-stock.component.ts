@@ -31,7 +31,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile", "category", "quantity", "Dividend Yield", "Potential Yearly Dividend ($500)",]
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
-  securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json", "dividendetf.json", "allenergy.json", "chatgpt.json"]
+  securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
+    "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json"]
   /*
     columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile"]
     //Table columns will be displayed in the same order of values in the array
