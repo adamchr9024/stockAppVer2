@@ -9,31 +9,33 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   constructor() { }
   handleError(error: any): void {
-    console.log("An unhandled Error Occured: \n\n ", error);
+    console.log("RUN TIME ERROR OCCURRED: \n\n ", error);
     // window.alert(errorMessage + "\n Check browser console and logs files as well.")
-    window.alert("\nError occurred: Check browser console and logs files as well.")
+    let errorMessage = "\n RUN TIME ERROR OCCURRED: Check browser console and logs files as well.\n" + JSON.stringify(error);
+    window.alert(errorMessage);
+    //https://www.stacktracejs.com/#!/docs/stacktrace-js
 
+    // StackTrace.fromError(error)
+    //   .then((stackframes) => {
+    // console.log("stackframes:  ", stackframes)
+    // stackframes.forEach((sf) => { console.log(sf); })
+    // const stringifiedStack = stackframes
+    //   .map((sf) => sf.toString())
+    //   .join("\n");
+    // console.error("Error", error.message || error);
+    // console.error("Stack trace: \n", stringifiedStack);
+    // let errorMessage: ErrorMessage = {
+    //   message: error.message || error,
+    //   stack: stringifiedStack,
+    //   routes: window.location.href,  //didnt know this was legal
+    //   datetime: new Date().toDateString()
 
-    StackTrace.fromError(error)
-      .then((stackframes) => {
-        console.log("stackframes:  ", stackframes)
-        // const stringifiedStack = stackframes
-        //   .map((sf) => sf.toString())
-        //   .join("\n");
-        // console.error("Error", error.message || error);
-        // console.error("Stack trace: \n", stringifiedStack);
-        // let errorMessage: ErrorMessage = {
-        //   message: error.message || error,
-        //   stack: stringifiedStack,
-        //   routes: window.location.href,  //didnt know this was legal
-        //   datetime: new Date().toDateString()
-
-        // }
-        //send message to other service or // API
-      })
-      .catch((stackTraceError) => {
-        console.error("Error generating stack trace", stackTraceError)
-      })
+    // }
+    //send message to other service or // API
+    // })
+    // .catch((stackTraceError) => {
+    //   console.error("Error generating stack trace", stackTraceError)
+    // })
   }
 }
 interface ErrorMessage {
