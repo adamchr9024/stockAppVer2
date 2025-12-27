@@ -153,13 +153,20 @@ export class Security {
             })
             return sum;
       }
-      static getGainLossWithDividend(arr: Security[]): number { //estimate annual income
+      static getEstimateAnnualIncome(arr: Security[]): number { //estimate annual income
             let sum = 0;
             arr.forEach((sec) => {
                   sum += sec.est_annual_income;
             })
             return sum;
       }
+      // static dividendCapGainTotal(arr: Security[]): number { //dividends and cap gains drip and nondrip
+      //       let sum = 0;
+      //       arr.forEach((sec) => {
+      //             sum += sec.actual_dividend;
+      //       })
+      //       return sum;
+      // }  only relevant for currently owned securities
 
 }
 export interface symbolprice {
