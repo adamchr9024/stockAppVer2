@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from "@angular/material/table";
 import { MatSortModule } from '@angular/material/sort';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
@@ -39,9 +39,10 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage'];
     */
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
-    this.preinitial(this.securityFiles[1])
+    this.preinitial(this.securityFiles[0])
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -54,6 +55,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   ngAfterViewInit(): void {
     this.tableDataSource.sort = this.sort;
+    console.log("filterinput value", this.filterinput.nativeElement.value)
+
   }
   ngOnInit(): void {
 
@@ -85,7 +88,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   initialize() {
     try {
-      //this.waiting = "...fetching";
+      this.waiting = "...fetching";
       let moresymbols = Array.from(this.stocksmap.keys());
       this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({
@@ -135,12 +138,19 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.matOrig = matOrOrig;
   }
   filterData(event: any) {
+    //console.log(JSON.parse(event));
+    // if (event?.target?.value) {
     const filterValue = event.target.value;
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
-
+    //}
   }
-  handelInputFileChange(theFile: string) {
-    //console.log(theFile)
+  handleInputFileChange(theFile: string) {
+
+
+    //clear filter text box    should I use look in notes Renderer2
+    // console.log("filter input before modifing", this.filterinput.nativeElement.value)
+    this.filterinput.nativeElement.value = "";
+    this.tableDataSource.filter = "";
     this.preinitial(theFile);
   }
   // handleFile(theFile: string) {

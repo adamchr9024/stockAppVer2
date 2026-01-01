@@ -21,7 +21,7 @@
             Original<input type="radio" name="originalOrMat" (change)="handleRadio(false)"
                   value="original">&nbsp;&nbsp;&nbsp;
             Input File:&nbsp;&nbsp;&nbsp;<select #mySelect class="button1" style="width: 170px;"
-                  (change)="handelInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
+                  (change)="handleInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
                   <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
 
             </select>
@@ -38,7 +38,7 @@
                   <!-- <div [ngClass]="{'hide':!matOrig}"> -->
                   <mat-form-field style="width:40%">
                         <mat-label>Filter</mat-label>
-                        <input matInput (input)="filterData($event)">
+                        <input #filterInput matInput (input)="filterData($event)">
                   </mat-form-field>
                   <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource"
                         matSort>
