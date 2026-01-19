@@ -39,6 +39,7 @@
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain / Loss </mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.gainloss}} </mat-cell>
             </ng-container>
+
             <ng-container cdkColumnDef="yahooprice">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
                   <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
@@ -62,10 +63,13 @@
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield </mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
             </ng-container>
-
-            <ng-container cdkColumnDef="comment">
-                  <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
+            <ng-container cdkColumnDef="glwdiv">
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain/Loss With DvD </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
+            </ng-container>
+            <ng-container cdkColumnDef="est_annual_income">
+                  <mat-header-cell *cdkHeaderCellDef> Est 1yr Income </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.est_annual_income}} </mat-cell>
             </ng-container>
 
             <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>

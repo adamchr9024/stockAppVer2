@@ -32,7 +32,7 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   tableDataSource: MatTableDataSource<Security>;
   // columnsToDisplay: string[] = ["ticker", "category", "quantity", "market value", "unit cost", "cost basis", "gain/loss", "yahoo price", "52 Week Range", "Price Percentile", "Dividend Yield", "Comment"];
   //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'category', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'fiftytwowkrng', 'percentage', 'effectivePercentage', 'dividendYield', 'comment'];
+  colToDisplay: string[] = ['ticker', 'category', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'fiftytwowkrng', 'percentage', 'effectivePercentage', 'dividendYield', 'glwdiv', 'est_annual_income'];
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private rapidApiService: RapidapiService) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);

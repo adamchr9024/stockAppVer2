@@ -32,7 +32,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
   securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
-    "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json", "realwatchlist.json"]
+    "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json", "realwatchlist.json", "allgits.json"]
   /*
     columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile"]
     //Table columns will be displayed in the same order of values in the array
@@ -138,23 +138,16 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.matOrig = matOrOrig;
   }
   filterData(event: any) {
-    //console.log(JSON.parse(event));
-    // if (event?.target?.value) {
+
     const filterValue = event.target.value;
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
-    //}
+
   }
   handleInputFileChange(theFile: string) {
-
-
     //clear filter text box    should I use look in notes Renderer2
-    // console.log("filter input before modifing", this.filterinput.nativeElement.value)
     this.filterinput.nativeElement.value = "";
     this.tableDataSource.filter = "";
     this.preinitial(theFile);
   }
-  // handleFile(theFile: string) {
-  //   console.log("in handleFile ", theFile);
-  //   this.loadData(theFile);
-  // }
+
 }
