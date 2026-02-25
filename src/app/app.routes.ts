@@ -14,6 +14,7 @@ import { Resolver1Resolver } from './resolver1.resolver';
 import { SpreadshtComponent } from "./spreadsht/spreadsht.component";
 import { StmcComponent } from './stmc/stmc.component';
 import { FuturesComponent } from './futures/futures.component';
+import { FiveDayMedianAverageComponent } from './five-day-median-average/five-day-median-average.component'
 export const routes: Routes = [
       { path: "", component: HomeComponent, },
       { path: 'mystock', component: MystocksComponent },
@@ -28,5 +29,6 @@ export const routes: Routes = [
       { path: "analyze", component: AnalysisComponent },
       { path: "ods-xlsx", component: OdsXlsxComponent },
       { path: "smtc", component: StmcComponent },
-      { path: "futures", component: FuturesComponent }
+      { path: "futures", component: FuturesComponent },
+      { path: "fdlowmedavg", component: FiveDayMedianAverageComponent }
 ];   
