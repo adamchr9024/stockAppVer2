@@ -176,7 +176,10 @@ export interface symbolprice {
       symbol: string;
       price: number | undefined;
 };
-export enum Category { Stock = "Stock", MutualFund = "Mutual Fund", FixedIncome = "Fixed Income", ETF = "ETF", Bond = "Bond", Other = "Other", Alternative = 'Alternative', CashAndShortTerm = "Cash & Short Term", WatchList = "Watch List", CEF = "Closed End Fund" };
+export enum Category {
+      Stock = "Stock", MutualFund = "Mutual Fund", FixedIncome = "Fixed Income", ETF = "ETF", Bond = "Bond", Other = "Other", Alternative = 'Alternative', CashAndShortTerm = "Cash & Short Term", WatchList = "Watch List", CEF = "Closed End Fund",
+      IndexFund = "Index Fund"
+};
 export type SecurityType = {
       ticker: string,
       quantity: number,

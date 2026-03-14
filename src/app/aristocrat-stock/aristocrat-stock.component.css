@@ -24,12 +24,22 @@
       font-weight: bolder;
 }
 
+mat-header-row,
 thead {
-      top: 0;
+      top: 35px;
       position: sticky;
 }
 
-mat-table {
-      top: 15;
+.fieldset {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      background-color: goldenrod;
+      color: white;
+      top: -10px;
       position: sticky;
+      border: 2px solid darkcyan;
+      z-index: 100;
 }

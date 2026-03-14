@@ -16,17 +16,18 @@
                   <h5>Used To Copy Data From Browser to Libre Calc</h5>
             </li> -->
       </ul>
-      <fieldset>
-            Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked" value="mat">
-            Original<input type="radio" name="originalOrMat" (change)="handleRadio(false)"
-                  value="original">&nbsp;&nbsp;&nbsp;
-            Input File:&nbsp;&nbsp;&nbsp;<select #mySelect class="button1" style="width: 170px;"
-                  (change)="handleInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
-                  <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
-
-            </select>
-
-      </fieldset>
+      <div class="fieldset">
+            <div class="headerDiv">
+                  Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked"
+                        value="mat">
+                  Original<input type="radio" name="originalOrMat" (change)="handleRadio(false)"
+                        value="original">&nbsp;&nbsp;&nbsp;
+                  Input File:&nbsp;&nbsp;&nbsp;<select #mySelect class="button1" style="width: 170px;"
+                        (change)="handleInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
+                        <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
+                  </select>
+            </div>
+      </div>
 
       <div style="width:95%; margin:15px;">
             <ng-container *ngIf="!matOrig">
