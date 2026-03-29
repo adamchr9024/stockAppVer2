@@ -121,7 +121,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   getEstAnnualIncome() {
     return Security.getEstimateAnnualIncome(this.stocksArray).toFixed(2)
   }
-  // getTotalDividendAndCapGains() {
-  //   return Security.dividendCapGainTotal(this.stocksArray).toFixed(2);
-  // }
+  getTotalGLwDvd() {
+    return Security.getGLwDTotal(this.stocksArray).toFixed(2);
+  }
 }

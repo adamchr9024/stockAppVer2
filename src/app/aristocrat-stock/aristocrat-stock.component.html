@@ -1,21 +1,24 @@
 <div class="firstDiv">
-      <h2 class="loss">ALWAYS BUY WITH LIMIT ORDER AND VALIDATE WITH DIVIDEND CALCULATOR!!!</h2>
-      <h2 class="loss">Todo: Fix DIVIDEND CALCULATION PLEASE!!</h2>
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin-left: 3px;"
+      <!-- <h2 class="loss">ALWAYS BUY WITH LIMIT ORDER AND VALIDATE WITH DIVIDEND CALCULATOR!!!</h2>
+      <h2 class="loss">Todo: Fix DIVIDEND CALCULATION PLEASE!!</h2> -->
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin: 3px 3px;"
                   (click)="initialize()">Refresh/Fetch
                   Stocks</button></label>
-      <ul>
+      <!-- <ul>
             <li class="loss">For American Fund-Check for securities overlap and buy the cheapest with dividends</li>
             <li class="loss">ToDo: Maybe Add Spinner / Remove ticker overlaps in files</li>
             <li class="loss">Check volume at Yahoo or add to page to see if the security is selling</li>
-            <!-- <li><s>Possible Todo: Write a File to Libre Calc</s> <a href="https://npm.io/package/xlsx"
+             <li><s>Possible Todo: Write a File to Libre Calc</s> <a href="https://npm.io/package/xlsx"
                         target="_blank">npm
                         xlsx</a> </li>
             <li>Todo: Rapid APIs are INTERMITTENT!!! Consider that during you coding!!</li>
             <li>
                   <h5>Used To Copy Data From Browser to Libre Calc</h5>
-            </li> -->
-      </ul>
+            </li> 
+      </ul> -->
+      <!-- <details class="fieldset"> 
+
+            <summary>View</summary-->
       <div class="fieldset">
             <div class="headerDiv">
                   Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked"
@@ -26,8 +29,10 @@
                         (change)="handleInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
                         <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
                   </select>
+                  OPTOMIZED CSS FOR FIREFOX ON LINUX MINT ONLY
             </div>
       </div>
+      <!-- </details> -->
 
       <div style="width:95%; margin:15px;">
             <ng-container *ngIf="!matOrig">

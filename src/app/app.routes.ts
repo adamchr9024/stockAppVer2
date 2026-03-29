@@ -16,7 +16,8 @@ import { StmcComponent } from './stmc/stmc.component';
 import { FuturesComponent } from './futures/futures.component';
 import { FiveDayMedianAverageComponent } from './five-day-median-average/five-day-median-average.component'
 export const routes: Routes = [
-      { path: "", component: HomeComponent, },
+      { path: "", redirectTo: "sprdsht", pathMatch: "full" },
+      { path: "home", component: HomeComponent, },
       { path: 'mystock', component: MystocksComponent },
       { path: "table", component: StocktableComponent },
       { path: "watchlist", component: WatchlistComponent },

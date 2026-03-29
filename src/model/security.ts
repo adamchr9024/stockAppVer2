@@ -163,13 +163,13 @@ export class Security {
             })
             return sum;
       }
-      // static dividendCapGainTotal(arr: Security[]): number { //dividends and cap gains drip and nondrip
-      //       let sum = 0;
-      //       arr.forEach((sec) => {
-      //             sum += sec.actual_dividend;
-      //       })
-      //       return sum;
-      // }  only relevant for currently owned securities
+      static getGLwDTotal(arr: Security[]): number { //total gain loss with dividend
+            let sum = 0; //total cost basis - total gain loss with dividend???
+            arr.forEach((sec) => {
+                  sum += sec.glwdiv;
+            })
+            return sum;
+      }
 
 }
 export interface symbolprice {
