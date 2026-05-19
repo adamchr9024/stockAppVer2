@@ -11,6 +11,15 @@
       align-items: center;
 }
 
+.headerDiv2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      align-items: first baseline;
+      align-self: flex-start;
+      margin: 3px;
+}
+
 table,
 mat-table,
 mat-header-cell,

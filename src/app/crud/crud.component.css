@@ -1,0 +1,31 @@
+/* div {
+      background-image: url(https://cdn.prod.website-files.com/5ff66329429d880392f6cba2/63fdf75ad4a978704fe9ac9c_CRUD%20%20Preview.jpeg);
+      background-size: contain;
+      height: 100vh;
+} */
+.customInput {
+      width: 11%;
+      align-self: flex-start;
+      padding-right: 0%;
+}
+
+/* .longlabel {
+      font-size: ;
+} */
+
+label {
+      flex-wrap: nowrap;
+}
+
+.but1 {
+      width: 150px;
+      height: 50px;
+      margin: 5px;
+      color: green;
+      background-color: yellow;
+}
+
+.error {
+      color: red;
+      font-weight: bolder;
+}

@@ -1,0 +1,104 @@
+<div class="firstDiv">
+      <h1>{{title}}</h1>
+      <ul>
+            Todo
+            <li>use signals and form control to create read, update and delete a Security</li>
+            create reads from RaPid API on blur of entering ticker
+            edit quantity, unit cost , estimate annual income
+            send to api (CRUDNODE on submit)<br />
+            update reads from CRUDNODE and writes to CRUDNODE update <br />
+            Delete reads from CRUDNODE send CrudNode Delete
+
+            <li> create service to call CRUD NOde for the operations of inject httpClient</li>
+            <li> maybe after create, update and delete go back to spread sheet??</li>
+      </ul>
+      <!-- {{jsonString}} -->
+      <!-- @for ( item of labelsArray; track item; let idx=$index ){ -->
+      <div class="firstDiv">
+            <div class="firstDiv2">
+                  <mat-icon>create</mat-icon>
+                  <input type="radio" name="CrudRadio" id="Create" value="Create" (change)="action='create'">
+                  <label for="Create">Create</label>
+            </div>
+            <div class="firstDiv2">
+                  <mat-icon>book</mat-icon>
+                  <input type="radio" name="CrudRadio" id="Read" value="Read" (change)="action='read'" checked>
+                  <label for="Read">Read</label>
+            </div>
+            <div class="firstDiv2">
+                  <mat-icon>update</mat-icon>
+                  <input type="radio" name="CrudRadio" id="Update" value="Update" (change)="action='update'">
+                  <label for="Update">Update</label>
+
+            </div>
+            <div class="firstDiv2">
+                  <mat-icon>delete</mat-icon>
+                  <input type="radio" name="CrudRadio" id="Delete" value="Delete" (change)="action='delete'">
+                  <label for="Delete">Delete</label>
+            </div>
+      </div>
+      <span class="headerDiv2">
+            <!-- <button class="but1" (click)="operation('GIAX')">RUN OPERATION TEST</button><br /> -->
+            <label>Ticker:&nbsp;&nbsp;</label>
+            <input type="text" value={{createdSecuritySignal().ticker}} (blur)="editTicker($event)">
+            <label>&nbsp;&nbsp;Quantity:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().quantity}}>
+            <label>&nbsp;&nbsp;Price:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().price}}>
+            <label class="longlabel">&nbsp;&nbsp;Unit Cost:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().unit_cost}}>
+            <label>&nbsp;&nbsp;Category:&nbsp;&nbsp;</label>
+            <!-- <input type="text" value={{createdSecuritySignal().category}}> -->
+            <select name="category" value={{createdSecuritySignal().category}}>
+                  <option value="Stock">Stock</option>
+                  <option value="Mutual Fund">Mutual Fund</option>
+                  <option value="Fixed Income"> Fixed Income</option>
+                  <option value="ETF">ETF</option>
+                  <option value="BOND">BOND</option>
+                  <option value="Other">Other</option>
+                  <option value="Index Fund">Index Fund</option>
+                  <option value="Alternative">Alternative</option>
+                  <option value="Cash & Short Term">Cash & Short Term</option>
+                  <option value="Closed End Fund">Closed End Fund</option>
+                  <option value="Watch List">Watch List</option>
+            </select>
+      </span>
+      <span class="headerDiv2">
+            <label class="longlabel">52WkRng:&nbsp;&nbsp;</label>
+            <input class="customInput" type="text" value={{createdSecuritySignal().fiftytwowkrng}}>
+            <label>&nbsp;&nbsp;Comment:&nbsp;&nbsp;</label>
+            <input type="text" value={{createdSecuritySignal().comment}}>
+            <label class="longlabel">&nbsp;&nbsp;AppxYLow:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_low}}>
+            <label class="longlabel">&nbsp;&nbsp;AppxYrHigh:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_high}}>
+            <label>&nbsp;&nbsp;50DayAvg:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverage}}>
+      </span>
+
+      <span class="headerDiv2">
+            <label class="longlabel">50DayAvgChng:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverageChange}}>
+            <label>&nbsp;&nbsp;200DayAvg:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().twoHundredDayAverage}}>
+            <label>&nbsp;&nbsp;200DayAvgChng:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().twoHundredDayAverageChange}}>
+            <label class="longlabel">&nbsp;&nbsp;AppYrIncome:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().est_annual_income}}>
+            <label>&nbsp;&nbsp;ActualIncome:&nbsp;&nbsp;</label>
+            <input class="customInput" type="number" value={{createdSecuritySignal().actual_dividend}}>
+      </span>
+      <span class="headerDiv">
+            @switch (action) {
+            @case ('create') { <button class="but1 button1" (click)="onCreate()">Create Security</button>}
+            @case ('read') {<button class="but1 button2" (click)="operation()">Read Security</button>}
+            @case ('update'){<button class="but1 button3" (click)="onUpdate()">Update Security</button>}
+            @case ('delete') {<button class="but1" style="background-color: red; color:white;"
+                  (click)="onDelete()">Delete
+                  Security</button>}
+            @default{}
+            }
+
+      </span>
+      @if(errorMessage){<p class="error">{{errorMessage}}</p>}
+</div>
