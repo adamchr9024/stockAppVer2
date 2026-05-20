@@ -17,23 +17,27 @@
       <div class="firstDiv">
             <div class="firstDiv2">
                   <mat-icon>create</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Create" value="Create" (change)="action='create'">
+                  <input type="radio" name="CrudRadio" id="Create" value="Create"
+                        (change)="action='create'; this.errorMessage='';">
                   <label for="Create">Create</label>
             </div>
             <div class="firstDiv2">
                   <mat-icon>book</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Read" value="Read" (change)="action='read'" checked>
+                  <input type="radio" name="CrudRadio" id="Read" value="Read"
+                        (change)="action='read'; this.errorMessage='';" checked>
                   <label for="Read">Read</label>
             </div>
             <div class="firstDiv2">
                   <mat-icon>update</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Update" value="Update" (change)="action='update'">
+                  <input type="radio" name="CrudRadio" id="Update" value="Update"
+                        (change)="action='update'; this.errorMessage='';">
                   <label for="Update">Update</label>
 
             </div>
             <div class="firstDiv2">
                   <mat-icon>delete</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Delete" value="Delete" (change)="action='delete'">
+                  <input type="radio" name="CrudRadio" id="Delete" value="Delete"
+                        (change)="action='delete'; this.errorMessage='';">
                   <label for="Delete">Delete</label>
             </div>
       </div>
@@ -68,9 +72,9 @@
             <input class="customInput" type="text" value={{createdSecuritySignal().fiftytwowkrng}}>
             <label>&nbsp;&nbsp;Comment:&nbsp;&nbsp;</label>
             <input type="text" value={{createdSecuritySignal().comment}}>
-            <label class="longlabel">&nbsp;&nbsp;AppxYLow:&nbsp;&nbsp;</label>
+            <label class="longlabel" title="Effective Year Low">&nbsp;&nbsp;EffYrLow:&nbsp;&nbsp;</label>
             <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_low}}>
-            <label class="longlabel">&nbsp;&nbsp;AppxYrHigh:&nbsp;&nbsp;</label>
+            <label class="longlabel" title="Effective Year High">&nbsp;&nbsp;EffYrHigh:&nbsp;&nbsp;</label>
             <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_high}}>
             <label>&nbsp;&nbsp;50DayAvg:&nbsp;&nbsp;</label>
             <input class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverage}}>
@@ -90,9 +94,11 @@
       </span>
       <span class="headerDiv">
             @switch (action) {
-            @case ('create') { <button class="but1 button1" (click)="onCreate()">Create Security</button>}
+            @case ('create') { <button class="but1 button1" disabled="!validSecurity" (click)="onCreate()">Create
+                  Security</button>}
             @case ('read') {<button class="but1 button2" (click)="operation()">Read Security</button>}
-            @case ('update'){<button class="but1 button3" (click)="onUpdate()">Update Security</button>}
+            @case ('update'){<button class="but1 button3" disabled="!validSecurity" (click)="onUpdate()">Update
+                  Security</button>}
             @case ('delete') {<button class="but1" style="background-color: red; color:white;"
                   (click)="onDelete()">Delete
                   Security</button>}
@@ -100,5 +106,5 @@
             }
 
       </span>
-      @if(errorMessage){<p class="error">{{errorMessage}}</p>}
+      @if(errorMessage){<p class="error" title="Select A different radio button to clear error">{{errorMessage}}</p>}
 </div>

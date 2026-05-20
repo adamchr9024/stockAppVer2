@@ -62,9 +62,14 @@ export class CrudFileService {
     try {
       // this.initalizeheader();
       return this.http.delete(this.localUrl + ticker, { headers: this.headers })
-        .pipe(take(1),
+        .pipe(
+          switchMap((res) => {
+            //console.log("res,switchmap,delete", res);
+            return of(res);
+          }),
           map((x: any) => {
-            return x?.body;
+            //console.log("x in http delete map:", x);
+            return x;
           }),
           catchError(err => {
             console.log("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
