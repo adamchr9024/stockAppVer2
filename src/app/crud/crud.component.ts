@@ -22,19 +22,21 @@ export class CrudComponent implements OnDestroy {
   action: string = 'read';
   subscription!: Subscription;
   crudfs = inject(CrudFileService);
+
   title = "C R U D Component Angular 18";
-  validSecurity = false;
+  validSecurity = signal(false);
+  // jsonString = "";
   // labelsArray = ["ticker", "quantity", "price", "unit_cost", "category",
   //   "fiftytwowkrng", "comment", "effective_year_low", "effective_year_high", "fiftyDayAverage",
   //   "fiftyDayAverageChange", "twoHundredDayAverage", "twoHundredDayAverageChange", "est_annual_income", "actual_dividend"];
   createdSecuritySignal = signal<SecurityType>({
-    ticker: "DFT",
-    quantity: 0,
+    ticker: "NEW-1",
+    quantity: 5,
     price: 1.0,
-    unit_cost: 1.0,
+    unit_cost: 1.25,
     category: Category.Stock,
-    fiftytwowkrng: "1-2",
-    comment: "DEFAULT COMMENT",
+    fiftytwowkrng: "1-3",
+    comment: "GROWTH & Dividend",
     effective_year_low: .75,
     effective_year_high: 2.1,
     fiftyDayAverage: 1.25,
@@ -72,7 +74,6 @@ export class CrudComponent implements OnDestroy {
 
 
   }
-  //jsonString = JSON.stringify(this.createdSecuritySignal());
   operation() {
     const ticker = this.createdSecuritySignal().ticker;
     try {
@@ -97,13 +98,34 @@ export class CrudComponent implements OnDestroy {
   }
   updateSecuritySignal(data: SecurityType) {
     let oldSignalData = this.createdSecuritySignal();
-    // console.log(oldSignalData)
-    //console.log(data);
-    // console.log("Object.assign", Object.assign(oldSignalData, data));
     this.createdSecuritySignal.set(Object.assign(oldSignalData, data));
   }
   onCreate() {
     console.log("in onCreate");
+    //let ticker = this.createdSecuritySignal().ticker;
+    try {
+      this.subscription = this.crudfs.createASecurity(JSON.stringify(this.createdSecuritySignal())).subscribe(
+        {
+          next: (data: { status: string, data: SecurityType }) => {
+            // console.log(data);
+            if (data.status == 'success') {
+              // alert(`{ticker} successfully deleted`); //change to timed modal from ng material 
+              this.openSnackBar(`Security successfully created`);
+            }
+            //console.log("data from create security: ", data);
+          },
+          error: err => {
+            console.log("error occurred in create security: ", err);
+            this.errorMessage = `Error Creating Secuity: ${err?.message} for ticker: ${this.createdSecuritySignal().ticker}`
+          },
+          complete: () => { console.log("complete called in crud.component create operation") }
+        }
+      )
+    }
+    catch (err: any) {
+      console.log("error caught  in CreateSecurity  crud.component.ts", err);
+
+    }
   }
   onDelete() {
     let ticker = this.createdSecuritySignal().ticker;
@@ -143,8 +165,8 @@ export class CrudComponent implements OnDestroy {
   }
   validateSecurity() {
     let errors = "";
-    if (this.createdSecuritySignal().ticker) {//alphabet and : ...
-
+    if (!this.createdSecuritySignal().ticker.match(/^(?=.{1,15}$)[A-Z0-9]+([.\-:^/][A-Z0-9]+)*$/gim)) {//ai generated. AND NOT EMPTY REGULAR EXPRESSION 
+      errors += "\n invalid ticker";
     }
     if (this.createdSecuritySignal().quantity <= 0) {
       errors += "\n quanity must be > 0";
@@ -155,11 +177,11 @@ export class CrudComponent implements OnDestroy {
     if (this.createdSecuritySignal().unit_cost <= 0) {
       errors += "\n unit cost must be > 0";
     }
-    if (this.createdSecuritySignal().category.trim()) {  //5
+    if (this.createdSecuritySignal().category.trim() == "") {  // may remove
       errors += "\n category is required (not \"\"";
     }
-    if (this.createdSecuritySignal().fiftytwowkrng) {
-      errors += "\n ";
+    if (!this.createdSecuritySignal().fiftytwowkrng.match(/^[1-9]+[0-9]*[.]?[0-9]*\s*[-]\s*[1-9]+[0-9]*[.]?[0-9]*|0?\.[0-9]+\s*[-]\s*\.[0-9]+$/gim)) { //REGULAR EXPRESSION
+      errors += "\n invalid range entry";
     }
     if (this.createdSecuritySignal().comment == null) {//not necessary
       errors += "\n comment cannot be null";
@@ -170,25 +192,31 @@ export class CrudComponent implements OnDestroy {
     if (this.createdSecuritySignal().effective_year_high! <= 0) {
       errors += "\n  Effective Year High must be >0 ";
     }
-    if (this.createdSecuritySignal().fiftyDayAverage) { //10  make read only
+    if (this.createdSecuritySignal().fiftyDayAverage! < 0) { //10  make read only
       errors += "\n  Fifty Day Average must be >0";
     }
-    if (this.createdSecuritySignal().fiftyDayAverageChange) {  //make read only
+    if (this.createdSecuritySignal().fiftyDayAverageChange! < 0) {  //make read only
       errors += "\n  Fifty Day Average Change must be >0 ";
     }
-    if (this.createdSecuritySignal().twoHundredDayAverage) {  //make read only
+    if (this.createdSecuritySignal().twoHundredDayAverage! < 0) {  //make read only
       errors += "\n  Two Hundred Day Average must be >0";
     }
-    if (this.createdSecuritySignal().twoHundredDayAverageChange) {  //make readonly
+    if (this.createdSecuritySignal().twoHundredDayAverageChange! < 0) {  //make readonly
       errors += "\n Two Hundred Day Average must be >0";
     }
-    if (this.createdSecuritySignal().est_annual_income! <= 0) {
+    if (this.createdSecuritySignal().est_annual_income! < 0) {
       errors += "\n Estimate Annual Income must be >=0 ";
     }
-    if (this.createdSecuritySignal().actual_dividend! <= 0) {  //15
+    if (this.createdSecuritySignal().actual_dividend! < 0) {  //15
       errors += "\n actual dividend must be >=0";
     }
-    this.validSecurity = !errors ? true : false;
+    if (errors) {
+      this.validSecurity.set(false);
+    }
+    else {
+      this.validSecurity.set(true);
+    }
+    //force a rerender
     this.errorMessage = !errors ? "" : errors;
   }
   onUpdate() {
@@ -200,7 +228,7 @@ export class CrudComponent implements OnDestroy {
     console.log("in onUpdate");
 
     try {
-      this.subscription = this.crudfs.updateASecurity(ticker, this.createdSecuritySignal()).subscribe(
+      this.subscription = this.crudfs.updateASecurity(ticker, JSON.stringify(this.createdSecuritySignal())).subscribe(
         {
           next: (data: { status: string, data: any }) => {
             // console.log(data);
@@ -223,15 +251,46 @@ export class CrudComponent implements OnDestroy {
 
     }
   }
+  updateSignalField(field: string, value: any) {
+    this.createdSecuritySignal.update(prev => { return { ...prev, [field]: value } })
+    // this.jsonString = JSON.stringify(this.createdSecuritySignal());  //remove later
+    this.validateSecurity();
+    // console.log(this.jsonString);
+  }
   editTicker(eve: any) {//on blur event
-    //console.log("in edit ticker", eve.target.value);
-    if (eve.target.value.trim()) {
-      this.createdSecuritySignal.update(prev => { return { ...prev, ticker: eve.target.value } })
-      // console.log("update signal ", this.createdSecuritySignal().ticker);
-      this.errorMessage = "";
-    }
-    else {
-      this.errorMessage = "Invalid ticker value";
-    }
+    this.updateSignalField('ticker', eve.target.value);
+  }
+
+  editQuantity(eve: any) {
+    this.updateSignalField('quantity', +eve.target.value);  //CONVERT TO NUMBER
+  }
+  editPrice(eve: any) {
+    this.updateSignalField('price', +eve.target.value);
+  }
+  editUnitCost(eve: any) {
+    this.updateSignalField('unit_cost', +eve.target.value);
+  }
+  //
+  editFiftytwowkrng(eve: any) {
+    this.updateSignalField('fiftytwowkrng', eve.target.value);  //CONVERT TO NUMBER
+  }
+  editComment(eve: any) {
+    this.updateSignalField('comment', eve.target.value);
+  }
+  editEffective_year_low(eve: any) {
+    this.updateSignalField('effective_year_low', +eve.target.value);
+  }
+  editEffective_year_high(eve: any) {
+    this.updateSignalField('effective_year_high', +eve.target.value);  //CONVERT TO NUMBER
+  }
+  editEst_annual_income(eve: any) {
+    this.updateSignalField('est_annual_income', +eve.target.value);
+  }
+  editActual_dividend(eve: any) {
+    this.updateSignalField('actual_dividend', +eve.target.value);
+  }
+  editCategory(eve: any) {
+    //console.log("in edit category:", eve.target.value);
+    this.createdSecuritySignal.update(prev => { return { ...prev, category: eve.target.value } })
   }
 }

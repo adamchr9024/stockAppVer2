@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 export class CrudFileService {
   localUrl = 'http://localhost:3000/stock_by_ticker/';
   localUrlCreate = 'http://localhost:3000/create_stock';
-  apiHeader = 'api-key';
+  //apiHeader = 'api-key';
   keyvalue = environment.crud_local_api_key;
   headers = new HttpHeaders().set('api-key', `${this.keyvalue}`);
 
@@ -42,11 +42,17 @@ export class CrudFileService {
 
   createASecurity(body: {}) {
     try {
-      this.headers = this.headers.append('Content-Type', 'Application/Json');
+      if (this.headers.get('content-type')?.toLowerCase().includes('application/json')) {
+        console.log("content-type header already exists create");
+      }
+      else {
+        console.log("added application/json header");
+        this.headers = this.headers.append('Content-Type', 'application/json'); //must be present otherwise 400 response
+      }
       return this.http.post(this.localUrlCreate, body, { headers: this.headers })
         .pipe(take(1),
           map((x: any) => {
-            return x?.body;
+            return x;
           }),
           catchError(err => {
             console.log("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
@@ -54,7 +60,7 @@ export class CrudFileService {
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      console.log("error caught rethrown in crudFileService.createASecurity try catch", err?.message);
       throw err;
     }
   }
@@ -72,22 +78,29 @@ export class CrudFileService {
             return x;
           }),
           catchError(err => {
-            console.log("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
+            console.log("error caught and rethrown in crudFileService.deleteASecurity catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      console.log("error caught rethrown in crudFileService.deleteASecurity try catch", err?.message);
       throw err;
     }
   }
-  updateASecurity(ticker: string, body: {}) {
+  updateASecurity(ticker: string, body: any) {
+    // console.log("in crud service update, body=", body)
     try {
-      this.headers = this.headers.append('Content-Type', 'Appliction/Json');
+      if (this.headers.get('content-type')?.toLowerCase().includes('application/json')) {
+        console.log("content-type header already exists update");
+      }
+      else {
+        console.log("added application/json header");
+        this.headers = this.headers.append('Content-Type', 'application/json'); //must be present otherwise 400 response
+      }
       return this.http.patch(this.localUrl + ticker, body, { headers: this.headers })
         .pipe(take(1),
           map((x: any) => {
-            return x?.body;
+            return x;
           }),
           catchError(err => {
             console.log("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
@@ -95,7 +108,7 @@ export class CrudFileService {
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      console.log("error caught rethrown in crudFileService.updateASecurity try catch", err?.message);
       throw err;
     }
   }

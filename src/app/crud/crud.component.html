@@ -1,7 +1,7 @@
 <div class="firstDiv">
       <h1>{{title}}</h1>
       <ul>
-            Todo
+            <!-- Todo
             <li>use signals and form control to create read, update and delete a Security</li>
             create reads from RaPid API on blur of entering ticker
             edit quantity, unit cost , estimate annual income
@@ -10,34 +10,31 @@
             Delete reads from CRUDNODE send CrudNode Delete
 
             <li> create service to call CRUD NOde for the operations of inject httpClient</li>
-            <li> maybe after create, update and delete go back to spread sheet??</li>
+            <li> maybe after create, update and delete go back to spread sheet??</li> -->
+            <!-- <li>{{jsonString}}</li> -->
       </ul>
       <!-- {{jsonString}} -->
       <!-- @for ( item of labelsArray; track item; let idx=$index ){ -->
       <div class="firstDiv">
             <div class="firstDiv2">
                   <mat-icon>create</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Create" value="Create"
-                        (change)="action='create'; this.errorMessage='';">
+                  <input type="radio" name="CrudRadio" id="Create" value="Create" (change)="action='create';">
                   <label for="Create">Create</label>
             </div>
             <div class="firstDiv2">
                   <mat-icon>book</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Read" value="Read"
-                        (change)="action='read'; this.errorMessage='';" checked>
+                  <input type="radio" name="CrudRadio" id="Read" value="Read" (change)="action='read'; " checked>
                   <label for="Read">Read</label>
             </div>
             <div class="firstDiv2">
                   <mat-icon>update</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Update" value="Update"
-                        (change)="action='update'; this.errorMessage='';">
+                  <input type="radio" name="CrudRadio" id="Update" value="Update" (change)="action='update'; ">
                   <label for="Update">Update</label>
 
             </div>
             <div class="firstDiv2">
                   <mat-icon>delete</mat-icon>
-                  <input type="radio" name="CrudRadio" id="Delete" value="Delete"
-                        (change)="action='delete'; this.errorMessage='';">
+                  <input type="radio" name="CrudRadio" id="Delete" value="Delete" (change)="action='delete'; ">
                   <label for="Delete">Delete</label>
             </div>
       </div>
@@ -46,14 +43,16 @@
             <label>Ticker:&nbsp;&nbsp;</label>
             <input type="text" value={{createdSecuritySignal().ticker}} (blur)="editTicker($event)">
             <label>&nbsp;&nbsp;Quantity:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().quantity}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().quantity}}
+                  (blur)="editQuantity($event)">
             <label>&nbsp;&nbsp;Price:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().price}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().price}} (blur)="editPrice($event)">
             <label class="longlabel">&nbsp;&nbsp;Unit Cost:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().unit_cost}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().unit_cost}}
+                  (blur)="editUnitCost($event)">
             <label>&nbsp;&nbsp;Category:&nbsp;&nbsp;</label>
             <!-- <input type="text" value={{createdSecuritySignal().category}}> -->
-            <select name="category" value={{createdSecuritySignal().category}}>
+            <select name="category" value={{createdSecuritySignal().category}} (change)="editCategory($event)">
                   <option value="Stock">Stock</option>
                   <option value="Mutual Fund">Mutual Fund</option>
                   <option value="Fixed Income"> Fixed Income</option>
@@ -69,35 +68,43 @@
       </span>
       <span class="headerDiv2">
             <label class="longlabel">52WkRng:&nbsp;&nbsp;</label>
-            <input class="customInput" type="text" value={{createdSecuritySignal().fiftytwowkrng}}>
+            <input class="customInput" type="text" value={{createdSecuritySignal().fiftytwowkrng}}
+                  (blur)="editFiftytwowkrng($event)">
             <label>&nbsp;&nbsp;Comment:&nbsp;&nbsp;</label>
-            <input type="text" value={{createdSecuritySignal().comment}}>
+            <input type="text" value={{createdSecuritySignal().comment}} (blur)="editComment($event)">
             <label class="longlabel" title="Effective Year Low">&nbsp;&nbsp;EffYrLow:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_low}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_low}}
+                  (blur)="editEffective_year_low($event)">
             <label class="longlabel" title="Effective Year High">&nbsp;&nbsp;EffYrHigh:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_high}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().effective_year_high}}
+                  (blur)="editEffective_year_high($event)">
             <label>&nbsp;&nbsp;50DayAvg:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverage}}>
+            <input readonly class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverage}}>
       </span>
 
       <span class="headerDiv2">
             <label class="longlabel">50DayAvgChng:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverageChange}}>
+            <input readonly class="customInput" type="number" value={{createdSecuritySignal().fiftyDayAverageChange}}>
             <label>&nbsp;&nbsp;200DayAvg:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().twoHundredDayAverage}}>
+            <input readonly class="customInput" type="number" value={{createdSecuritySignal().twoHundredDayAverage}}>
             <label>&nbsp;&nbsp;200DayAvgChng:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().twoHundredDayAverageChange}}>
+            <input readonly class="customInput" type="number"
+                  value={{createdSecuritySignal().twoHundredDayAverageChange}}>
             <label class="longlabel">&nbsp;&nbsp;AppYrIncome:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().est_annual_income}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().est_annual_income}}
+                  (blur)="editEst_annual_income($event)">
             <label>&nbsp;&nbsp;ActualIncome:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().actual_dividend}}>
+            <input class="customInput" type="number" value={{createdSecuritySignal().actual_dividend}}
+                  (blur)="editActual_dividend($event)">
       </span>
       <span class="headerDiv">
             @switch (action) {
-            @case ('create') { <button class="but1 button1" disabled="!validSecurity" (click)="onCreate()">Create
-                  Security</button>}
+            @case ('create') { <button class="but1 button1" [disabled]="!(validSecurity())" (click)="onCreate()">Create
+                  Security</button>
+            <!-- <button class="but1 button2" (click)="getSecurityFromRapid()">Create Read</button> -->
+            }
             @case ('read') {<button class="but1 button2" (click)="operation()">Read Security</button>}
-            @case ('update'){<button class="but1 button3" disabled="!validSecurity" (click)="onUpdate()">Update
+            @case ('update'){<button class="but1 button3" [disabled]="!(validSecurity())" (click)="onUpdate()">Update
                   Security</button>}
             @case ('delete') {<button class="but1" style="background-color: red; color:white;"
                   (click)="onDelete()">Delete
@@ -106,5 +113,5 @@
             }
 
       </span>
-      @if(errorMessage){<p class="error" title="Select A different radio button to clear error">{{errorMessage}}</p>}
+      @if(errorMessage){<p class="error" title="Select A different radio button to clear error">{{errorMessage}} </p>}
 </div>
