@@ -8,6 +8,7 @@
                         <td>comment</td>
                         <td>yahoo price</td>
                         <td>50-day-avg , 200-day-avg</td>
+                        @if(thefile==='Stocks.json'){<td>Unit Cost</td>}
                         <td>52 Week Range</td>
                         <td title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price
                               Percentile</td>
@@ -23,6 +24,7 @@
                         <td>{{stock.comment}}</td>
                         <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
                         <td title="50-day-avg & 200-day-avg">{{stock.fifty50_200DayAvg}}</td>
+                        @if(thefile==='Stocks.json'){<td>{{stock.unitcost}}</td>}
                         <td>{{stock.fiftytwowkrng}}</td>
                         <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
                               'sell':stock.percentage >=80 ,

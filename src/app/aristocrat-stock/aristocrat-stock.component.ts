@@ -33,11 +33,12 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
   securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
     "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json", "realwatchlist.json", "allgits.json", "empower.json"]
+  thefileOutput: string = "";
   /*
-    columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile"]
-    //Table columns will be displayed in the same order of values in the array
-    colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage'];
-    */
+  columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile"]
+  //Table columns will be displayed in the same order of values in the array
+  colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage'];
+  */
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
   constructor(private rapidApiService: RapidapiService) {
@@ -145,6 +146,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     //clear filter text box    should I use look in notes Renderer2
     this.filterinput.nativeElement.value = "";
     this.tableDataSource.filter = "";
+    this.thefileOutput = theFile;
     this.preinitial(theFile);
   }
 

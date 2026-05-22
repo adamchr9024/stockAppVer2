@@ -13,4 +13,6 @@ export class AristocratTableComponent {
 
   @Input()
   stocks: Security[] = []
+  @Input()
+  thefile = "morehyetfs.json";
 }

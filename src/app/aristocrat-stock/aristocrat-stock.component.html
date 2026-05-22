@@ -37,7 +37,7 @@
       <div style="width:95%; margin:15px;">
             <ng-container *ngIf="!matOrig">
                   <!-- <app-aristocrat-table [stocks]="tableDataSource.filteredData"></app-aristocrat-table> -->
-                  <app-aristocrat-table
+                  <app-aristocrat-table [thefile]="thefileOutput"
                         [stocks]="tableDataSource.sortData(tableDataSource.filteredData,sort)"></app-aristocrat-table>
             </ng-container>
             <div>
