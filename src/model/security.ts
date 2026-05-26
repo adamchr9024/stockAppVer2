@@ -142,6 +142,11 @@ export class Security {
                   return val;
             }
       }
+      get newUnitCost() {
+            let buyquantity = Math.floor(250 / this._yahooprice)
+            return (((this.unit_cost * this.quantity + buyquantity * this._yahooprice) / (buyquantity + this.quantity))).toFixed(2);
+
+      }
       static getTotalMarketValue(arr: Security[]): number {
             let sum = 0;
             arr.forEach((sec) => {

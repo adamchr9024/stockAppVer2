@@ -5,7 +5,8 @@
             <thead>
                   <tr>
                         <td>ticker</td>
-                        <td>comment</td>
+                        @if(thefile!=='Stocks.json'){ <td>comment</td>}
+                        @else {<td>Buy $250 U_C</td>}
                         <td>yahoo price</td>
                         <td>50-day-avg , 200-day-avg</td>
                         @if(thefile==='Stocks.json'){<td>Unit Cost</td>}
@@ -21,7 +22,8 @@
             <tbody>
                   <tr *ngFor=" let stock of stocks; let i=index">
                         <td>{{stock.ticker}}</td>
-                        <td>{{stock.comment}}</td>
+                        @if(thefile!=='Stocks.json'){ <td>{{stock.comment}}</td>}
+                        @else{<td>{{stock.newUnitCost}}</td>}
                         <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
                         <td title="50-day-avg & 200-day-avg">{{stock.fifty50_200DayAvg}}</td>
                         @if(thefile==='Stocks.json'){<td>{{stock.unitcost}}</td>}
