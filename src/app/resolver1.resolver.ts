@@ -19,14 +19,17 @@ export const Resolver1Resolver: ResolveFn<Map<string, Security>> = (route, state
   console.log(`The final number is ${ finalNumber }`);
   high return ETFs
   HIGH DIVIDEND STOCK RELATED TO "ENERGY"*/
-  //const keys2 = ["IEP", "VOC", "NFE", "MNR", "ICON", "TXO", "EPM", "ARLP", "VTS", "TEN", "GPRK", "AESI", "HWSM"]
+  const keys2 = ["NEE", "MPLX", "CHI", "UPS", "CGDV", "DIVB", "JFLI", "AIS", "SDIV", "SPYD", "ENB", "ASG", "QDPL",
+    "CII", "AHITX", "PONAX", "MDLOX", "HAUZ", "FWGIX", "QQQI", "HYZD", "HSEIX", "EVC", "PCEF", "IAUI", "PRFZ", "EBIT", "AVSC",
+    "VTWO", "RSSL"
+  ]
   // const etfs = ["PRFZ", "EBIT", "AVSC", "VTWO", "RSSL", "DES"];
   //These keys must be in Watchlist
   const keys = ["CHPY", "SOXY", "GPIQ", "PBOT", "TRTX", "SDIV", "NEE", "UPS", "GNL", "ENB", "ASG", "VLT", "QDPL", "AHITX", "MDLOX", "HAUZ",
     "WTPI", "FWGIX", "QQQI", "FNPFX", "NXTG", "HSEIX", "MPLX", "AMZA",
     "PRFZ", "AVSC", "VTWO", "TRMD", "MPLX", "O", "AGNC"
   ];
-  return rapidApiService.getMutualFundPricesResolve(keys);
+  return rapidApiService.getMutualFundPricesResolve(keys2);
 }
 
 

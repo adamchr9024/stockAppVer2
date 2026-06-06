@@ -11,7 +11,8 @@ export class Security {
       private static initialInvestment: number = 500.00;
 
       constructor(public readonly ticker: string,
-            public readonly quantity: number,
+            // public readonly quantity: number,
+            public quantity: number,
             private price: number, //might should only be one price
             private unit_cost: number,
             public readonly category: Category = Category.Stock,
@@ -184,6 +185,9 @@ export interface symbolprice {
 export enum Category {
       Stock = "Stock", MutualFund = "Mutual Fund", FixedIncome = "Fixed Income", ETF = "ETF", Bond = "Bond", Other = "Other", Alternative = 'Alternative', CashAndShortTerm = "Cash & Short Term", WatchList = "Watch List", CEF = "Closed End Fund",
       IndexFund = "Index Fund"
+};
+export enum TransactionType {
+      Buy = 'buy', Sell = "sell", Dividend = "dividend"
 };
 export type SecurityType = {
       ticker: string,
