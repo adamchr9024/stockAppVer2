@@ -27,6 +27,7 @@ export class Security {
             public readonly est_annual_income = 3.33,
             public readonly actual_dividend = 0.0
       ) {  //see what this is generating in Javascript repeated variables
+            this._yahooprice = price
             this.init();
       }
       static getSecurityFromSecurityType(sectype: SecurityType): Security {
@@ -37,7 +38,7 @@ export class Security {
       }
       init(): void {
             this._costbasis = Number((this.quantity * this.unit_cost).toFixed(2));
-            this._yahooprice = this.price;
+            // this._yahooprice = this.price;
             this._marketvalue = Number((this.quantity * this.price).toFixed(2));
             this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
             this.setPercentage();
@@ -66,18 +67,18 @@ export class Security {
             this._trailingAnnualDividendRate = val;
             // this.
       }
-      set yahooprice(val: number | undefined) {
-            if (val) {
-                  this._yahooprice = val;
-                  this.price = val;
-                  this._marketvalue = Number((this.quantity * val).toFixed(2));
-                  this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
-                  //code to set percentage
-                  this.setPercentage();
-            }
-            else {
-                  throw new Error("Yahoo price must be > 0");
-            }
+      set yahooprice(val: number) {
+            // if (val) {
+            this._yahooprice = val;
+            this.price = val;
+            this._marketvalue = Number((this.quantity * val).toFixed(2));
+            this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
+            //code to set percentage
+            this.setPercentage();
+            // }
+            //  else {
+            //      throw new Error("Yahoo price must be > 0");
+            // }
       }
       set percentage(val: number) {
             this._percentage = val
@@ -134,6 +135,9 @@ export class Security {
       get glwdvdpct() {
             return this.glwdiv / this._marketvalue;//validate
       }
+      // get newCostBases() { //used with transaction 
+      //       return this.unitcost * this.quantity
+      //}
       get effectivePercentage() {
             let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
             if (isNaN(val)) {
