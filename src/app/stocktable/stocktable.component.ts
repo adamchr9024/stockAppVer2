@@ -56,7 +56,7 @@ export class StocktableComponent implements OnInit, OnDestroy {
         symprices.forEach(val2 => {
           let updt = this.stocksmap.get(val2.symbol);
           if (updt) {
-            updt.yahooprice = val2.price;
+            updt.yahooprice = val2.price ? val2.price : 0;
             this.stocksmap.set(updt.ticker, updt);
           }
         })

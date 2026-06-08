@@ -1,19 +1,24 @@
-import { from } from "../../dist/stock-app-ng18/browser/chunk-UKM2PROZ";
 import { TransactionType, Category, Security, SecurityType } from "./security";
 //import { Error } from 
-export class transaction {
+export class Transaction {
       /* this is call is desigined to operate on only one security and give update after each transaction 
           the quantity field must not be readonly for this class to work.
       
       */
       private static value = "";
-      private static startCash = 1000;
-      private static _dividend: number = 0;
-      constructor(private security: Security, private transType: TransactionType,
-            private amt: number, private price: number = 0) {
-            this.handleOperation();
+      private static cashOnHand = 500;  //first transaction is done when security is created ' thus 1000-500
+      private static costbasis = 500;
+      private static sellbasisAndDividend = 0;
+      // private static _dividend: number = 0;
+      private static count = 1;
+      private _tranNum = 0;
+      // private _amt = 0;
+      constructor(private security: Security, private transType: TransactionType, private amt: number, private price: number) {
+            this._tranNum = Transaction.count++;
+            this.handleOperation(amt, price);
       }
-      handleOperation() {
+      handleOperation(amt: number, price: number): void {
+            console.log("in handleOperation", this.transType, amt, price)
             try {
                   switch (this.transType) {
                         case 'buy':
@@ -23,7 +28,7 @@ export class transaction {
                               this.handleSell();
                               break;
                         case 'dividend':
-                              this.handleDividend();
+                              this.handleDividend(amt);
                               break;
                         default:
                               throw new Error('Invalid Transaction Type');
@@ -34,25 +39,27 @@ export class transaction {
             }
       }
 
-      handleBuy() {
+      handleBuy(): void {// maybe return observable
+            //  console.log("in handleBuy()")
             try {
                   let cashNeeded = this.price * this.amt;
-                  if (transaction.startCash < cashNeeded) {
+                  if (Transaction.cashOnHand < cashNeeded) {
                         throw new Error("Not Enough Cash On Hand");
                   }
                   else {
                         // update unit cost
                         this.security.unitcost =
-                              Number(((this.security.unitcost * this.security.quantity + this.amt * this.price) / (this.security.unitcost + this.price)).toPrecision(2))
+                              Number(((this.security.unitcost * this.security.quantity + this.amt * this.price) / (this.security.quantity + this.amt)).toFixed(2));
 
                         //update quantity 
                         this.security.quantity = this.security.quantity + this.amt;
 
                         //update available cash
-                        transaction.startCash -= cashNeeded;
-
+                        Transaction.cashOnHand -= cashNeeded;
+                        // update cost basis
+                        Transaction.costbasis = this.security.unitcost * this.security.quantity
                         // update yahoo price
-                        this.security.yahooprice = this.price;
+                        // this.security.yahooprice = this.price;
 
                   }
 
@@ -63,7 +70,7 @@ export class transaction {
             }
 
       }
-      handleSell() {
+      handleSell(): void {
             try {
                   if (this.security.quantity < this.amt) {
                         throw new Error("Sell quantity less than QUANTITY ON HAND");
@@ -72,9 +79,10 @@ export class transaction {
                         //reduce quantity
                         this.security.quantity = this.security.quantity - this.amt;
                         //add to cash
-                        transaction.startCash += this.price * this.amt
+                        Transaction.sellbasisAndDividend += this.price * this.amt;
+                        Transaction.cashOnHand += this.price * this.amt;
                         // update yahooprice
-                        this.security.yahooprice = this.price;
+                        //this.security.yahooprice = this.price;
                   }
 
             }
@@ -85,10 +93,13 @@ export class transaction {
             }
 
       }
-      handleDividend() {
+      handleDividend(amt: number): void {
+            // debugger;
+            console.log("in handle dividend", amt,);
             try {
-                  transaction._dividend += this.amt;
-                  transaction.startCash += this.amt;
+                  // Transaction._dividend += amt;
+                  Transaction.cashOnHand += amt;
+                  Transaction.sellbasisAndDividend += amt;
             }
             catch (err: any) {
                   console.log("error caught in handleDividend", err?.message);
@@ -96,10 +107,15 @@ export class transaction {
             }
       }
       get value(): string { //this only matters after the quantity  is 0 ...the security is sold.
-            let secval = this.security.yahooprice! * this.security.quantity + transaction.startCash;
+            let secval = this.security.yahooprice! * this.security.quantity;
             let quan = this.security.quantity;
-            transaction.value = `Start Cash: $1000 , Security Value: ${secval}, quantity: ${quan}`
-            return transaction.value;
+            //gainloss = market_value + sellbasis - costbasis
+            let gainorloss = secval + Transaction.sellbasisAndDividend - Transaction.costbasis;
+            Transaction.value = `Cash on hand: $${Transaction.cashOnHand}, Security Value: $${secval}, quantity: ${quan}  gain/loss: ${gainorloss} Trans#:  ${this._tranNum}`
+            return Transaction.value;
 
       }
-};
+      get transNum(): number {
+            return this._tranNum;
+      }
+}

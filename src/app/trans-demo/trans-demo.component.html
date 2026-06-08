@@ -3,3 +3,12 @@
       <li>{{todo}}</li>
       }
 </ol>
+<button class="button2" (click)="handleTrans()">Next Transaction</button>
+<ul>
+      @for(tran of transationArrayValue; track tran){
+      <li>{{tran}}
+            <hr height="3px">
+      </li>
+      }
+</ul>
+{{security | json}}

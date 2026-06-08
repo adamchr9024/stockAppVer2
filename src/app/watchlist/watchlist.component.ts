@@ -40,7 +40,7 @@ export class WatchlistComponent implements OnInit {
       .then(x => {
         x.forEach(val => {
 
-          this.watchlist()[i++].yahooprice = val.price;
+          this.watchlist()[i++].yahooprice = val.price ? val.price : 0;
         })
         this.waiting = "done";
       })
