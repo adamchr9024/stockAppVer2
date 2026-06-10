@@ -12,9 +12,9 @@ import { JsonPipe } from '@angular/common';
 })
 export class TransDemoComponent implements OnInit {
   static count = 0;
-  todos = ['create transactions', "sell; buy; dividend; yahooprice change", "print errors", "at end qty should be 0"];
+  todos = ['create transactions', "sell; buy; dividend; yahooprice change", "print errors", "at end qty should be 0", "add sellbasis and totalcost where applicable (Stocks.json, StockType etc)", "updata all stocks with new data"];
   //start with quantity 0
-  security = new Security("sec1", 5, 100, 100, Category.Stock, '5-15', "test stock", 4.2, 14.8, 8.9, .5, 10.2, .8, 100, 0);
+  security = new Security("sec1", 5, 100, 100, Category.Stock, '5-15', "test stock", 4.2, 14.8, 8.9, .5, 10.2, .8, 100, 0, 0, 500);
 
   transTypeArray: Array<TransactionType> = [TransactionType.Buy, TransactionType.Dividend, TransactionType.Sell, TransactionType.Sell];
   transationArrayValue: Array<string> = []

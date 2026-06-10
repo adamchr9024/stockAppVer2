@@ -11,10 +11,10 @@ export class Security {
       private static initialInvestment: number = 500.00;
 
       constructor(public readonly ticker: string,
-            // public readonly quantity: number,
-            public quantity: number,
+            //public readonly quantity: number,
+            public quantity: number,   //changed because of transaction buy and sell
             private price: number, //might should only be one price
-            private unit_cost: number,
+            private unit_cost: number, //make readonly after tranaction is done
             public readonly category: Category = Category.Stock,
             private fifty_twowkrng: string,
             public readonly comment: string = "",
@@ -25,7 +25,9 @@ export class Security {
             public twoHundredDayAverage = 44.44,
             public twoHundredDayAverageChange = 22.22,
             public readonly est_annual_income = 3.33,
-            public readonly actual_dividend = 0.0
+            public actual_dividend = 0.0, //make readonly after tranaction class is done
+            public selltotal = 0,  //make readonly after tranaction class is done
+            public totalcost = 250  //make readonly after tranaction class is done
       ) {  //see what this is generating in Javascript repeated variables
             this._yahooprice = price
             this.init();
@@ -33,7 +35,7 @@ export class Security {
       static getSecurityFromSecurityType(sectype: SecurityType): Security {
             return new Security(sectype.ticker, sectype.quantity, sectype.price, sectype.unit_cost, sectype.category, sectype.fiftytwowkrng,
                   sectype.comment, sectype.effective_year_low, sectype.effective_year_high, sectype.fiftyDayAverage, sectype.fiftyDayAverageChange,
-                  sectype.twoHundredDayAverage, sectype.twoHundredDayAverageChange, sectype.est_annual_income, sectype.actual_dividend
+                  sectype.twoHundredDayAverage, sectype.twoHundredDayAverageChange, sectype.est_annual_income, sectype.actual_dividend, sectype.selltotal, sectype.totalcost
             )
       }
       init(): void {
@@ -56,36 +58,33 @@ export class Security {
                   this._percentage = 50;
             }
       }
+      set quantityval(val: number) {
+            this.quantity = val
+            this.init(); //this is really updating
+      }
+      get quantityval() { return this.quantity; }
       set fiftytwowkrng(val: string) { this.fifty_twowkrng = val; }
       set unitcost(value: number) {
             this.unit_cost = value;
-            this._costbasis = Number((this.quantity * value).toFixed(2));
-            this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
+            this.init()
+            //this._costbasis = Number((this.quantity * value).toFixed(2));
+            //this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
 
       }
-      set trailingAnnualDividendRate(val: Number) {
-            this._trailingAnnualDividendRate = val;
-            // this.
-      }
+      set actual_dividendval(val: number) { this.actual_dividend = val; }
+      set trailingAnnualDividendRate(val: Number) { this._trailingAnnualDividendRate = val; }
       set yahooprice(val: number) {
-            // if (val) {
             this._yahooprice = val;
             this.price = val;
-            this._marketvalue = Number((this.quantity * val).toFixed(2));
-            this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
+            this.init()
+            //this._marketvalue = Number((this.quantity * val).toFixed(2));
+            //this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
             //code to set percentage
-            this.setPercentage();
-            // }
-            //  else {
-            //      throw new Error("Yahoo price must be > 0");
-            // }
+            //this.setPercentage();
+
       }
-      set percentage(val: number) {
-            this._percentage = val
-      }
-      set dividendYield(val: number) {
-            this._dividendYield = val;
-      }
+      set percentage(val: number) { this._percentage = val }
+      set dividendYield(val: number) { this._dividendYield = val; }
       get fiftytwowkrng() { return this.fifty_twowkrng; }
       get dividendYield() { return this._dividendYield; }
       get percentage() { return this._percentage }
@@ -120,10 +119,7 @@ export class Security {
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
       get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
-      get glwdiv() {
-            return Number((this.actual_dividend + this._gainloss).toFixed(2));
-
-      }
+      get glwdiv() { return Number((this._marketvalue + this.selltotal + this.actual_dividend - this.totalcost).toFixed(2)); }
       get fifty50_200DayAvg() {
             if (this.fiftyDayAverage && this.twoHundredDayAverage) {
                   return this.fiftyDayAverage.toFixed(4) + " , " + this.twoHundredDayAverage.toFixed(4);
@@ -133,7 +129,7 @@ export class Security {
             }
       }
       get glwdvdpct() {
-            return this.glwdiv / this._marketvalue;//validate
+            return this.glwdiv / this.totalcost;//validate
       }
       // get newCostBases() { //used with transaction 
       //       return this.unitcost * this.quantity
@@ -209,6 +205,9 @@ export type SecurityType = {
       twoHundredDayAverageChange?: number,
       est_annual_income?: number,
       actual_dividend?: number,
+      selltotal?: number,
+      totalcost?: number
+
 }
 export const test_securitys = [
       { "priceEpsCurrentYear": 35.588608, "bookValue": 4.431, "fiftyDayAverage": 243.541, "fiftyDayAverageChange": 19.907211, "fiftyDayAverageChangePercent": 0.0817407, "twoHundredDayAverage": 222.37805, "twoHundredDayAverageChange": 41.07016, "twoHundredDayAverageChangePercent": 0.18468621, "marketCap": 3909674074112, "forwardPE": 31.70255, "priceToBook": 59.455696, "sourceInterval": 15, "exchangeDataDelayedBy": 0, "averageAnalystRating": "2.0 - Buy", "tradeable": false, "cryptoTradeable": false, "regularMarketChangePercent": 1.4901862, "regularMarketPrice": 263.4482, "marketState": "REGULAR", "hasPrePostMarketData": true, "firstTradeDateMilliseconds": 345479400000, "priceHint": 2, "regularMarketChange": 3.868225, "regularMarketDayHigh": 264.13, "regularMarketDayRange": "259.18 - 264.13", "regularMarketDayLow": 259.18, "regularMarketVolume": 25871653, "regularMarketPreviousClose": 259.58, "bid": 263.43, "ask": 263.29, "bidSize": 1, "askSize": 1, "fullExchangeName": "NasdaqGS", "financialCurrency": "USD", "regularMarketOpen": 261.19, "averageDailyVolume3Month": 54759101, "averageDailyVolume10Day": 47327910, "fiftyTwoWeekLowChange": 94.238205, "fiftyTwoWeekLowChangePercent": 0.5569304, "fiftyTwoWeekRange": "169.21 - 265.29", "fiftyTwoWeekHighChange": -1.8417969, "fiftyTwoWeekHighChangePercent": -0.006942579, "fiftyTwoWeekLow": 169.21, "fiftyTwoWeekHigh": 265.29, "fiftyTwoWeekChangePercent": 12.1732, "dividendDate": 1755129600, "trailingAnnualDividendRate": 1.01, "trailingPE": 39.976967, "dividendRate": 1.04, "trailingAnnualDividendYield": 0.0038909009, "dividendYield": 0.4, "epsTrailingTwelveMonths": 6.59, "epsForward": 8.31, "epsCurrentYear": 7.4026, "shortName": "Apple Inc.", "longName": "Apple Inc.", "displayName": "Apple", "symbol": "AAPL" },
@@ -247,7 +246,9 @@ export const test_securityType: SecurityType[] = [
             "twoHundredDayAverage": 1.75,
             "twoHundredDayAverageChange": 0.75,
             "est_annual_income": 211.68,
-            "actual_dividend": 67.25
+            "actual_dividend": 67.25,
+            "selltotal": 0,
+            "totalcost": 1
       },
       {
             "ticker": "ONECX",
@@ -264,6 +265,8 @@ export const test_securityType: SecurityType[] = [
             "twoHundredDayAverage": 1.75,
             "twoHundredDayAverageChange": 0.75,
             "est_annual_income": 167.04,
-            "actual_dividend": 125.28
+            "actual_dividend": 125.28,
+            "selltotal": 0,
+            "totalcost": 1
       }
 ]

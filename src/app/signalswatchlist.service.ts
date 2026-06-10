@@ -35,7 +35,9 @@ export class SignalswatchlistService implements OnInit {
                 thesec.twoHundredDayAverage ? thesec.twoHundredDayAverage : 0,
                 thesec.twoHundredDayAverageChange ? thesec.twoHundredDayAverageChange : 0,
                 thesec.est_annual_income ? thesec.est_annual_income : 0,
-                thesec.actual_dividend ? thesec.actual_dividend : 0
+                thesec.actual_dividend ? thesec.actual_dividend : 0,
+                thesec.selltotal ? thesec.selltotal : 0,
+                thesec.totalcost ? thesec.totalcost : 250
               )
             })
         })
