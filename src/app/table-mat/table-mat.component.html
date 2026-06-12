@@ -14,9 +14,9 @@
                   <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
             </ng-container>
             <!-- ticker category -->
-            <ng-container cdkColumnDef="category">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Category </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.category}} </mat-cell>
+            <ng-container cdkColumnDef="totalcost">
+                  <mat-header-cell *cdkHeaderCellDef>Total Cost </mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.totalcost}} </mat-cell>
             </ng-container>
             <!-- quantity Definition -->
             <ng-container cdkColumnDef="quantity">
@@ -67,9 +67,9 @@
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain/Loss With DvD </mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
             </ng-container>
-            <ng-container cdkColumnDef="est_annual_income">
-                  <mat-header-cell *cdkHeaderCellDef> Est 1yr Income </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.est_annual_income}} </mat-cell>
+            <ng-container cdkColumnDef="selltotalval">
+                  <mat-header-cell *cdkHeaderCellDef>Sell Total</mat-header-cell>
+                  <mat-cell *cdkCellDef="let row"> {{row.selltotalval}} </mat-cell>
             </ng-container>
 
             <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>

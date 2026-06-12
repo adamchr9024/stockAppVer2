@@ -93,6 +93,7 @@ export class Security {
       get marketvalue() { return this._marketvalue; }
       get unitcost() { return this.unit_cost; }
       get costbasis() { return this._costbasis; }
+      get selltotalval() { return this.selltotal }
       get potentialYearlyDividend() {//use with Watchlist to calcualte a $500 investment for one year
             if (this.est_annual_income !== 3.33 && this.est_annual_income !== 0) { // added specifically for dividend aristocrats
                   return this.est_annual_income;
