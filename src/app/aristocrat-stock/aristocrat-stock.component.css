@@ -1,3 +1,13 @@
+@property --navbar-height {
+      /* used with var but not used in this file*/
+      /*override chrome property if possible*/
+      syntax: "<length> | <percentage>";
+      inherits: false;
+      initial-value: 2.5rem;
+      /*chrome generated height for side-nav header
+  https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var */
+}
+
 .sell {
       background-color: lightgreen;
       font-weight: bolder;
@@ -30,6 +40,10 @@ thead {
       position: sticky;
 }
 
+/* mat-toolbar-multiple-rows {
+      min-height: 2.5rem;
+} */
+
 .fieldset {
       display: flex;
       flex-direction: row;
@@ -38,7 +52,10 @@ thead {
       width: 100%;
       background-color: goldenrod;
       color: white;
-      top: -10px;
+      top: -.625rem;
+      /* top: 0.313rem; */
+      /*for chrome*/
+
       position: sticky;
       border: 2px solid darkcyan;
       z-index: 100;

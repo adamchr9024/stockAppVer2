@@ -29,7 +29,8 @@
                         (change)="handleInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
                         <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
                   </select>
-                  OPTOMIZED CSS FOR FIREFOX ON LINUX MINT ONLY
+                  <!-- OPTOMIZED CSS FOR FIREFOX ok but used 
+                  --mat-toolbar-standard-height: 2.5rem in styles.css file from chrome to work -->
             </div>
       </div>
       <!-- </details> -->

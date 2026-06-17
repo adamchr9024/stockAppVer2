@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style file*/
+:root {
+      --mat-toolbar-standard-height: 2.5rem;
+      /*chrome generated height for side-nav header  overridding*/
+}
+
 .firstDiv {
       display: flex;
       flex-direction: column;
