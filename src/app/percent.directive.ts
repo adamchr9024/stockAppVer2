@@ -8,7 +8,6 @@ export class PercentDirective {
 
   constructor(private element: ElementRef, private renderer: Renderer2) { }
   @Input() set appPercent(percentval: number) { //NOTE: the name is same as the selector (appPercent)
-    //console.log("in set input ", percentval)
     let clz = ""
     if (percentval >= 0 && percentval <= 20) {
       clz = 'buy';
@@ -39,7 +38,7 @@ export class PercentDirective {
         }
       }
       catch (err) {
-        console.log("error in percent directive ", err)
+        console.error("error in percent directive ", err)
       }
     })
     if (clz) {

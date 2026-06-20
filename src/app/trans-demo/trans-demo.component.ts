@@ -66,7 +66,7 @@ export class TransDemoComponent implements OnInit {
       this.transationArrayValue.push(xtn.value);  //wait for transaction to complete
       ++TransDemoComponent.count;
     } catch (err: any) {
-      console.log("error caught in handleTrans()", err.message);
+      console.error("error caught in handleTrans()", err.message);
     }
 
     //let xtn = new Transaction(this.security, this.transTypeArray[TransDemoComponent.count++], );  //buy 5

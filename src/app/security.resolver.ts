@@ -16,7 +16,6 @@ export class SecurityResolver1 implements OnInit, Resolve<Map<string, Security>>
   // snapShot = inject(ActivatedRouteSnapshot);
   stocksmap: Map<string, Security> = new Map();
   constructor(private rapidApiService: RapidapiService) {
-    // console.log(this.snapShot.url.join(""));
     this.signalsService.readSecurities('realwatchlist.json')
       .subscribe(next => {//all I need is the tickers
         next.forEach(val => {
@@ -38,7 +37,7 @@ export class SecurityResolver1 implements OnInit, Resolve<Map<string, Security>>
 
     }
     catch (err: any) {
-      console.log("error caught in ", err?.message)
+      console.error("error caught in ", err?.message)
       throw err;
     }
   }

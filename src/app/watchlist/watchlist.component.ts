@@ -39,13 +39,12 @@ export class WatchlistComponent implements OnInit {
     this.finnhubService.getAllPrices(thesymbols)
       .then(x => {
         x.forEach(val => {
-
           this.watchlist()[i++].yahooprice = val.price ? val.price : 0;
         })
         this.waiting = "done";
       })
       .catch(err => {
-        console.log("error caught in watchlist.component intialize", err)
+        console.error("error caught in watchlist.component intialize", err)
         this.waiting = "ERROR from finnhub getAllPrices: " + err;
       })
   }

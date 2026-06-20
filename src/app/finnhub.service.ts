@@ -22,7 +22,6 @@ export class FinnhubService implements OnInit, OnDestroy {
   authHeader: string = "X-Finnhub-Token";
   constructor(private defaultApi: DefaultApi) { }
   ngOnDestroy(): void {
-    //console.log("in ondestroy finnhubservice");
     this.spinControl.hideSpinner();
   }
   ngOnInit(): void {//getting 401 add headers or apikey to url
@@ -74,7 +73,7 @@ export class FinnhubService implements OnInit, OnDestroy {
       //return funddata.data;
     }
     catch (error: any) {
-      console.log("error during getAllPrices: ", error)
+      console.error("error during getAllPrices: ", error)
       throw new Error("error encountered getting symbols: " + error);
     }
     finally {//finallyCode - Code block to be executed regardless of the try result ...check synchronization
@@ -92,8 +91,6 @@ export class FinnhubService implements OnInit, OnDestroy {
     }
     return symprice;
   }
-
-
 
   sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));

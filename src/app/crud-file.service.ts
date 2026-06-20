@@ -21,21 +21,18 @@ export class CrudFileService {
       // this.initalizeheader();
       return this.http.get(this.localUrl + ticker, { headers: this.headers })
         .pipe(switchMap((res) => {
-          //console.log("res switch map", res);
-
           return of(res)
         }),
           map((x: any) => {
-            // console.log("in map after switch", x.data);
             return x.data;
           }),
           catchError(err => {
-            console.log("error caught and rethrown in crudFileService.readASecurity catchError: ", err);
+            console.error("error caught and rethrown in crudFileService.readASecurity catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in crudFileService.readASecurity  try catch", err?.message);
+      console.error("error caught rethrown in crudFileService.readASecurity  try catch", err?.message);
       throw err;
     }
   }
@@ -55,12 +52,12 @@ export class CrudFileService {
             return x;
           }),
           catchError(err => {
-            console.log("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
+            console.error("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in crudFileService.createASecurity try catch", err?.message);
+      console.error("error caught rethrown in crudFileService.createASecurity try catch", err?.message);
       throw err;
     }
   }
@@ -70,20 +67,18 @@ export class CrudFileService {
       return this.http.delete(this.localUrl + ticker, { headers: this.headers })
         .pipe(
           switchMap((res) => {
-            //console.log("res,switchmap,delete", res);
             return of(res);
           }),
           map((x: any) => {
-            //console.log("x in http delete map:", x);
             return x;
           }),
           catchError(err => {
-            console.log("error caught and rethrown in crudFileService.deleteASecurity catchError: ", err);
+            console.error("error caught and rethrown in crudFileService.deleteASecurity catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in crudFileService.deleteASecurity try catch", err?.message);
+      console.error("error caught rethrown in crudFileService.deleteASecurity try catch", err?.message);
       throw err;
     }
   }
@@ -103,12 +98,12 @@ export class CrudFileService {
             return x;
           }),
           catchError(err => {
-            console.log("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
+            console.error("error caught and rethrown in crudFileService.createASecurity catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in crudFileService.updateASecurity try catch", err?.message);
+      console.error("error caught rethrown in crudFileService.updateASecurity try catch", err?.message);
       throw err;
     }
   }

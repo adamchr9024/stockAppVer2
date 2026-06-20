@@ -36,7 +36,7 @@ export class Transaction {
                   }
             }
             catch (err: any) {
-                  console.log("error caught in handleOperation", err?.message);
+                  console.error("error caught in handleOperation", err?.message);
             }
       }
 
@@ -67,7 +67,7 @@ export class Transaction {
 
             }
             catch (err: any) {
-                  console.log("error caught in handleBuy", err?.message);
+                  console.error("error caught in handleBuy", err?.message);
                   throw err;
             }
 
@@ -89,7 +89,7 @@ export class Transaction {
 
             }
             catch (err: any) {
-                  console.log("error caught in handleSell", err?.message);
+                  console.error("error caught in handleSell", err?.message);
                   throw err;
 
             }
@@ -105,7 +105,7 @@ export class Transaction {
                   this.security.actual_dividend += amt;
             }
             catch (err: any) {
-                  console.log("error caught in handleDividend", err?.message);
+                  console.error("error caught in handleDividend", err?.message);
                   throw err;
             }
       }

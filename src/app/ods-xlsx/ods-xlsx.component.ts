@@ -45,15 +45,11 @@ export class OdsXlsxComponent implements OnDestroy {
         };
       });
 
-
-
-      //console.log(JSON.stringify(customValue))
       const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(customValue);
       //console.log("export worksheet", worksheet);
       for (let c in worksheet) {
         if (typeof (worksheet[c]) != "object") continue;
         let cell = XLSX.utils.decode_cell(c);
-        //console.log(cell);  //cell.c ==4 add background color
         if (cell.c === 4) { //yahoo.price
           worksheet[c].s = { //add style
             alignment: {
@@ -94,7 +90,7 @@ export class OdsXlsxComponent implements OnDestroy {
       XLSX.writeFile(workbook, filename + ".xlsx"); //where is this going (downloads)
     }
     catch (err: any) {
-      console.log("error caught in exportToOds: ", err?.message)
+      console.error("error caught in exportToOds: ", err?.message)
     }
   }
   onFileChange(eve: any) {
@@ -110,13 +106,10 @@ export class OdsXlsxComponent implements OnDestroy {
 
         const workSheetName: string = workBook.SheetNames[0];
         const workSheet: XLSX.WorkSheet = workBook.Sheets[workSheetName];
-        // console.log("read worksheet with styles", workSheet);
         this.data = (XLSX.utils.sheet_to_json(workSheet, { header: 1 }));
         //this.headData = this.data[0];
 
         this.data.splice(0, 1);
-        //console.log(this.data);
-        //this.createSecurity();
         this.createSecurity4loop();
 
       };
@@ -125,7 +118,7 @@ export class OdsXlsxComponent implements OnDestroy {
 
     }
     catch (err: any) {
-      console.log("error caught in fileUpload: ", err?.message)
+      console.error("error caught in fileUpload: ", err?.message)
     }
   }
   callYahoo() {
@@ -150,7 +143,7 @@ export class OdsXlsxComponent implements OnDestroy {
             })
           },
           error: (err) => {
-            console.log("error 'getMutualFundPrices':", err?.error?.message)
+            console.error("error 'getMutualFundPrices':", err?.error?.message)
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
@@ -168,7 +161,7 @@ export class OdsXlsxComponent implements OnDestroy {
       // }, 1400);
     }
     catch (err: any) {
-      console.log("error caught in callYahoo", err?.message);
+      console.error("error caught in callYahoo", err?.message);
     }
 
   }
@@ -184,7 +177,7 @@ export class OdsXlsxComponent implements OnDestroy {
       this.waiting = "ready to fetch";
     }
     catch (err: any) {
-      console.log("error caught in createSecurity(): ", err?.message);
+      console.error("error caught in createSecurity(): ", err?.message);
     }
   }
   createSecurity4loop() {
@@ -206,11 +199,10 @@ export class OdsXlsxComponent implements OnDestroy {
       this.waiting = "ready to fetch";
     }
     catch (err: any) {
-      console.log("error caught in createSecurity(): ", err?.message);
+      console.error("error caught in createSecurity(): ", err?.message);
     }
   }
   ngOnDestroy(): void {
-    console.log("in ondestroy")
     if (this.subscription) { this.subscription.unsubscribe(); }
     if (window) {
       console.log("in window if")

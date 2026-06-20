@@ -114,7 +114,7 @@ export class XlsxStyComponent implements OnDestroy {
 
     }
     catch (err: any) {
-      console.log("error caught in XlsxStyleComponent exportToOds: ", err?.message)
+      console.error("error caught in XlsxStyleComponent exportToOds: ", err?.message)
     }
   }
   onFileChange(eve: any) {
@@ -154,13 +154,12 @@ export class XlsxStyComponent implements OnDestroy {
 
     }
     catch (err: any) {
-      console.log("error caught in XlsxStyleComponent fileUpload: ", err?.message)
+      console.error("error caught in XlsxStyleComponent fileUpload: ", err?.message)
     }
   }
   callYahoo() {
     this.waiting = 'fetching';
     try {
-      //console.log("initialize aristocrats " + this.stocksmap.size)
       let moresymbols = Array.from(this.stocksmap.keys());
       this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({
@@ -183,7 +182,7 @@ export class XlsxStyComponent implements OnDestroy {
             })
           },
           error: (err) => {
-            console.log("error 'getMutualFundPrices':", err?.error?.message)
+            console.error("error 'getMutualFundPrices':", err?.error?.message)
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
@@ -203,7 +202,7 @@ export class XlsxStyComponent implements OnDestroy {
       // }, 1400);
     }
     catch (err: any) {
-      console.log("error caught in xlsx-style callYahoo", err?.message);
+      console.error("error caught in xlsx-style callYahoo", err?.message);
     }
 
   }
@@ -211,7 +210,6 @@ export class XlsxStyComponent implements OnDestroy {
     //get rid of old data
     const len = this.stocksArray.length;
     this.stocksArray.splice(0, len);
-    // console.log(" in createSecurity", this.data[0].length);
     let security: Security;
     try {//The below code works but was MODIFIED TO GET THE TEST TO PASS, But NOW THE UPLOAD FAILS
       this.data.forEach((val: any[]) => {
@@ -246,7 +244,7 @@ export class XlsxStyComponent implements OnDestroy {
       //this.waiting = "ready to fetch";
     }
     catch (err: any) {
-      console.log("error caught in xlsx-style createSecurity(): ", err?.message);
+      console.error("error caught in xlsx-style createSecurity(): ", err?.message);
     }
   }
   ngOnDestroy(): void {

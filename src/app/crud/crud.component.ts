@@ -80,11 +80,10 @@ export class CrudComponent implements OnDestroy {
       this.subscription = this.crudfs.readASecurity(ticker).subscribe(
         {
           next: (data) => {
-            // console.log("data from Crud-file operation: ", data);
             this.updateSecuritySignal(data);
           },
           error: err => {
-            console.log("error occurred in Crud-file operation: ", err);
+            console.error("error occurred in Crud-file operation: ", err);
             this.errorMessage = `Error Getting Secuity: ${err?.message} for ticker: ${ticker} `
           },
           complete: () => { console.log("complete called in read ticker") }
@@ -92,7 +91,7 @@ export class CrudComponent implements OnDestroy {
       )
     }
     catch (err: any) {
-      console.log("error caught  in  crud.component.ts", err);
+      console.error("error caught  in  crud.component.ts", err);
 
     }
   }
@@ -101,21 +100,20 @@ export class CrudComponent implements OnDestroy {
     this.createdSecuritySignal.set(Object.assign(oldSignalData, data));
   }
   onCreate() {
-    console.log("in onCreate");
+
     //let ticker = this.createdSecuritySignal().ticker;
     try {
       this.subscription = this.crudfs.createASecurity(JSON.stringify(this.createdSecuritySignal())).subscribe(
         {
           next: (data: { status: string, data: SecurityType }) => {
-            // console.log(data);
+
             if (data.status == 'success') {
-              // alert(`{ticker} successfully deleted`); //change to timed modal from ng material 
               this.openSnackBar(`Security successfully created`);
             }
-            //console.log("data from create security: ", data);
+
           },
           error: err => {
-            console.log("error occurred in create security: ", err);
+            console.error("error occurred in create security: ", err);
             this.errorMessage = `Error Creating Secuity: ${err?.message} for ticker: ${this.createdSecuritySignal().ticker}`
           },
           complete: () => { console.log("complete called in crud.component create operation") }
@@ -123,7 +121,7 @@ export class CrudComponent implements OnDestroy {
       )
     }
     catch (err: any) {
-      console.log("error caught  in CreateSecurity  crud.component.ts", err);
+      console.error("error caught  in CreateSecurity  crud.component.ts", err);
 
     }
   }
@@ -131,25 +129,24 @@ export class CrudComponent implements OnDestroy {
     let ticker = this.createdSecuritySignal().ticker;
     if (this.errorMessage || !ticker) {
       alert("Please fix error");
-      //console.log("ok=", ok); //true or false
+
     }
     else {
-      //console.log("in onDelete");
       let ok = confirm(`Are you sure you want to Delete this Security ${ticker}`)
       if (ok) {
         try {
           this.subscription = this.crudfs.deleteASecurity(ticker).subscribe(
             {
               next: (data: { status: string, data: any }) => {
-                // console.log(data);
+
                 if (data.status == 'successfully deleted') {
                   // alert(`{ticker} successfully deleted`); //change to timed modal from ng material 
                   this.openSnackBar(`${ticker} successfully deleted`);
                 }
-                //console.log("data from delete security: ", data);
+
               },
               error: err => {
-                console.log("error occurred in Crud-file operation: ", err);
+                console.error("error occurred in Crud-file operation: ", err);
                 this.errorMessage = `Error Deleting Secuity: ${err?.message} for ticker: ${ticker} `
               },
               complete: () => { console.log("complete called in crud.component delete operation") }
@@ -157,7 +154,7 @@ export class CrudComponent implements OnDestroy {
           )
         }
         catch (err: any) {
-          console.log("error caught  in deleteSecurity  crud.component.ts", err);
+          console.error("error caught  in deleteSecurity  crud.component.ts", err);
 
         }
       }
@@ -231,15 +228,12 @@ export class CrudComponent implements OnDestroy {
       this.subscription = this.crudfs.updateASecurity(ticker, JSON.stringify(this.createdSecuritySignal())).subscribe(
         {
           next: (data: { status: string, data: any }) => {
-            // console.log(data);
             if (data.status == 'success') {
-              // alert(`{ticker} successfully deleted`); //change to timed modal from ng material 
               this.openSnackBar(`${ticker} successfully updated`);
             }
-            //console.log("data from delete security: ", data);
           },
           error: err => {
-            console.log("error occurred in Crud-file operation: ", err);
+            console.error("error occurred in Crud-file operation: ", err);
             this.errorMessage = `Error Updating Secuity: ${err?.message} for ticker: ${ticker} `
           },
           complete: () => { console.log("complete called in crud.component update operation") }
@@ -247,15 +241,13 @@ export class CrudComponent implements OnDestroy {
       )
     }
     catch (err: any) {
-      console.log("error caught  in  crud.component.ts update method", err);
-
+      console.error("error caught  in  crud.component.ts update method", err);
     }
   }
   updateSignalField(field: string, value: any) {
     this.createdSecuritySignal.update(prev => { return { ...prev, [field]: value } })
     // this.jsonString = JSON.stringify(this.createdSecuritySignal());  //remove later
     this.validateSecurity();
-    // console.log(this.jsonString);
   }
   editTicker(eve: any) {//on blur event
     this.updateSignalField('ticker', eve.target.value);
@@ -290,7 +282,6 @@ export class CrudComponent implements OnDestroy {
     this.updateSignalField('actual_dividend', +eve.target.value);
   }
   editCategory(eve: any) {
-    //console.log("in edit category:", eve.target.value);
     this.createdSecuritySignal.update(prev => { return { ...prev, category: eve.target.value } })
   }
 }

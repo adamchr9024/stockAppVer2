@@ -70,7 +70,6 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   initialize() {
     try {
       this.waiting = "...fetching";
-      // console.log("initialize mystocks " + this.stocksmap.size)
       let moresymbols = Array.from(this.stocksmap.keys());
       this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
         .subscribe({//unsubscribe please...how to test  

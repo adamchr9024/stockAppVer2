@@ -41,15 +41,12 @@ export class AnalysisComponent implements OnDestroy, OnInit {
       next: n => {
         this.financialdata = n;
         this.financialstring = JSON.stringify(n);
-        // console.log("166 Financial Data:  ", n)
       },
       error: (err) => {
-        // console.log("error 'getFinancials':", err, err?.error?.message)
         this.waiting = "ERROR OCCURRED fetching 'getFinancials':" + err?.message + "\n Message: " + err?.error?.message;
 
       },
       complete: () => {
-        // console.log("complete called in analysis")
         this.waiting = "done"
       }
     });

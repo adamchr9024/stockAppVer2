@@ -48,13 +48,11 @@ export class RapidapiService {
       await this.sleep(2000)  //used to make calls to getAstock every 2 seconds, so threshold is not reached     
       this.getAstockPrice(stoc.ticker).subscribe(val => { symprice.push(val) })
     }
-    //console.log("symprice in getSymTid", symprice);
     return symprice;
   }
   async getOneSymTid(stoc: Security) {
     let symprice: symbolprice[] = [];
     this.getAstockPrice(stoc.ticker).subscribe(val => {
-      console.log("val", val);
       symprice.push(val)
     })
     await this.sleep(1000); //make sure the value is pushed async
@@ -76,7 +74,7 @@ export class RapidapiService {
           }
         }),
         catchError(err => {
-          console.log("error caught and rethrown in rapidapiService.getAstockPrice: ", err);
+          console.error("error caught and rethrown in rapidapiService.getAstockPrice: ", err);
           throw err
         })
       )
@@ -122,8 +120,6 @@ export class RapidapiService {
       .pipe(//MAYBE ADD SWITCH MAP
         take(1),
         map((s: any) => {
-          //return JSON.parse(s?.body)
-          //console.log(s?.body)
           return s?.body;
         }),
         catchError(err => {
@@ -140,7 +136,6 @@ export class RapidapiService {
       .pipe(//MAYBE ADD SWITCH MAP
         take(1),
         map((s: any) => {
-          //  console.log(s?.quoteSummary?.result[0]?.financialData);
           return s?.quoteSummary?.result[0]?.financialData;
         }),
         catchError(err => {
@@ -152,7 +147,6 @@ export class RapidapiService {
   getMutualFundPricesResolve(tickers: string[]) {
 
     try {
-
       let joinOn = '%2C';
       this.initalizeheader2();
       let urltickers = tickers.slice(0, tickers.length - 1).join(joinOn)
@@ -176,12 +170,12 @@ export class RapidapiService {
 
           }),
           catchError(err => {
-            console.log("error caught and rethrown in rapidapiService.getMutualFundPricesResolve catchError: ", err);
+            console.error("error caught and rethrown in rapidapiService.getMutualFundPricesResolve catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      console.error("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
       throw err;
     }
 

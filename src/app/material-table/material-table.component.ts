@@ -61,7 +61,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
       }
     }
     catch (err: any) {
-      console.log("error caught in MaterialTableComponent ngOnInit ", err?.message)
+      console.error("error caught in MaterialTableComponent ngOnInit ", err?.message)
       this.waiting = err?.message;
     }
   }

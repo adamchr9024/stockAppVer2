@@ -68,7 +68,7 @@ export class StocktableComponent implements OnInit, OnDestroy {
         }
       })
       .catch(err => {
-        console.log('error caught stocktable initialize getAllPrices', err)
+        console.error('error caught stocktable initialize getAllPrices', err)
         if (this.waiting.includes('ERROR')) {
           this.waiting += " and error fetching securites from finnhub: " + err
         }
@@ -92,7 +92,7 @@ export class StocktableComponent implements OnInit, OnDestroy {
           })
         },
         error: (err) => {
-          console.log("error caught in stocktable.ts: ", err?.error?.message)
+          console.error("error caught in stocktable.ts: ", err?.error?.message)
           this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
         },
         complete: () => { console.log("complete called in stocktable") }

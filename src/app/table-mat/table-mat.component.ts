@@ -116,7 +116,7 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
       // }, 1400);
     }
     catch (err: any) {
-      console.log("error caught in table-mat initialize", err?.message)
+      console.error("error caught in table-mat initialize", err?.message)
     }
   }
   filterData(event: any) {

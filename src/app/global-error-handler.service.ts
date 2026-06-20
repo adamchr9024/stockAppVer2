@@ -9,7 +9,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   constructor() { }
   handleError(error: any): void {
-    console.log("RUN TIME ERROR OCCURRED: \n\n ", error);
+    console.error("RUN TIME ERROR OCCURRED: \n\n ", error);
     // window.alert(errorMessage + "\n Check browser console and logs files as well.")
     let errorMessage = "\n RUN TIME ERROR OCCURRED: Check browser console and logs files as well.\n" + JSON.stringify(error);
     window.alert(errorMessage);

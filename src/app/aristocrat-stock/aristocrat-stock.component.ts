@@ -102,7 +102,6 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
                 updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
                 updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
                 updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
-                //console.log("twoHundredDayAverage=", val2.symbol, val2?.twoHundredDayAverage);
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
                 // updt.comment=val2?llongName;
                 this.stocksmap.set(updt.ticker, updt)
@@ -110,7 +109,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
             })
           },
           error: (err) => {
-            console.log("error 'getMutualFundPrices':", err?.error?.message)
+            console.error("error 'getMutualFundPrices':", err?.error?.message)
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
@@ -131,12 +130,11 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
       // }, 1400);
     }
     catch (err: any) {
-      console.log("error caught in material-table initialize", err?.message);
+      console.error("error caught in material-table initialize", err?.message);
     }
 
   }
   handleRadio(matOrOrig: boolean) {
-    // console.log("in handleRadio", matOrOrig);
     this.matOrig = matOrOrig;
   }
   filterData(event: any) {
