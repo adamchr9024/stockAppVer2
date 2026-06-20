@@ -104,12 +104,12 @@ export class RapidapiService {
             return x?.body
           }),
           catchError(err => {
-            console.log("error caught and rethrown in rapidapiService.getMutualFundPrices catchError: ", err);
+            console.error("error caught and rethrown in rapidapiService.getMutualFundPrices catchError: ", err);
             throw err;
           })
         )
     } catch (err: any) {
-      console.log("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      console.error("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
       throw err;
     }
 
@@ -127,7 +127,7 @@ export class RapidapiService {
           return s?.body;
         }),
         catchError(err => {
-          console.log("error caught and rethrown in rapidapiService.getFinancials(): ", err);
+          console.error("error caught and rethrown in rapidapiService.getFinancials(): ", err);
           throw err;
         })
       )
@@ -144,7 +144,7 @@ export class RapidapiService {
           return s?.quoteSummary?.result[0]?.financialData;
         }),
         catchError(err => {
-          console.log("error caught and rethrown in rapidapiService.getFinancials166(): ", err);
+          console.error("error caught and rethrown in rapidapiService.getFinancials166(): ", err);
           throw err;
         })
       )
@@ -163,7 +163,7 @@ export class RapidapiService {
           switchMap(async (x: any) => { //async await??
             await x.body.forEach((val2: any) => {
               let updt = this.stocksmap.get(val2.symbol);
-              if (updt) {
+              if (updt) { //object destructruing options???
                 updt.dividendYield = val2?.dividendYield;
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
                 updt.yahooprice = val2?.regularMarketPrice;

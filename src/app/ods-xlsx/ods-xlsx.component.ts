@@ -154,15 +154,18 @@ export class OdsXlsxComponent implements OnDestroy {
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
-          complete: () => { console.log("complete called in ods-xlsx") }
+          complete: () => {
+            this.waiting = "done";
+            console.log("complete called in ods-xlsx")
+          }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
-      setTimeout(() => {
-        if (!this.waiting.includes("ERROR")) {
-          this.waiting = "done";
-        }
+      // setTimeout(() => {
+      //   if (!this.waiting.includes("ERROR")) {
+      //     this.waiting = "done";
+      //   }
 
-      }, 1400);
+      // }, 1400);
     }
     catch (err: any) {
       console.log("error caught in callYahoo", err?.message);

@@ -51,21 +51,24 @@ export class MystocksComponent implements OnInit {
             })
           },
           error: (err) => {
-            console.log("error 'getMutualFundPrices':", err?.error?.message)
+            console.error("error 'getMutualFundPrices':", err?.error?.message)
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
           },
-          complete: () => { console.log("complete called in mystocks") }
+          complete: () => {
+            this.waiting = "done";
+            console.log("complete called in mystocks")
+          }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       // this.waiting = "done";
-      {
-        setTimeout(() => {
-          if (!this.waiting.includes("ERROR")) {
-            console.log("in settimeout if ...testing purposes")
-            this.waiting = "done";
-          }
-        }, 1400);
-      }
+      // {
+      //   setTimeout(() => {
+      //     if (!this.waiting.includes("ERROR")) {
+      //       console.log("in settimeout if ...testing purposes")
+      //       this.waiting = "done";
+      //     }
+      //   }, 1400);
+      // }
     }
 
     catch (err: any) {

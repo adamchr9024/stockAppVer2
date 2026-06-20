@@ -114,18 +114,21 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
-          complete: () => { console.log("complete called in aristocrats") }
+          complete: () => {
+            this.waiting = "done";
+            console.log("complete called in aristocrats")
+          }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       this.tableDataSource.data = this.stocksArray
 
 
-      setTimeout(() => {
-        if (!this.waiting.includes("ERROR")) {
-          this.waiting = "done";
-        }
+      // setTimeout(() => {
+      //   if (!this.waiting.includes("ERROR")) {
 
-      }, 1400);
+      //   }
+
+      // }, 1400);
     }
     catch (err: any) {
       console.log("error caught in material-table initialize", err?.message);

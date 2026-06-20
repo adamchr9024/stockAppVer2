@@ -187,17 +187,20 @@ export class XlsxStyComponent implements OnDestroy {
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
-          complete: () => { console.log("complete called in xlsx-style") }
+          complete: () => {
+            this.waiting = 'done';
+            console.log("complete called in xlsx-style");
+          }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       //this.tableDataSource.data = this.stocksArray
       //debugger;
-      setTimeout(() => {
-        if (!this.waiting.includes("ERROR")) {
-          this.waiting = "done";
-        }
+      // setTimeout(() => {
+      //   if (!this.waiting.includes("ERROR")) {
+      //     this.waiting = "done";
+      //   }
 
-      }, 1400);
+      // }, 1400);
     }
     catch (err: any) {
       console.log("error caught in xlsx-style callYahoo", err?.message);

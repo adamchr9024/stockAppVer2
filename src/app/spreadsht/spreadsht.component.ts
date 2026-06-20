@@ -86,25 +86,30 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
             })
           },
           error: (err) => {
-            console.log("error 'getMutualFundPrices':", err?.error?.message)
+            console.error("error 'getMutualFundPrices':", err?.error?.message)
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
-          complete: () => { console.log("complete called in  table mat") }
+          complete: () => {
+            this.waiting = 'done';
+            console.log("complete called in  spreadsheet");
+
+          }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       this.tableDataSource.data = this.stocksArray
 
 
-      setTimeout(() => {
-        if (!this.waiting.includes("ERROR")) {
-          this.waiting = "done";
-        }
-        // console.log("stocks array", this.stocksArray)
-      }, 1400);
+      // setTimeout(() => {//how do I get ride of....add promise ??? or observable???
+      //   // maybe add to complete function.
+      //   if (!this.waiting.includes("ERROR")) {
+      //     this.waiting = "done";
+      //   }
+      //   // console.log("stocks array", this.stocksArray)
+      // }, 1400);
     }
     catch (err: any) {
-      console.log("error caught in table-mat initialize", err?.message)
+      console.error("error caught in table-mat initialize", err?.message)
     }
   }
   filterData(event: any) {

@@ -15,7 +15,7 @@
             </ng-container>
             <!-- ticker category -->
             <ng-container cdkColumnDef="totalcost">
-                  <mat-header-cell *cdkHeaderCellDef>Total Cost </mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Total Cost </mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.totalcost}} </mat-cell>
             </ng-container>
             <!-- quantity Definition -->
@@ -68,7 +68,7 @@
                   <mat-cell *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="selltotalval">
-                  <mat-header-cell *cdkHeaderCellDef>Sell Total</mat-header-cell>
+                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Sell Total</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.selltotalval}} </mat-cell>
             </ng-container>
 

@@ -66,9 +66,8 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
         case "cost basis": return item.costbasis;
         case "gain/loss": return item.gainloss;
         case "unit cost": return item.unitcost;
-
-        // case "ticker": return item.ticker;
-        //case "category": return item.category;
+        case "selltotalval": return item.selltotalval;
+        case "totalcost": return item.totalcost;
         //case "comment": return item.comment;
         default: return item[property];
       }
@@ -100,18 +99,21 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
             this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
 
           },
-          complete: () => { console.log("complete called in  table mat") }
+          complete: () => {
+            this.waiting = "done";
+            console.log("complete called in  table mat")
+          }
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       this.tableDataSource.data = this.stocksArray
 
 
-      setTimeout(() => {
-        if (!this.waiting.includes("ERROR")) {
-          this.waiting = "done";
-        }
-        // console.log("stocks array", this.stocksArray)
-      }, 1400);
+      // setTimeout(() => {
+      //   if (!this.waiting.includes("ERROR")) {
+      //     this.waiting = "done";
+      //   }
+      //   // console.log("stocks array", this.stocksArray)
+      // }, 1400);
     }
     catch (err: any) {
       console.log("error caught in table-mat initialize", err?.message)
