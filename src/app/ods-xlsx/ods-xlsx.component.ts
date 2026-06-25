@@ -140,7 +140,7 @@ export class OdsXlsxComponent implements OnDestroy {
                 updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
                 updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
-                this.stocksmap.set(updt.ticker, updt)
+                //this.stocksmap.set(updt.ticker, updt)
               }
             })
           },

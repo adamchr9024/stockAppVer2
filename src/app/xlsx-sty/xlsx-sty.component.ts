@@ -177,7 +177,7 @@ export class XlsxStyComponent implements OnDestroy {
                 //console.log("twoHundredDayAverage=", val2.symbol, val2?.twoHundredDayAverage);
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
                 // updt.comment=val2?llongName;
-                this.stocksmap.set(updt.ticker, updt)
+                // this.stocksmap.set(updt.ticker, updt)
               }
             })
           },

@@ -46,7 +46,7 @@ export class MystocksComponent implements OnInit {
                 updt.dividendYield = val2?.dividendYield;
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
                 updt.yahooprice = val2?.regularMarketPrice;
-                this.stocksmap.set(updt.ticker, updt)
+                // this.stocksmap.set(updt.ticker, updt)
               }
             })
           },

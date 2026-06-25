@@ -162,7 +162,7 @@ export class RapidapiService {
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
                 updt.yahooprice = val2?.regularMarketPrice;
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
-                this.stocksmap.set(updt.ticker, updt)
+                // this.stocksmap.set(updt.ticker, updt)
               }
             })
             return this.stocksmap;

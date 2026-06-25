@@ -16,7 +16,7 @@ import { StmcComponent } from './stmc/stmc.component';
 import { FuturesComponent } from './futures/futures.component';
 import { FiveDayMedianAverageComponent } from './five-day-median-average/five-day-median-average.component';
 import { CrudComponent } from './crud/crud.component';
-import { TransDemoComponent } from './trans-demo/trans-demo.component'
+//import { TransDemoComponent } from './trans-demo/trans-demo.component'
 export const routes: Routes = [
       { path: "", redirectTo: "sprdsht", pathMatch: "full" },
       { path: "home", component: HomeComponent, },
@@ -24,7 +24,7 @@ export const routes: Routes = [
       { path: "table", component: StocktableComponent },
       { path: "watchlist", component: WatchlistComponent },
       { path: "sprdsht", component: SpreadshtComponent },
-      { path: "transdemo", component: TransDemoComponent, },
+      //  { path: "transdemo", component: TransDemoComponent, },
       { path: "material-watchlist", component: MaterialTableComponent, resolve: { stocksmap: Resolver1Resolver } },
       { path: "table-mat", component: TableMatComponent },
       { path: "aristocrats", component: AristocratStockComponent },

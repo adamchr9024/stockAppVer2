@@ -103,8 +103,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
                 updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
                 updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
-                // updt.comment=val2?llongName;
-                this.stocksmap.set(updt.ticker, updt)
+                // updt.comment=val2?llongName;  // us desctructring and maybe object.assign
+                // this.stocksmap.set(updt.ticker, updt)
               }
             })
           },

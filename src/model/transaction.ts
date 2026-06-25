@@ -4,6 +4,7 @@ export class Transaction {
       /* this  class is desigined to operate on securities and give update after 
       a buy, sell or dividend transaction 
           the quantity field must not be readonly for this class to work.
+          this CLASS is NO LONGER NEED NOW 
       
       */
       private static value = ""; //used to give status after update
@@ -49,17 +50,17 @@ export class Transaction {
                   }
                   else {
                         // update unit cost
-                        this.security.unitcost =
-                              Number(((this.security.unitcost * this.security.quantityval + this.amt * this.price) / (this.security.quantity + this.amt)).toFixed(2));
+                        //     this.security.unitcost =
+                        Number(((this.security.unitcost * this.security.quantityval + this.amt * this.price) / (this.security.quantity + this.amt)).toFixed(2));
 
                         //update quantity 
-                        this.security.quantityval = this.security.quantityval + this.amt;
+                        //    this.security.quantityval = this.security.quantityval + this.amt;
 
                         //update available cash
                         Transaction.cashOnHand -= cashNeeded;
                         // update cost basis
                         // Transaction.totalcost = this.security.unitcost * this.security.quantityval
-                        this.security.totalcost += this.amt * this.price;
+                        //   this.security.totalcost += this.amt * this.price;
                         // update yahoo price
                         // this.security.yahooprice = this.price;
 
@@ -79,9 +80,9 @@ export class Transaction {
                   }
                   else {
                         //reduce quantity
-                        this.security.quantityval = this.security.quantityval - this.amt;
+                        //   this.security.quantityval = this.security.quantityval - this.amt;
                         //add to cash
-                        this.security.selltotal += this.price * this.amt;
+                        //  this.security.selltotal += this.price * this.amt;
                         Transaction.cashOnHand += this.price * this.amt;
                         // update yahooprice
                         //this.security.yahooprice = this.price;
@@ -102,7 +103,7 @@ export class Transaction {
                   // Transaction._dividend += amt;
                   Transaction.cashOnHand += amt;
                   //S Transaction.selltotalAndDividend += amt;
-                  this.security.actual_dividend += amt;
+                  //  this.security.actual_dividend += amt;
             }
             catch (err: any) {
                   console.error("error caught in handleDividend", err?.message);

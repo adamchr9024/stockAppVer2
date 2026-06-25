@@ -57,7 +57,7 @@ export class StocktableComponent implements OnInit, OnDestroy {
           let updt = this.stocksmap.get(val2.symbol);
           if (updt) {
             updt.yahooprice = val2.price ? val2.price : 0;
-            this.stocksmap.set(updt.ticker, updt);
+            //this.stocksmap.set(updt.ticker, updt);
           }
         })
         //this is added here because finnhub has sleep time add
@@ -87,7 +87,7 @@ export class StocktableComponent implements OnInit, OnDestroy {
               updt.dividendYield = val2?.dividendYield;
               updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
               updt.yahooprice = val2?.regularMarketPrice;
-              this.stocksmap.set(updt.ticker, updt);
+              // this.stocksmap.set(updt.ticker, updt);
             }
           })
         },

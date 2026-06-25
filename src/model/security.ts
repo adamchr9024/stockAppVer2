@@ -11,10 +11,10 @@ export class Security {
       private static initialInvestment: number = 500.00;
 
       constructor(public readonly ticker: string,
-            //public readonly quantity: number,
-            public quantity: number,   //changed because of transaction buy and sell
+            public readonly quantity: number,
+            //public quantity: number,   //changed because of transaction buy and sell
             private price: number, //might should only be one price
-            private unit_cost: number, //make readonly after tranaction is done
+            private readonly unit_cost: number, //make readonly after tranaction is done
             public readonly category: Category = Category.Stock,
             private fifty_twowkrng: string,
             public readonly comment: string = "",
@@ -25,9 +25,9 @@ export class Security {
             public twoHundredDayAverage = 44.44,
             public twoHundredDayAverageChange = 22.22,
             public readonly est_annual_income = 3.33,
-            public actual_dividend = 0.0, //make readonly after tranaction class is done
-            public selltotal = 0,  //make readonly after tranaction class is done
-            public totalcost = 250  //make readonly after tranaction class is done
+            public readonly actual_dividend = 0.0, //make readonly after tranaction class is done
+            public readonly selltotal = 0,  //make readonly after tranaction class is done
+            public readonly totalcost = 250  //make readonly after tranaction class is done
       ) {  //see what this is generating in Javascript repeated variables
             this._yahooprice = price
             this.init();
@@ -58,20 +58,20 @@ export class Security {
                   this._percentage = 50;
             }
       }
-      set quantityval(val: number) {
-            this.quantity = val
-            this.init(); //this is really updating
-      }
+      // set quantityval(val: number) {
+      //       this.quantity = val
+      //       this.init(); //this is really updating
+      // }
       get quantityval() { return this.quantity; }
       set fiftytwowkrng(val: string) { this.fifty_twowkrng = val; }
-      set unitcost(value: number) {
-            this.unit_cost = value;
-            this.init()
-            //this._costbasis = Number((this.quantity * value).toFixed(2));
-            //this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
+      // set unitcost(value: number) {
+      //       this.unit_cost = value;
+      //       this.init()
+      //       //this._costbasis = Number((this.quantity * value).toFixed(2));
+      //       //this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
 
-      }
-      set actual_dividendval(val: number) { this.actual_dividend = val; }
+      // }
+      // set actual_dividendval(val: number) { this.actual_dividend = val; }
       set trailingAnnualDividendRate(val: Number) { this._trailingAnnualDividendRate = val; }
       set yahooprice(val: number) {
             this._yahooprice = val;

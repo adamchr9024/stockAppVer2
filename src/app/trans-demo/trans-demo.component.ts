@@ -10,6 +10,10 @@ import { JsonPipe } from '@angular/common';
   templateUrl: './trans-demo.component.html',
   styleUrl: './trans-demo.component.css'
 })
+/**
+ * this component was only used to calculate actual gain and loss when part of 
+ * security is sold. It is no longer needed
+ */
 export class TransDemoComponent implements OnInit {
   static count = 0;
   todos = ['create transactions', "sell; buy; dividend; yahooprice change", "print errors", "at end qty should be 0", "add sellbasis and totalcost where applicable (Stocks.json, StockType etc)", "updata all stocks with new data"];
