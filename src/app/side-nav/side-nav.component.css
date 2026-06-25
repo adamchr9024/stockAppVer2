@@ -38,6 +38,10 @@ a {
       height: min-content;
 }
 
+.addborder {
+      border: 2px solid salmon;
+}
+
 .sticky1 {
       top: 0;
       left: 10px;

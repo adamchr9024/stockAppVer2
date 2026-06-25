@@ -59,4 +59,16 @@ export class SideNavComponent implements OnInit {
       this.toggleOpen();
     }
   }
+  addremoveclass(eve: any) {
+    try {
+      // console.log("in add class", eve);
+      if (eve.type === 'focus')
+        eve.target.classList.add('addborder');
+      else
+        eve.target.classList.remove('addborder');
+    }
+    catch (err) {
+      console.error("error add class ", err);
+    }
+  }
 }

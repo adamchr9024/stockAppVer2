@@ -21,7 +21,7 @@ export const Resolver1Resolver: ResolveFn<Map<string, Security>> = (route, state
   HIGH DIVIDEND STOCK RELATED TO "ENERGY"*/
   const keys2 = ["NEE", "MPLX", "CHI", "UPS", "CGDV", "DIVB", "AIS", "SDIV", "SPYD", "ENB", "ASG", "QDPL",
     "CII", "AHITX", "RYLD", "MDLOX", "HAUZ", "FWGIX", "QQQI", "SLYG", "HSEIX", "EVC", "PCEF", "IAUI", "PRFZ", "EBIT", "AVSC",
-    "VTWO", "RSSL",
+    "VTWO", "RSSL", "EEM", "IXUS"
   ]
   // const etfs = ["PRFZ", "EBIT", "AVSC", "VTWO", "RSSL", "DES"];
   //These keys must be in Watchlist

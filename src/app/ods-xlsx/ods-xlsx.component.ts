@@ -28,7 +28,9 @@ export class OdsXlsxComponent implements OnDestroy {
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9", "test export",
     2, 6, 3.1, 5.2, 5.4, 1.1, 45.0)];  //my data
 
-  constructor(private rapidApiService: RapidapiService) { }
+  constructor(private rapidApiService: RapidapiService) {
+
+  }
   /* const beforeUnloadHandler = (event: BeforeUnloadEvent) => {
          event.preventDefault();
         return 'Are you sure you want to leave? You may have unsaved changes.'
@@ -94,7 +96,7 @@ export class OdsXlsxComponent implements OnDestroy {
     }
   }
   onFileChange(eve: any) {
-
+    console.log("ods-xlsx first security", this.stocksArray[0])
     try {
       const target: DataTransfer = <DataTransfer>(eve.target);
       if (target.files.length !== 1) { throw new Error("cannot use multiple files") }

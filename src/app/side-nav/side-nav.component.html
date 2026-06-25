@@ -1,7 +1,8 @@
 <!-- <mat-toolbar class="sticky1" style="height: 40px !important;"> -->
 <mat-toolbar class="sticky1">
       <mat-toolbar-row class="headerDiv1">
-            <button mat-icon-button (keydown)="onKeyPress($event)">
+            <button mat-icon-button (keydown)="onKeyPress($event)" (focus)="addremoveclass($event)"
+                  (focusout)="addremoveclass($event)">
                   <mat-icon title="open/close side navigation" (click)="toggleOpen()">menu</mat-icon>
             </button>
             <a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a>
@@ -63,6 +64,8 @@
                   <a mat-list-item href="https://etfdb.com/etfs/issuers/" target="_blank" title="ETF issuers">ETF OWNERS
                         RESOURCE</a>
                   <a mat-list-item href="https://www.dividend.com/" target="_blank" title="ETF issuers">DIVIDEND.COM</a>
+                  <a mat-list-item href="https://www.tradingview.com/markets/etfs/funds-highest-returns/"
+                        target="_blank" title="Traders View Grow ETFs">Trader's View High Growth</a>
                   <hr height="3px">
                   <a mat-list-item routerLink="/table" routerLinkActive="active-link outline"
                         title="Table Finnhub">Table</a>
