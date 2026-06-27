@@ -13,6 +13,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatSort } from '@angular/material/sort'
 import { Subscription } from 'rxjs'
 import { PercentDirective } from '../percent.directive';
+import { RapidApiGets } from '../../utility/rapidApiGets';
 @Component({
   selector: 'app-spreadsht',
   standalone: true,
@@ -21,24 +22,20 @@ import { PercentDirective } from '../percent.directive';
   templateUrl: './spreadsht.component.html',
   styleUrl: './spreadsht.component.css'
 })
-export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SpreadshtComponent implements OnInit, AfterViewInit {
   //https://marmo.dev/angular-material-sort-objects#the-complex-scenario-a-structured-object-with-nested-properties
   subscription!: Subscription
   stocksmap: Map<string, Security> = new Map();
-  // allbutWatchlist: string = Category.Alternative +
-  //   Category.Bond + Category.MutualFund +
-  //   Category.ETF + Category.FixedIncome + Category.Other + Category.CEF
-  //   + Category.Stock + Category.CashAndShortTerm; //ignore money markets
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
   //columnsToDisplay: string[] = ["ticker", "quantity", "marketvalue", "unitcost", "costbasis", "gainloss", "yahooprice", "actual_dividend", "gnls wth dvd", "est_annual_income", "Comment"];
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'percentage', 'actual_dividend', 'glwdiv', 'glwdvdpct', 'est_annual_income', 'comment'];
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private rapidApiService: RapidapiService) {
+  constructor(private utilGets:RapidApiGets) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
 
-    this.signalsService.readSecurities('Stocks.json')
+    this.subscription =this.signalsService.readSecurities('Stocks.json')
       .subscribe(next => {
         next.forEach(val => {
           this.stocksmap.set(val.ticker, val)
@@ -57,8 +54,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     //ADD CODE
     this.tableDataSource.sortingDataAccessor = (item: any, property) => {
-      //console.log("property:", property);
-      // console.log("item.property", item[property])
+      
       switch (property) {
         default: return item[property];
       }
@@ -69,46 +65,18 @@ export class SpreadshtComponent implements OnInit, AfterViewInit, OnDestroy {
   signalsService = inject(SignalswatchlistService);
   initialize() {
     try {
-      this.waiting = "...fetching";
-      let moresymbols = Array.from(this.stocksmap.keys());
-      this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
-        .subscribe({//unsubscribe please...how to test  
-          next: (n) => {
-            n.forEach((val2: any) => {
-              let updt = this.stocksmap.get(val2.symbol);
-              if (updt) {
-                updt.dividendYield = val2?.dividendYield;
-                updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-                updt.yahooprice = val2?.regularMarketPrice;
-                // this.stocksmap.set(updt.ticker, updt)  //do i need this
-              }
-            })
-          },
-          error: (err) => {
-            console.error("error 'getMutualFundPrices':", err?.error?.message)
-            this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
-
-          },
-          complete: () => {
-            this.waiting = 'done';
-            console.log("complete called in  spreadsheet");
-
-          }
-        })
-      this.stocksArray = Array.from(this.stocksmap.values());
-      this.tableDataSource.data = this.stocksArray
-
-
-      // setTimeout(() => {//how do I get ride of....add promise ??? or observable???
-      //   // maybe add to complete function.
-      //   if (!this.waiting.includes("ERROR")) {
-      //     this.waiting = "done";
-      //   }
-      //   // console.log("stocks array", this.stocksArray)
-      // }, 1400);
-    }
+      this.waiting = "...fetching"; // getKeys(stocksmap: Map<string, Security>, dividendYield:number, fiftyTwoWeekRange:string, regularMarketPrice:number ){
+      this.utilGets.getKeys(this.stocksmap, 2.2, "1-3",4.25)
+      .then((holdwaiting)=>{
+        this.waiting=holdwaiting;
+        this.stocksArray = Array.from(this.stocksmap.values());
+        this.tableDataSource.data = this.stocksArray;
+      }).catch(err=>{
+        this.waiting=err;
+      })
+   }
     catch (err: any) {
-      console.error("error caught in table-mat initialize", err?.message)
+      console.error("error caught in spreadsheet initialize", err?.message)
     }
   }
   filterData(event: any) {
