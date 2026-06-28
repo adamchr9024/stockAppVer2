@@ -16,7 +16,7 @@ import { SignalswatchlistService } from '../app/signalswatchlist.service';
 export class RapidApiGets {
     constructor(private rapidApiService: RapidapiService) { }
 
-    getKeys(stocksmap: Map<string, Security>, dividendYield: number, fiftyTwoWeekRange: string, regularMarketPrice: number) {
+    getKeys(stocksmap: Map<string, Security>) {
         try {
             let moresymbols = Array.from(stocksmap.keys());
             return this.rapidApiService.getMutualFundPrices(moresymbols)
@@ -29,6 +29,11 @@ export class RapidApiGets {
                                 updt.dividendYield = val2?.dividendYield;
                                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
                                 updt.yahooprice = val2?.regularMarketPrice;
+                                updt.fiftyDayAverage = val2?.fiftyDayAverage;
+                                updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
+                                updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
+                                updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
+                                updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
 
                             }
                         })

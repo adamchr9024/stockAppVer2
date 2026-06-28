@@ -10,7 +10,7 @@ import { FinnhubService } from '../finnhub.service';
 import { DefaultApi } from 'finnhub-ts'
 import { SignalswatchlistService } from '../signalswatchlist.service';
 import { Subscription } from 'rxjs';
-@Component({
+@Component({ //not edited should be lazy loaded due to none use 
   selector: 'app-stocktable',
   standalone: true,
   imports: [CommonModule, MytableComponent],

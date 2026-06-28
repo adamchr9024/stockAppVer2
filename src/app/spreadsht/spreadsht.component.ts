@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, } from '@angular/core';
-//import { SignalswatchlistService } from '../signalswatchlist.service';
-import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,7 +16,6 @@ import { RapidApiGets, SignalServiceGets } from '../../utility/rapidApiGets';
   selector: 'app-spreadsht',
   standalone: true,
   imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule, PercentDirective],
-  providers: [RapidapiService],
   templateUrl: './spreadsht.component.html',
   styleUrl: './spreadsht.component.css'
 })
@@ -38,7 +35,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit {
     this.constructorSubscription = utilSignalGet.getSecurityByFileName('Stocks.json', this.stocksmap)
       .pipe(
         concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
-          return utilRapidGets.getKeys(this.stocksmap, 1.2, "2-3", 4);
+          return utilRapidGets.getKeys(this.stocksmap);
         })
       ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
         this.waiting = "done"
@@ -74,7 +71,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit {
     try {
       // console.log("fetching");
       this.waiting = "...fetching"; // getKeys(stocksmap: Map<string, Security>, dividendYield:number, fiftyTwoWeekRange:string, regularMarketPrice:number ){
-      this.apiSubscription = this.utilRapidGets.getKeys(this.stocksmap, 2.2, "1-3", 4.25)
+      this.apiSubscription = this.utilRapidGets.getKeys(this.stocksmap)
         .subscribe(() => {
           this.waiting = "done";
           this.stocksArray = Array.from(this.stocksmap.values());

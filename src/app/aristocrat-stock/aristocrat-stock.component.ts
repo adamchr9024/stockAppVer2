@@ -34,11 +34,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
     "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json", "realwatchlist.json", "allgits.json", "empower.json"]
   thefileOutput: string = "";
-  /*
-  columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile"]
-  //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage'];
-  */
+
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
   constructor(private rapidApiService: RapidapiService) {
@@ -120,28 +116,17 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
         })
       this.stocksArray = Array.from(this.stocksmap.values());
       this.tableDataSource.data = this.stocksArray
-
-
-      // setTimeout(() => {
-      //   if (!this.waiting.includes("ERROR")) {
-
-      //   }
-
-      // }, 1400);
     }
     catch (err: any) {
       console.error("error caught in material-table initialize", err?.message);
     }
-
   }
   handleRadio(matOrOrig: boolean) {
     this.matOrig = matOrOrig;
   }
   filterData(event: any) {
-
     const filterValue = event.target.value;
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
-
   }
   handleInputFileChange(theFile: string) {
     //clear filter text box    should I use look in notes Renderer2
@@ -150,5 +135,4 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.thefileOutput = theFile;
     this.preinitial(theFile);
   }
-
 }

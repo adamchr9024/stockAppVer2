@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, } from '@angular/core';
-import { SignalswatchlistService } from '../signalswatchlist.service';
-import { RapidapiService } from '../rapidapi.service';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
+//import { SignalswatchlistService } from '../signalswatchlist.service';
+//import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,42 +12,48 @@ import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
 import { PercentDirective } from '../percent.directive';
 import { MatSort } from '@angular/material/sort'
-import { Subscription } from 'rxjs';
+import { Subscription, concatMap } from 'rxjs';
+import { RapidApiGets, SignalServiceGets } from '../../utility/rapidApiGets';
+
 @Component({
   selector: 'app-table-mat',
   standalone: true,
   imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule, PercentDirective],
-  providers: [RapidapiService],
+  //providers: [RapidapiService],
   templateUrl: './table-mat.component.html',
   styleUrl: './table-mat.component.css'
 })
 export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
-  subscription!: Subscription
+  constructorSubscription!: Subscription;
+  apiSubscription!: Subscription;
   stocksmap: Map<string, Security> = new Map();
-  // allbutWatchlist: string = Category.Alternative +
-  //   Category.Bond + Category.MutualFund +
-  //   Category.ETF + Category.FixedIncome + Category.Other + Category.CEF
-  //   + Category.Stock + Category.CashAndShortTerm; //ignore money markets
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
-  // columnsToDisplay: string[] = ["ticker", "category", "quantity", "market value", "unit cost", "cost basis", "gain/loss", "yahoo price", "52 Week Range", "Price Percentile", "Dividend Yield", "Comment"];
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'totalcost', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'fiftytwowkrng', 'percentage', 'effectivePercentage', 'dividendYield', 'glwdiv', 'selltotalval'];
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private rapidApiService: RapidapiService) {
+  constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
-
-    this.signalsService.readSecurities('Stocks.json')
-      .subscribe(next => {
-        next.forEach(val => {
-          this.stocksmap.set(val.ticker, val)
+    //https://www.learnrxjs.io/learn-rxjs/operators/transformation/concatmap
+    this.constructorSubscription = utilSignalGet.getSecurityByFileName('Stocks.json', this.stocksmap)
+      .pipe(
+        concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
+          return utilRapidGets.getKeys(this.stocksmap);
         })
-        this.initialize();
+      ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
+        this.waiting = "done"
+        console.log("stockmap", this.stocksmap.size);
+        this.stocksArray = Array.from(this.stocksmap.values());
+        this.tableDataSource.data = this.stocksArray;
       })
   }
   ngOnDestroy(): void {
-    if (this.subscription)
-      this.subscription.unsubscribe();
+    if (this.constructorSubscription) {
+      this.constructorSubscription.unsubscribe();
+    }
+    if (this.apiSubscription) {
+      this.apiSubscription.unsubscribe();
+    }
   }
   ngAfterViewInit(): void {
     //throw new Error('Method not implemented.');
@@ -55,7 +61,7 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   ngOnInit(): void {
     //ADD CODE
-    this.tableDataSource.sortingDataAccessor = (item: any, property) => {
+    this.tableDataSource.sortingDataAccessor = (item: any, property) => { //logic error here???
       switch (property) {
         case 'quantity': return item.watchQuantity;
         case 'yahoo price': return item.yahooprice;
@@ -75,48 +81,21 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   waiting: string = "fetching ..."
-  signalsService = inject(SignalswatchlistService);
+
   initialize() {
     try {
       this.waiting = "...fetching";
       // console.log("initialize mystocks " + this.stocksmap.size)
       let moresymbols = Array.from(this.stocksmap.keys());
-      this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
-        .subscribe({//unsubscribe please...how to test  
-          next: (n) => {
-            n.forEach((val2: any) => {
-              let updt = this.stocksmap.get(val2.symbol);
-              if (updt) {
-                updt.dividendYield = val2?.dividendYield;
-                updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-                updt.yahooprice = val2?.regularMarketPrice;
-                this.stocksmap.set(updt.ticker, updt)
-              }
-            })
-          },
-          error: (err) => {
-            console.log("error 'getMutualFundPrices':", err?.error?.message)
-            this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
-
-          },
-          complete: () => {
-            this.waiting = "done";
-            console.log("complete called in  table mat")
-          }
-        })
-      this.stocksArray = Array.from(this.stocksmap.values());
-      this.tableDataSource.data = this.stocksArray
-
-
-      // setTimeout(() => {
-      //   if (!this.waiting.includes("ERROR")) {
-      //     this.waiting = "done";
-      //   }
-      //   // console.log("stocks array", this.stocksArray)
-      // }, 1400);
+      this.apiSubscription = this.utilRapidGets.getKeys(this.stocksmap)
+        .subscribe(() => {
+          this.waiting = "done";
+          this.stocksArray = Array.from(this.stocksmap.values());
+          this.tableDataSource.data = this.stocksArray;
+        });
     }
     catch (err: any) {
-      console.error("error caught in table-mat initialize", err?.message)
+      console.error("error caught in TableMatComponent  initialize", err?.message)
     }
   }
   filterData(event: any) {
