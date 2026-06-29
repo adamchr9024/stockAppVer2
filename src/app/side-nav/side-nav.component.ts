@@ -6,10 +6,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';  //needed to show 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive, Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-//import {MatSideContentModule} from '@angular/material/sidenav'
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-//import { RapidapiService } from '../rapidapi.service';
 import { SpinCtrlService } from '../spin-ctrl.service';
 @Component({
   selector: 'app-side-nav',

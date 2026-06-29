@@ -8,5 +8,5 @@ import { SideNavComponent } from './side-nav/side-nav.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'StockAppNg18';
+  title = 'StockAppVer3.0';
 }
