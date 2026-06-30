@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { SignalswatchlistService } from '../signalswatchlist.service';
 import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,20 +9,21 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
-
+import { RapidApiGets, SignalServiceGets } from '../../utility/rapidApiGets';
 import { AristocratTableComponent } from '../aristocrat-table/aristocrat-table.component';
 import { MatSort } from '@angular/material/sort'
-import { Subscription } from 'rxjs';
+import { Subscription, concatMap } from 'rxjs';
 @Component({
   selector: 'app-aristocrat-stock',
   standalone: true,
   imports: [MatFormFieldModule, AristocratTableComponent, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
-  providers: [RapidapiService],
+  //providers: [RapidapiService],
   templateUrl: './aristocrat-stock.component.html',
   styleUrl: './aristocrat-stock.component.css'
 })
 export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
-  subscription!: Subscription
+  constructorSubscription!: Subscription;
+  apiSubscription!: Subscription;
   stocksmap: Map<string, Security> = new Map();
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
@@ -37,7 +37,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
-  constructor(private rapidApiService: RapidapiService) {
+  constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
     this.preinitial(this.securityFiles[0])
   }
@@ -46,9 +46,12 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     console.log("onchanges called")
   }
   ngOnDestroy(): void {
-    if (this.subscription)
-      this.subscription.unsubscribe();
-
+    if (this.constructorSubscription) {
+      this.constructorSubscription.unsubscribe();
+    }
+    if (this.apiSubscription) {
+      this.apiSubscription.unsubscribe();
+    }
   }
   ngAfterViewInit(): void {
     this.tableDataSource.sort = this.sort;
@@ -68,58 +71,39 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     }
   }
   waiting: string = "ready to fetch"
-  signalsService = inject(SignalswatchlistService);
+  //signalsService = inject(SignalswatchlistService);
   preinitial(securityFile: string) {
     //clear stocksmap
     this.stocksmap.clear();
     this.waiting = "...fetching";
-    this.signalsService.getAphas(securityFile)  // NUBIA INDEX FUNDS
-      .subscribe(next => {
-        next.forEach(val => {
-          this.stocksmap.set(val.ticker, val)
+    this.constructorSubscription = this.utilSignalGet.getSecurityByFileName(securityFile, this.stocksmap)
+      .pipe(
+        concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
+          return this.utilRapidGets.getKeys(this.stocksmap);
         })
-        this.initialize();
+      ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
+        this.waiting = "done"
+        console.log("stockmap", this.stocksmap.size, securityFile);
+        this.stocksArray = Array.from(this.stocksmap.values());
+        this.tableDataSource.data = this.stocksArray;
       })
   }
-  initialize() {
+  initialize() { //used to refresh securities
     try {
       this.waiting = "...fetching";
-      let moresymbols = Array.from(this.stocksmap.keys());
-      this.subscription = this.rapidApiService.getMutualFundPrices(moresymbols)
-        .subscribe({
-          next: (n) => {
-            n.forEach((val2: any) => {
-              let updt = this.stocksmap.get(val2.symbol);
-              if (updt) {
-                updt.dividendYield = val2?.dividendYield;
-                updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-                updt.yahooprice = val2?.regularMarketPrice;
-                updt.fiftyDayAverage = val2?.fiftyDayAverage;
-                updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
-                updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
-                updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
-                updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
-                // updt.comment=val2?llongName;  // us desctructring and maybe object.assign
-                // this.stocksmap.set(updt.ticker, updt)
-              }
-            })
-          },
-          error: (err) => {
-            console.error("error 'getMutualFundPrices':", err?.error?.message)
-            this.waiting = "ERROR OCCURRED fetching 'getMutualFundPrices':" + err?.error?.message;
-
-          },
-          complete: () => {
-            this.waiting = "done";
-            console.log("complete called in aristocrats")
-          }
-        })
-      this.stocksArray = Array.from(this.stocksmap.values());
-      this.tableDataSource.data = this.stocksArray
+      console.log("initialize aristocrat " + this.stocksmap.size)
+      // let moresymbols = Array.from(this.stocksmap.keys());
+      this.apiSubscription = this.utilRapidGets.getKeys(this.stocksmap)
+        .subscribe(() => {
+          this.waiting = "done";
+          this.stocksArray = Array.from(this.stocksmap.values());
+          this.tableDataSource.data = this.stocksArray;
+        });
     }
     catch (err: any) {
-      console.error("error caught in material-table initialize", err?.message);
+      console.error("error caught in Aristocrat Stock  initialize", err?.message)
     }
+
   }
   handleRadio(matOrOrig: boolean) {
     this.matOrig = matOrOrig;

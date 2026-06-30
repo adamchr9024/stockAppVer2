@@ -12,7 +12,6 @@ export class Security {
 
       constructor(public readonly ticker: string,
             public readonly quantity: number,
-            //public quantity: number,   //changed because of transaction buy and sell
             private price: number, //might should only be one price
             private readonly unit_cost: number, //make readonly after tranaction is done
             public readonly category: Category = Category.Stock,
@@ -25,9 +24,9 @@ export class Security {
             public twoHundredDayAverage = 44.44,
             public twoHundredDayAverageChange = 22.22,
             public readonly est_annual_income = 3.33,
-            public readonly actual_dividend = 0.0, //make readonly after tranaction class is done
-            public readonly selltotal = 0,  //make readonly after tranaction class is done
-            public readonly totalcost = 250  //make readonly after tranaction class is done
+            public readonly actual_dividend = 0.0,
+            public readonly selltotal = 0,
+            public readonly totalcost = 250
       ) {  //see what this is generating in Javascript repeated variables
             this._yahooprice = price
             this.init();
@@ -40,7 +39,6 @@ export class Security {
       }
       init(): void {
             this._costbasis = Number((this.quantity * this.unit_cost).toFixed(2));
-            // this._yahooprice = this.price;
             this._marketvalue = Number((this.quantity * this.price).toFixed(2));
             this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
             this.setPercentage();
@@ -58,30 +56,13 @@ export class Security {
                   this._percentage = 50;
             }
       }
-      // set quantityval(val: number) {
-      //       this.quantity = val
-      //       this.init(); //this is really updating
-      // }
       get quantityval() { return this.quantity; }
       set fiftytwowkrng(val: string) { this.fifty_twowkrng = val; }
-      // set unitcost(value: number) {
-      //       this.unit_cost = value;
-      //       this.init()
-      //       //this._costbasis = Number((this.quantity * value).toFixed(2));
-      //       //this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
-
-      // }
-      // set actual_dividendval(val: number) { this.actual_dividend = val; }
       set trailingAnnualDividendRate(val: Number) { this._trailingAnnualDividendRate = val; }
       set yahooprice(val: number) {
             this._yahooprice = val;
             this.price = val;
             this.init()
-            //this._marketvalue = Number((this.quantity * val).toFixed(2));
-            //this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
-            //code to set percentage
-            //this.setPercentage();
-
       }
       set percentage(val: number) { this._percentage = val }
       set dividendYield(val: number) { this._dividendYield = val; }
@@ -132,9 +113,7 @@ export class Security {
       get glwdvdpct() {
             return this.glwdiv / this.totalcost;//validate
       }
-      // get newCostBases() { //used with transaction 
-      //       return this.unitcost * this.quantity
-      //}
+
       get effectivePercentage() {
             let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
             if (isNaN(val)) {
@@ -215,8 +194,6 @@ export const test_securitys = [
       { "fiftyDayAverage": 20.4252, "fiftyDayAverageChange": 0.30480003, "fiftyDayAverageChangePercent": 0.014922745, "twoHundredDayAverage": 19.30565, "twoHundredDayAverageChange": 1.4243488, "twoHundredDayAverageChangePercent": 0.07377885, "netExpenseRatio": 1.48, "sourceInterval": 15, "exchangeDataDelayedBy": 0, "tradeable": false, "cryptoTradeable": false, "regularMarketChangePercent": 0.4360465, "regularMarketPrice": 20.73, "marketState": "REGULAR", "hasPrePostMarketData": false, "firstTradeDateMilliseconds": 867677400000, "priceHint": 2, "regularMarketChange": 0.09, "regularMarketPreviousClose": 20.64, "fullExchangeName": "Nasdaq", "averageDailyVolume3Month": 0, "averageDailyVolume10Day": 0, "fiftyTwoWeekLowChange": 3.7299995, "fiftyTwoWeekLowChangePercent": 0.21941173, "fiftyTwoWeekRange": "17.0 - 20.73", "fiftyTwoWeekHighChange": 0, "fiftyTwoWeekHighChangePercent": 0, "fiftyTwoWeekLow": 17, "fiftyTwoWeekHigh": 20.73, "fiftyTwoWeekChangePercent": 7.6323986, "dividendRate": 0.13504, "dividendYield": 2.07, "ytdReturn": 11.71071, "trailingThreeMonthReturns": 5.13476, "netAssets": 5208834000, "shortName": "JPMorgan Investor Growth and In", "longName": "JPMorgan Investor Growth & Income C", "messageBoardId": "finmb_28117639", "exchangeTimezoneName": "America\/New_York", "exchangeTimezoneShortName": "EDT", "gmtOffSetMilliseconds": -14400000, "market": "us_market", "esgPopulated": false, "symbol": "ONECX" }
 ]
 export class fivelowmedianaverage {
-      //ticker:string="";
-      //fivedaylow:number[]=[0,0,0,0,0];
       constructor(private ticker: string, private fivelowvalues: number[]) {
 
       }

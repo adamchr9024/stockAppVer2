@@ -43,26 +43,4 @@ export class SignalswatchlistService implements OnInit {
         })
       )
   }
-  getAphas(file: string) {
-    let httpheader = new HttpHeaders();
-    httpheader = httpheader.append("accepts", "application/json");
-    return this.http.get<SecurityType[]>(file, { headers: httpheader })
-      .pipe(
-        take(1),
-        map(data => {
-          return data
-            .map(thesec => {
-              return new Security(thesec.ticker, thesec.quantity, thesec.price, thesec.unit_cost, thesec.category, thesec.fiftytwowkrng, thesec.comment,
-                thesec.effective_year_low, thesec.effective_year_high,
-                thesec.fiftyDayAverage ? thesec.fiftyDayAverage : 4.44,
-                thesec.fiftyDayAverageChange ? thesec.fiftyDayAverageChange : 2.22,
-                thesec.twoHundredDayAverage ? thesec.twoHundredDayAverage : 44.44,
-                thesec.twoHundredDayAverageChange ? thesec.twoHundredDayAverageChange : 22.22,
-                thesec.est_annual_income ? thesec.est_annual_income : 3.33  // add if we want to use value from external dividend calculator service
-              )
-
-            })
-        })
-      )
-  }
 } 
