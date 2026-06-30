@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RapidapiService } from '../rapidapi.service';
 import * as XLSXStyle from 'xlsx-js-style';
+import { PercentDirective } from '../percent.directive';
+
 @Component({
   selector: 'app-xlsx-sty',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PercentDirective],
   providers: [RapidapiService],
   templateUrl: './xlsx-sty.component.html',
   styleUrl: './xlsx-sty.component.css'

@@ -28,17 +28,9 @@
                         <td title="50-day-avg & 200-day-avg">{{stock.fifty50_200DayAvg}}</td>
                         @if(thefile==='Stocks.json'){<td>{{stock.unitcost}}</td>}
                         <td>{{stock.fiftytwowkrng}}</td>
-                        <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
-                              'sell':stock.percentage >=80 ,
-                               'potentialsell':stock.percentage >=70 && stock.percentage <=79,
-                                'potentialbuy':stock.percentage >=20 && stock.percentage <=30
-                        }">{{stock.percentage}}</td>
+                        <td [appPercent]="stock.percentage">{{stock.percentage}}</td>
                         <td>{{stock.effectiveRange}}</td>
-                        <td [ngClass]="{'buy':stock.effectivePercentage >=0 && stock.effectivePercentage <=20,
-                              'sell':stock.effectivePercentage >=80 ,
-                               'potentialsell':stock.effectivePercentage >=70 && stock.effectivePercentage <=79,
-                                'potentialbuy':stock.effectivePercentage >=20 && stock.effectivePercentage <=30
-                        }">{{stock.effectivePercentage}}</td>
+                        <td [appPercent]="stock.effectivePercentage">{{stock.effectivePercentage}}</td>
                         <td><a href="https://finance.yahoo.com/quote/{{stock.ticker}}/" target="_blank">{{stock.ticker}}
                                     Yahoo</a></td>
                         <td><a href="https://dividend-calculator.org/{{stock.ticker}}" target="_blank">{{stock.ticker}}

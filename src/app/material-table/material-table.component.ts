@@ -8,13 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
+import { PercentDirective } from '../percent.directive';
 import { MatSort } from '@angular/material/sort'
 import { ActivatedRoute } from '@angular/router';
 //import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-material-table',
   standalone: true,
-  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
+  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule, PercentDirective],
   //providers: [RapidapiService],
   templateUrl: './material-table.component.html',
   styleUrl: './material-table.component.css'

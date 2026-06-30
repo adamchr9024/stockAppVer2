@@ -9,7 +9,6 @@
             <button [disabled]="waiting =='Wait for ready to fetch'" class="button3" (click)="callYahoo()"
                   data-testid="fetch-button">Refresh /
                   Update Data</button>
-
       </div>
       <br /><br />
       <table>
@@ -20,13 +19,6 @@
                         </td>
                   </tr>
             </thead>
-            <!-- <tbody>
-                  <tr *ngFor="let row of data">
-                        <td *ngFor="let cell of row">
-                              {{cell}}
-                        </td>
-                  </tr>
-            </tbody> -->
             <tbody>
                   <tr *ngFor="let row of stocksArray">
                         <td>
@@ -50,18 +42,10 @@
                         <td>
                               {{row.fiftytwowkrng}}
                         </td>
-                        <td [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
-                              'sell':row.percentage >=80 ,
-                               'potentialsell':row.percentage >=70 && row.percentage <=79,
-                                'potentialbuy':row.percentage >=20 && row.percentage <=30
-                        }">
+                        <td [appPercent]="row.percentage">
                               {{row.percentage}}
                         </td>
-                        <td [ngClass]="{'buy':row.effectivePercentage >=0 && row.effectivePercentage <=20,
-                              'sell':row.effectivePercentage >=80,
-                               'potentialsell':row.effectivePercentage >=70 && row.effectivePercentage <=79,
-                                'potentialbuy':row.effectivePercentage >=20 && row.effectivePercentage <=30
-                        }">
+                        <td [appPercent]="row.effectivePercentage">
                               {{row.effectivePercentage}}
                         </td>
                         <td>
@@ -80,5 +64,4 @@
                   </tr>
             </tbody>
       </table>
-
 </div>

@@ -11,12 +11,13 @@ import { CdkTableModule } from '@angular/cdk/table';
 // import { MatPaginator } from '@angular/material/paginator'
 import { RapidApiGets, SignalServiceGets } from '../../utility/rapidApiGets';
 import { AristocratTableComponent } from '../aristocrat-table/aristocrat-table.component';
+import { PercentDirective } from '../percent.directive';
 import { MatSort } from '@angular/material/sort'
 import { Subscription, concatMap } from 'rxjs';
 @Component({
   selector: 'app-aristocrat-stock',
   standalone: true,
-  imports: [MatFormFieldModule, AristocratTableComponent, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule],
+  imports: [MatFormFieldModule, AristocratTableComponent, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule, PercentDirective],
   //providers: [RapidapiService],
   templateUrl: './aristocrat-stock.component.html',
   styleUrl: './aristocrat-stock.component.css'
