@@ -60,9 +60,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     //ADD CODE
     this.tableDataSource.sortingDataAccessor = (item: any, property) => {
-      switch (property) {
-        default: return item[property];
-      }
+      return item[property];
     }
   }
 

@@ -28,7 +28,6 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
   matOrig = true;
-  columnsToDisplay: string[] = ["ticker", "comment", "yahoo price", "52 Week Range", "Price Precentile", "category", "quantity", "Dividend Yield", "Potential Yearly Dividend ($500)",]
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
   securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
@@ -61,11 +60,6 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     this.tableDataSource.sortingDataAccessor = (item: any, property) => {
       switch (property) {
         case 'quantity': return item.watchQuantity;
-        case 'yahoo price': return item.yahooprice;
-        case "52 Week Range": return item.fiftytwowkrng;
-        case "Price Precentile": return item.percentage;
-        case "Dividend Yield": return item.dividendYield;
-        case "Potential Yearly Dividend ($500)": return item.potentialYearlyDividend;
         default: return item[property];
       }
     }

@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, inject, OnDestroy, OnInit, ViewChild, } from '@angular/core';
-//import { SignalswatchlistService } from '../signalswatchlist.service';
-//import { RapidapiService } from '../rapidapi.service';
 import { Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +24,6 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
   waiting: string = "fetching ..."  //works with resolve
   stocksmap: Map<string, Security> = new Map();
   tableDataSource: MatTableDataSource<Security>;
-  columnsToDisplay: string[] = ["ticker", "category", "quantity", "yahoo price", "52 Week Range", "Price Precentile", "Dividend Yield", "Potential Yearly Dividend ($500)", "comment"]
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'category', 'quantity', 'yahooprice', 'fiftytwowkrng', 'percentage', 'dividendYield', 'potentialYearlyDividend', 'comment'];
   @ViewChild(MatSort) sort!: MatSort;
@@ -46,16 +43,9 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
       this.tableDataSource.data = Array.from(this.stocksmap.values());
       this.waiting = "done";
       this.tableDataSource.sortingDataAccessor = (item: any, property) => {
+        // console.log("sortDataAcessor material-table", property, item[property]);
         switch (property) {
           case 'quantity': return item.watchQuantity;
-          case 'yahoo price': return item.yahooprice;
-          case "52 Week Range": return item.fiftytwowkrng;
-          case "Price Precentile": return item.percentage;
-          case "Dividend Yield": return item.dividendYield;
-          case "Potential Yearly Dividend ($500)": return item.potentialYearlyDividend;
-          // case "ticker": return item.ticker;
-          //case "category": return item.category;
-          //case "comment": return item.comment;
           default: return item[property];
         }
       }

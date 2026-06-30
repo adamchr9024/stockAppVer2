@@ -62,21 +62,7 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     //ADD CODE
     this.tableDataSource.sortingDataAccessor = (item: any, property) => { //logic error here???
-      switch (property) {
-        case 'quantity': return item.watchQuantity;
-        case 'yahoo price': return item.yahooprice;
-        case "52 Week Range": return item.fiftytwowkrng;
-        case "Price Percentile": return item.percentage;
-        case "Dividend Yield": return item.dividendYield;
-        case "market value": return item.marketvalue;
-        case "cost basis": return item.costbasis;
-        case "gain/loss": return item.gainloss;
-        case "unit cost": return item.unitcost;
-        case "selltotalval": return item.selltotalval;
-        case "totalcost": return item.totalcost;
-        //case "comment": return item.comment;
-        default: return item[property];
-      }
+      return item[property];
     }
   }
 

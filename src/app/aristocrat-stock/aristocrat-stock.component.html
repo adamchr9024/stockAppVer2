@@ -2,21 +2,7 @@
       <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin: 3px 3px;"
                   (click)="initialize()">Refresh/Fetch
                   Stocks</button></label>
-      <!-- <ul>
-            <li class="loss">For American Fund-Check for securities overlap and buy the cheapest with dividends</li>
-            <li class="loss">ToDo: Maybe Add Spinner / Remove ticker overlaps in files</li>
-            <li class="loss">Check volume at Yahoo or add to page to see if the security is selling</li>
-             <li><s>Possible Todo: Write a File to Libre Calc</s> <a href="https://npm.io/package/xlsx"
-                        target="_blank">npm
-                        xlsx</a> </li>
-            <li>Todo: Rapid APIs are INTERMITTENT!!! Consider that during you coding!!</li>
-            <li>
-                  <h5>Used To Copy Data From Browser to Libre Calc</h5>
-            </li> 
-      </ul> -->
-      <!-- <details class="fieldset"> 
 
-            <summary>View</summary-->
       <div class="fieldset">
             <div class="headerDiv">
                   Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked"
@@ -31,8 +17,6 @@
                   --mat-toolbar-standard-height: 2.5rem in styles.css file from chrome to work -->
             </div>
       </div>
-      <!-- </details> -->
-
       <div style="width:95%; margin:15px;">
             <ng-container *ngIf="!matOrig">
                   <!-- <app-aristocrat-table [stocks]="tableDataSource.filteredData"></app-aristocrat-table> -->
@@ -88,7 +72,7 @@
                               <mat-cell *cdkCellDef="let row"> {{row.potentialYearlyDividend}} </mat-cell>
                         </ng-container>
                         <ng-container cdkColumnDef="comment">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header> Comment </mat-header-cell>
+                              <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
                               <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
                         </ng-container>
 
