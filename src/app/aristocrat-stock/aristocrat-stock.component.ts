@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, Renderer2 } from '@angular/core';
 import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
@@ -37,7 +37,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
-  constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets) {
+  constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets, private renderer: Renderer2) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
     this.preinitial(this.securityFiles[0])
   }
@@ -109,7 +109,8 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   handleInputFileChange(theFile: string) {
     //clear filter text box    should I use look in notes Renderer2
-    this.filterinput.nativeElement.value = "";
+    this.renderer.setProperty(this.filterinput.nativeElement, 'value', "");
+    //this.filterinput.nativeElement.value = "";
     this.tableDataSource.filter = "";
     this.thefileOutput = theFile;
     this.preinitial(theFile);

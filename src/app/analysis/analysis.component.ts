@@ -39,15 +39,24 @@ export class AnalysisComponent implements OnDestroy, OnInit {
     this.financialdata = null;
     this.subscription = this.rapidApiService.getFinancials(this.ticker.trim().toUpperCase()).subscribe({
       next: n => {
-        this.financialdata = n;
-        this.financialstring = JSON.stringify(n);
+        //console.log("n", n);
+        if (n === undefined) {
+          this.waiting = "No Data Found For Ticker:  " + this.ticker;
+        }
+        else {
+          this.financialdata = n;
+          this.financialstring = JSON.stringify(n);
+        }
       },
       error: (err) => {
+        console.error("error in Analysis for ticker " + this.ticker, err);
         this.waiting = "ERROR OCCURRED fetching 'getFinancials':" + err?.message + "\n Message: " + err?.error?.message;
 
       },
       complete: () => {
-        this.waiting = "done"
+        // console.log("complete called in Analysis")
+        if (this.waiting === "fetching...")
+          this.waiting = "done";
       }
     });
   }
