@@ -2,7 +2,7 @@
 
 export class Security {
       private _costbasis: number = 0;
-      private _yahooprice: number = 0;
+      //private _yahooprice: number = 0;
       private _marketvalue: number = 0;
       private _gainloss: number = 0;
       private _trailingAnnualDividendRate: Number = 0;
@@ -12,7 +12,7 @@ export class Security {
 
       constructor(public readonly ticker: string,
             public readonly quantity: number,
-            private price: number, //might should only be one price
+            private yahooPrice: number, //might should only be one price
             private readonly unit_cost: number, //make readonly after tranaction is done
             public readonly category: Category = Category.Stock,
             private fifty_twowkrng: string,
@@ -28,18 +28,18 @@ export class Security {
             public readonly selltotal = 0,
             public readonly totalcost = 250
       ) {  //see what this is generating in Javascript repeated variables
-            this._yahooprice = price
+            // this._yahooprice = price
             this.init();
       }
       static getSecurityFromSecurityType(sectype: SecurityType): Security {
-            return new Security(sectype.ticker, sectype.quantity, sectype.price, sectype.unit_cost, sectype.category, sectype.fiftytwowkrng,
+            return new Security(sectype.ticker, sectype.quantity, sectype.yahooPrice, sectype.unit_cost, sectype.category, sectype.fiftytwowkrng,
                   sectype.comment, sectype.effective_year_low, sectype.effective_year_high, sectype.fiftyDayAverage, sectype.fiftyDayAverageChange,
                   sectype.twoHundredDayAverage, sectype.twoHundredDayAverageChange, sectype.est_annual_income, sectype.actual_dividend, sectype.selltotal, sectype.totalcost
             )
       }
       init(): void {
             this._costbasis = Number((this.quantity * this.unit_cost).toFixed(2));
-            this._marketvalue = Number((this.quantity * this.price).toFixed(2));
+            this._marketvalue = Number((this.quantity * this.yahooPrice).toFixed(2));
             this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
             this.setPercentage();
       }
@@ -48,8 +48,8 @@ export class Security {
                   let small_large = this.fifty_twowkrng.split("-");
                   let min = +small_large[0];
                   let max = +small_large[1];
-                  if (this.yahooprice && max != min) {
-                        this._percentage = +(100 * (this.yahooprice - min) / (max - min)).toFixed(0)
+                  if (this.yahooPrice && max != min) {
+                        this._percentage = +(100 * (this.yahooPrice - min) / (max - min)).toFixed(0)
                   }
             }
             else {
@@ -59,9 +59,9 @@ export class Security {
       get quantityval() { return this.quantity; }
       set fiftytwowkrng(val: string) { this.fifty_twowkrng = val; }
       set trailingAnnualDividendRate(val: Number) { this._trailingAnnualDividendRate = val; }
-      set yahooprice(val: number) {
-            this._yahooprice = val;
-            this.price = val;
+      set setYahooPrice(val: number) {
+            this.yahooPrice = val;
+            //this.price = val;
             this.init()
       }
       set percentage(val: number) { this._percentage = val }
@@ -69,7 +69,7 @@ export class Security {
       get fiftytwowkrng() { return this.fifty_twowkrng; }
       get dividendYield() { return this._dividendYield; }
       get percentage() { return this._percentage }
-      get yahooprice() { return this._yahooprice; }
+      get getYahooPrice() { return this.yahooPrice; }
       get gainloss() { return this._gainloss; }
       get marketvalue() { return this._marketvalue; }
       get unitcost() { return this.unit_cost; }
@@ -79,7 +79,7 @@ export class Security {
             if (this.est_annual_income !== 3.33 && this.est_annual_income !== 0) { // added specifically for dividend aristocrats
                   return this.est_annual_income;
             }
-            let qty = Math.floor(Security.initialInvestment / this._yahooprice)
+            let qty = Math.floor(Security.initialInvestment / this.yahooPrice)
             if (this._trailingAnnualDividendRate) {//none zero and not undefined
                   let val = Number((qty * Number(this._trailingAnnualDividendRate)).toFixed(2));
                   if (isNaN(val)) {
@@ -90,7 +90,7 @@ export class Security {
                   }
             } //6.24 = divAmt * 4 * price 
             else {
-                  let val = Number((this._yahooprice * (this._dividendYield / 100) * qty).toFixed(2));
+                  let val = Number((this.yahooPrice * (this._dividendYield / 100) * qty).toFixed(2));
                   if (isNaN(val)) {
                         return 0;
                   }
@@ -99,7 +99,7 @@ export class Security {
                   }
             }
       }
-      get watchQuantity() { return Math.floor(Security.initialInvestment / this._yahooprice) }
+      get watchQuantity() { return Math.floor(Security.initialInvestment / this.yahooPrice) }
       get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
       get glwdiv() { return Number((this._marketvalue + this.selltotal + this.actual_dividend - this.totalcost).toFixed(2)); }
       get fifty50_200DayAvg() {
@@ -115,7 +115,7 @@ export class Security {
       }
 
       get effectivePercentage() {
-            let val = Number((100 * (this._yahooprice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
+            let val = Number((100 * (this.yahooPrice - this.effective_year_low) / (this.effective_year_high - this.effective_year_low)).toFixed(1));
             if (isNaN(val)) {
                   return 0;
             }
@@ -124,8 +124,8 @@ export class Security {
             }
       }
       get newUnitCost() {
-            let buyquantity = Math.floor(250 / this._yahooprice)
-            return (((this.unit_cost * this.quantity + buyquantity * this._yahooprice) / (buyquantity + this.quantity))).toFixed(2);
+            let buyquantity = Math.floor(250 / this.yahooPrice)
+            return (((this.unit_cost * this.quantity + buyquantity * this.yahooPrice) / (buyquantity + this.quantity))).toFixed(2);
 
       }
       static getTotalMarketValue(arr: Security[]): number {
@@ -172,7 +172,7 @@ export enum TransactionType {
 export type SecurityType = {
       ticker: string,
       quantity: number,
-      price: number,
+      yahooPrice: number,
       unit_cost: number,
       category: Category,
       fiftytwowkrng: string
@@ -212,7 +212,7 @@ export const test_securityType: SecurityType[] = [
       {
             "ticker": "AAPL",
             "quantity": 80,
-            "price": 18.35,
+            "yahooPrice": 18.35,
             "unit_cost": 19.36,
             "category": Category.Stock,
             "fiftytwowkrng": "16.00-20.90",
@@ -231,7 +231,7 @@ export const test_securityType: SecurityType[] = [
       {
             "ticker": "ONECX",
             "quantity": 87,
-            "price": 18.90,
+            "yahooPrice": 18.90,
             "unit_cost": 20.04,
             "category": Category.MutualFund,
             "fiftytwowkrng": "16.00-20.90",

@@ -160,7 +160,7 @@ export class RapidapiService {
               if (updt) { //object destructruing options???
                 updt.dividendYield = val2?.dividendYield;
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-                updt.yahooprice = val2?.regularMarketPrice;
+                updt.setYahooPrice = val2?.regularMarketPrice;
                 updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
                 // this.stocksmap.set(updt.ticker, updt)
               }

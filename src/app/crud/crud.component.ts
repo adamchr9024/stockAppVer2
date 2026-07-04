@@ -32,7 +32,7 @@ export class CrudComponent implements OnDestroy {
   createdSecuritySignal = signal<SecurityType>({
     ticker: "NEW-1",
     quantity: 5,
-    price: 1.0,
+    yahooPrice: 1.0,
     unit_cost: 1.25,
     category: Category.Stock,
     fiftytwowkrng: "1-3",
@@ -49,7 +49,7 @@ export class CrudComponent implements OnDestroy {
   createAndUpdateTest = {
     ticker: "GIAX",
     quantity: 0,
-    price: 1.0,
+    yahooPrice: 1.0,
     unit_cost: 1.0,
     category: Category.Stock,
     fiftytwowkrng: "1-2",
@@ -168,7 +168,7 @@ export class CrudComponent implements OnDestroy {
     if (this.createdSecuritySignal().quantity <= 0) {
       errors += "\n quanity must be > 0";
     }
-    if (this.createdSecuritySignal().price <= 0) {
+    if (this.createdSecuritySignal().yahooPrice <= 0) {
       errors += "\n price must be > 0";
     }
     if (this.createdSecuritySignal().unit_cost <= 0) {

@@ -45,9 +45,9 @@
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>Gain/Loss</mat-header-cell>
                   <mat-cell *cdkCellDef="let row"> {{row.gainloss}} </mat-cell>
             </ng-container>
-            <ng-container cdkColumnDef="yahooprice">
+            <ng-container cdkColumnDef="getYahooPrice">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price</mat-header-cell>
-                  <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.yahooprice}} </mat-cell>
+                  <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.getYahooPrice}} </mat-cell>
             </ng-container>
             <ng-container cdkColumnDef="percentage">
                   <mat-header-cell *cdkHeaderCellDef mat-sort-header>52 wk price-%</mat-header-cell>

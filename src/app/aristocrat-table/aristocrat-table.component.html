@@ -24,7 +24,7 @@
                         <td>{{stock.ticker}}</td>
                         @if(thefile!=='Stocks.json'){ <td>{{stock.comment}}</td>}
                         @else{<td>{{stock.newUnitCost}}</td>}
-                        <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
+                        <td title="yahoo price" class="bordergreen">{{stock.getYahooPrice}}</td>
                         <td title="50-day-avg & 200-day-avg">{{stock.fifty50_200DayAvg}}</td>
                         @if(thefile==='Stocks.json'){<td>{{stock.unitcost}}</td>}
                         <td>{{stock.fiftytwowkrng}}</td>

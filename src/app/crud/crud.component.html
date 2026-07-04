@@ -49,7 +49,8 @@
             <input class="customInput" type="number" value={{createdSecuritySignal().quantity}}
                   (blur)="editQuantity($event)">
             <label>&nbsp;&nbsp;Price:&nbsp;&nbsp;</label>
-            <input class="customInput" type="number" value={{createdSecuritySignal().price}} (blur)="editPrice($event)">
+            <input class="customInput" type="number" value={{createdSecuritySignal().yahooPrice}}
+                  (blur)="editPrice($event)">
             <label class="longlabel">&nbsp;&nbsp;Unit Cost:&nbsp;&nbsp;</label>
             <input class="customInput" type="number" value={{createdSecuritySignal().unit_cost}}
                   (blur)="editUnitCost($event)">

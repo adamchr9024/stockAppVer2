@@ -28,7 +28,7 @@ export class RapidApiGets {
                             if (updt) {
                                 updt.dividendYield = val2?.dividendYield;
                                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-                                updt.yahooprice = val2?.regularMarketPrice;
+                                updt.setYahooPrice = val2?.regularMarketPrice;
                                 updt.fiftyDayAverage = val2?.fiftyDayAverage;
                                 updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
                                 updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage

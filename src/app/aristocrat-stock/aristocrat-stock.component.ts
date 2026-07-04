@@ -30,7 +30,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   tableDataSource: MatTableDataSource<Security>;
   matOrig = true;
   //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'comment', 'yahooprice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
+  colToDisplay: string[] = ['ticker', 'comment', 'getYahooPrice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
   securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
     "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json", "realwatchlist.json", "allgits.json", "empower.json"]
   thefileOutput: string = "";

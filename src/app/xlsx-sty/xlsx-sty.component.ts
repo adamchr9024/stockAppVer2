@@ -38,7 +38,7 @@ export class XlsxStyComponent implements OnDestroy {
       let customValue = this.stocksArray.map(val => {
         return {
           ticker: val.ticker, quantity: val.quantity, category: val.category, unit_cost: val.unitcost,
-          yahooprice: val.yahooprice, gain_loss: val.gainloss, gain_loss_wth_dvd: val.glwdiv, gain_loss_div_pct: val.glwdvdpct, fiftytwowkrng: val.fiftytwowkrng, price_percentile: val.percentage,
+          yahooprice: val.getYahooPrice, gain_loss: val.gainloss, gain_loss_wth_dvd: val.glwdiv, gain_loss_div_pct: val.glwdvdpct, fiftytwowkrng: val.fiftytwowkrng, price_percentile: val.percentage,
           effectivePercent: val.effectivePercentage, potentialAnnualIncome: val.est_annual_income, comment: val.comment
         };
       });
@@ -171,7 +171,7 @@ export class XlsxStyComponent implements OnDestroy {
               if (updt) {
                 updt.dividendYield = val2?.dividendYield;
                 updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
-                updt.yahooprice = val2?.regularMarketPrice;
+                updt.setYahooPrice = val2?.regularMarketPrice;
                 updt.fiftyDayAverage = val2?.fiftyDayAverage;
                 updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
                 updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage

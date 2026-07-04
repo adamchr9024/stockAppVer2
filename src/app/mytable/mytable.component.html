@@ -26,7 +26,7 @@
                         <td>{{stock.marketvalue}}</td>
                         <td>{{stock.costbasis}}</td>
                         <td [ngClass]="{'loss':stock.gainloss<0}">{{stock.gainloss}}</td>
-                        <td title="yahoo price" class="bordergreen">{{stock.yahooprice}}</td>
+                        <td title="yahoo price" class="bordergreen">{{stock.getYahooPrice}}</td>
                         <td>{{stock.fiftytwowkrng}}</td>
                         <td [ngClass]="{'buy':stock.percentage >=0 && stock.percentage <=20,
                               'sell':stock.percentage >=80 ,

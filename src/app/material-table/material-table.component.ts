@@ -26,7 +26,7 @@ export class MaterialTableComponent implements OnInit, AfterViewInit {
   stocksmap: Map<string, Security> = new Map();
   tableDataSource: MatTableDataSource<Security>;
   //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'category', 'quantity', 'yahooprice', 'fiftytwowkrng', 'percentage', 'dividendYield', 'potentialYearlyDividend', 'comment'];
+  colToDisplay: string[] = ['ticker', 'category', 'quantity', 'getYahooPrice', 'fiftytwowkrng', 'percentage', 'dividendYield', 'potentialYearlyDividend', 'comment'];
   @ViewChild(MatSort) sort!: MatSort;
   constructor() {
     this.tableDataSource = new MatTableDataSource();

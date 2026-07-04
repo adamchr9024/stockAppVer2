@@ -27,7 +27,7 @@ export class SpreadshtComponent implements OnInit, AfterViewInit {
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
   //Table columns will be displayed in the same order of values in the array
-  colToDisplay: string[] = ['ticker', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'yahooprice', 'percentage', 'actual_dividend', 'glwdiv', 'glwdvdpct', 'est_annual_income', 'comment'];
+  colToDisplay: string[] = ['ticker', 'quantity', "marketvalue", "unitcost", "costbasis", 'gainloss', 'getYahooPrice', 'percentage', 'actual_dividend', 'glwdiv', 'glwdvdpct', 'est_annual_income', 'comment'];
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
