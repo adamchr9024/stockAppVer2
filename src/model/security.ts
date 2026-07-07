@@ -2,7 +2,6 @@
 
 export class Security {
       private _costbasis: number = 0;
-      //private _yahooprice: number = 0;
       private _marketvalue: number = 0;
       private _gainloss: number = 0;
       private _trailingAnnualDividendRate: Number = 0;
@@ -61,7 +60,6 @@ export class Security {
       set trailingAnnualDividendRate(val: Number) { this._trailingAnnualDividendRate = val; }
       set setYahooPrice(val: number) {
             this.yahooPrice = val;
-            //this.price = val;
             this.init()
       }
       set percentage(val: number) { this._percentage = val }
@@ -126,6 +124,9 @@ export class Security {
       get newUnitCost() {
             let buyquantity = Math.floor(250 / this.yahooPrice)
             return (((this.unit_cost * this.quantity + buyquantity * this.yahooPrice) / (buyquantity + this.quantity))).toFixed(2);
+      }
+      get getDivGain() {
+            return Number((this.glwdiv - this.est_annual_income).toFixed(2));
 
       }
       static getTotalMarketValue(arr: Security[]): number {
