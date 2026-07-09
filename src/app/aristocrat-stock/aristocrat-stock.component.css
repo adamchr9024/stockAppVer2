@@ -8,6 +8,21 @@
   https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/var */
 }
 
+.headerDiv3 {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 95%;
+      position: sticky;
+      border: 2px solid darkcyan;
+      background-color: goldenrod;
+      color: white;
+      top: -.625rem;
+      height: 3.5rem;
+      /* z-index: 100; */
+}
+
 .sell {
       background-color: lightgreen;
       font-weight: bolder;
@@ -34,10 +49,26 @@
       font-weight: bolder;
 }
 
+mat-form-field {
+      /* height: 3.7rem; */
+      margin-top: 15px;
+}
+
+
 mat-header-row,
 thead {
-      top: 35px;
+      top: 2.188rem;
       position: sticky;
+}
+
+.summary1 {
+      color: blue;
+      font-size: larger;
+}
+
+.summary2 {
+      color: rgb(255, 0, 162);
+      font-size: larger;
 }
 
 /* mat-toolbar-multiple-rows {

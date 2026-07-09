@@ -3,80 +3,96 @@
                   (click)="initialize()">Refresh/Fetch
                   Stocks</button></label>
 
-      <div class="fieldset">
-            <div class="headerDiv">
-                  Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked"
+      <!-- <div class="fieldset"> -->
+      <div class="headerDiv3">
+            <mat-form-field>
+                  <mat-label>Filter</mat-label>
+                  <input #filterInput matInput (input)="filterData($event)">
+            </mat-form-field>
+            <!--  Material<input type="radio" name="originalOrMat" (change)="handleRadio(true)" checked="checked"
                         value="mat">
                   Original<input type="radio" name="originalOrMat" (change)="handleRadio(false)"
                         value="original">&nbsp;&nbsp;&nbsp;
-                  Input File:&nbsp;&nbsp;&nbsp;<select #mySelect class="button1" style="width: 170px;"
-                        (change)="handleInputFileChange(mySelect.value)" [disabled]="!(waiting=='done')">
-                        <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
-                  </select>
-                  <!-- OPTOMIZED CSS FOR FIREFOX ok but used 
-                  --mat-toolbar-standard-height: 2.5rem in styles.css file from chrome to work -->
-            </div>
+                  Input File:&nbsp;&nbsp;&nbsp;-->
+            <select #mySelect class="button1" (change)="handleInputFileChange(mySelect.value)"
+                  [disabled]="!(waiting=='done')">
+                  <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
+            </select>
+            <!--  OPTOMIZED CSS FOR FIREFOX ok but used
+                  mat-toolbar-standard-height: 2.5rem in styles.css file from chrome to work -->
       </div>
+      <!-- </div> -->
+      <!-- <div [ngClass]="{'hide':!matOrig}"> -->
+
+      <!-- <mat-form-field style="width:40%">
+            <mat-label>Filter</mat-label>
+            <input #filterInput matInput (input)="filterData($event)">
+      </mat-form-field> -->
+
+
       <div style="width:95%; margin:15px;">
-            <ng-container *ngIf="!matOrig">
-                  <!-- <app-aristocrat-table [stocks]="tableDataSource.filteredData"></app-aristocrat-table> -->
-                  <app-aristocrat-table [thefile]="thefileOutput"
-                        [stocks]="tableDataSource.sortData(tableDataSource.filteredData,sort)"></app-aristocrat-table>
+            <ng-container>
+                  <details>
+                        <summary class="summary1">Yahoo & Dividend Calculator</summary>
+                        <app-aristocrat-table [stocks]="tableDataSource.filteredData"></app-aristocrat-table>
+                        <!-- <app-aristocrat-table [thefile]="thefileOutput"
+                              [stocks]="tableDataSource.sortData(tableDataSource.filteredData,sort)"></app-aristocrat-table> -->
+                  </details>
             </ng-container>
             <div>
-                  <!-- <div [ngClass]="{'hide':!matOrig}"> -->
-                  <mat-form-field style="width:40%">
-                        <mat-label>Filter</mat-label>
-                        <input #filterInput matInput (input)="filterData($event)">
-                  </mat-form-field>
-                  <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource"
-                        matSort>
-                        <ng-container cdkColumnDef="ticker">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
-                        </ng-container>
+                  <details>
+                        <summary class="summary2">Potential Dividend ETC</summary>
+                        <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource"
+                              matSort>
+                              <ng-container cdkColumnDef="ticker">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
+                              </ng-container>
 
-                        <ng-container cdkColumnDef="category">
-                              <mat-header-cell *cdkHeaderCellDef>Category </mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.category}} </mat-cell>
-                        </ng-container>
-                        <!-- quantity Definition -->
-                        <ng-container cdkColumnDef="quantity">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.watchQuantity}} </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="getYahooPrice">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
-                              <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.getYahooPrice}} </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="fiftytwowkrng">
-                              <mat-header-cell *cdkHeaderCellDef> 52 Week Range </mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="percentage">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>Price Percentile</mat-header-cell>
-                              <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}}
-                              </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="dividendYield">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield</mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="potentialYearlyDividend">
-                              <mat-header-cell *cdkHeaderCellDef mat-sort-header
-                                    title="0-NaN try dividend calculator or manual">Potential Yearly Dividend
-                                    ($500)</mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.potentialYearlyDividend}} </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="comment">
-                              <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
-                        </ng-container>
+                              <ng-container cdkColumnDef="category">
+                                    <mat-header-cell *cdkHeaderCellDef>Category </mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.category}} </mat-cell>
+                              </ng-container>
+                              <!-- quantity Definition -->
+                              <ng-container cdkColumnDef="quantity">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.watchQuantity}} </mat-cell>
+                              </ng-container>
+                              <ng-container cdkColumnDef="getYahooPrice">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
+                                    <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.getYahooPrice}}
+                                    </mat-cell>
+                              </ng-container>
+                              <ng-container cdkColumnDef="fiftytwowkrng">
+                                    <mat-header-cell *cdkHeaderCellDef> 52 Week Range </mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
+                              </ng-container>
+                              <ng-container cdkColumnDef="percentage">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Price
+                                          Percentile</mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}}
+                                    </mat-cell>
+                              </ng-container>
+                              <ng-container cdkColumnDef="dividendYield">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield</mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
+                              </ng-container>
+                              <ng-container cdkColumnDef="potentialYearlyDividend">
+                                    <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                                          title="0-NaN try dividend calculator or manual">Potential Yearly Dividend
+                                          ($500)</mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.potentialYearlyDividend}} </mat-cell>
+                              </ng-container>
+                              <ng-container cdkColumnDef="comment">
+                                    <mat-header-cell *cdkHeaderCellDef> Comment </mat-header-cell>
+                                    <mat-cell *cdkCellDef="let row"> {{row.comment}} </mat-cell>
+                              </ng-container>
 
-                        <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
-                        <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
+                              <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
+                              <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
 
-                  </mat-table>
+                        </mat-table>
+                  </details>
             </div>
       </div>
 </div>

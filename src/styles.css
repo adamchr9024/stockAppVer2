@@ -76,7 +76,7 @@ mat-label {
 
 thead,
 mat-header-row {
-      top: -12px;
+      top: -0.75rem;
       position: sticky;
 }
 

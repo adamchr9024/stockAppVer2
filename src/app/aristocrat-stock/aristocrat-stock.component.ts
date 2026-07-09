@@ -54,6 +54,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     }
   }
   ngAfterViewInit(): void {
+    console.log("sort", this.sort);
     this.tableDataSource.sort = this.sort;
   }
   ngOnInit(): void {
