@@ -7,14 +7,15 @@
                         <td>ticker</td>
                         @if(thefile!=='Stocks.json'){ <td>comment</td>}
                         @else {<td>Buy $250 U_C</td>}
+                        @if(thefile==='Stocks.json'){ <td>10% gain</td>}
                         <td>yahoo price</td>
                         <td>50-day-avg , 200-day-avg</td>
                         @if(thefile==='Stocks.json'){<td>Unit Cost</td>}
                         <td>52 Week Range</td>
                         <td title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price
                               Percentile</td>
-                        <td>Effective Year Range</td>
-                        <td>Effective Year Percentile</td>
+                        <td>Effective Year Rng</td>
+                        <td>Effective Year %tile</td>
                         <td>View Yahoo Data</td>
                         <td>Potential-Dividend-Calculator</td>
                   </tr>
@@ -24,6 +25,7 @@
                         <td>{{stock.ticker}}</td>
                         @if(thefile!=='Stocks.json'){ <td>{{stock.comment}}</td>}
                         @else{<td>{{stock.newUnitCost}}</td>}
+                        @if(thefile==='Stocks.json'){ <td>{{stock.tenPctGnPrice}}</td>}
                         <td title="yahoo price" class="bordergreen">{{stock.getYahooPrice}}</td>
                         <td title="50-day-avg & 200-day-avg">{{stock.fifty50_200DayAvg}}</td>
                         @if(thefile==='Stocks.json'){<td>{{stock.unitcost}}</td>}

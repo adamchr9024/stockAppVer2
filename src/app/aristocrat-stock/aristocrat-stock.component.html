@@ -34,7 +34,8 @@
             <ng-container>
                   <details>
                         <summary class="summary1">Yahoo & Dividend Calculator</summary>
-                        <app-aristocrat-table [stocks]="tableDataSource.filteredData"></app-aristocrat-table>
+                        <app-aristocrat-table [stocks]="tableDataSource.filteredData"
+                              [thefile]="thefileOutput"></app-aristocrat-table>
                         <!-- <app-aristocrat-table [thefile]="thefileOutput"
                               [stocks]="tableDataSource.sortData(tableDataSource.filteredData,sort)"></app-aristocrat-table> -->
                   </details>

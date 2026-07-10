@@ -1,7 +1,7 @@
 //import { OnInit } from "@angular/core";
 
 export class Security {
-      private _costbasis: number = 0;
+      private _costbasis: number = 0; //I just need a getter only for these so can refactor
       private _marketvalue: number = 0;
       private _gainloss: number = 0;
       private _trailingAnnualDividendRate: Number = 0;
@@ -128,6 +128,9 @@ export class Security {
       get getDivGain() {
             return Number((this.glwdiv - this.est_annual_income).toFixed(2));
 
+      }
+      get tenPctGnPrice() {
+            return ((this.totalcost * 1.1 - (this.selltotal + this.actual_dividend)) / this.quantity).toFixed(2);
       }
       static getTotalMarketValue(arr: Security[]): number {
             let sum = 0;
