@@ -1,9 +1,6 @@
-//import { OnInit } from "@angular/core";
 
 export class Security {
-      private _costbasis: number = 0; //I just need a getter only for these so can refactor
-      private _marketvalue: number = 0;
-      private _gainloss: number = 0;
+
       private _trailingAnnualDividendRate: Number = 0;
       private _percentage: number = 80;
       private _dividendYield: number = 0;
@@ -37,9 +34,6 @@ export class Security {
             )
       }
       init(): void {
-            this._costbasis = Number((this.quantity * this.unit_cost).toFixed(2));
-            this._marketvalue = Number((this.quantity * this.yahooPrice).toFixed(2));
-            this._gainloss = Number((this._marketvalue - this._costbasis).toFixed(2));
             this.setPercentage();
       }
       setPercentage() {
@@ -62,16 +56,16 @@ export class Security {
             this.yahooPrice = val;
             this.init()
       }
-      set percentage(val: number) { this._percentage = val }
+      //set percentage(val: number) { this._percentage = val }
       set dividendYield(val: number) { this._dividendYield = val; }
       get fiftytwowkrng() { return this.fifty_twowkrng; }
       get dividendYield() { return this._dividendYield; }
       get percentage() { return this._percentage }
       get getYahooPrice() { return this.yahooPrice; }
-      get gainloss() { return this._gainloss; }
-      get marketvalue() { return this._marketvalue; }
+      get gainloss() { return Number((this.marketvalue - this.costbasis).toFixed(2)); }
+      get marketvalue() { return Number((this.quantity * this.yahooPrice).toFixed(2)); }
       get unitcost() { return this.unit_cost; }
-      get costbasis() { return this._costbasis; }
+      get costbasis() { return Number((this.quantity * this.unit_cost).toFixed(2)) }
       get selltotalval() { return this.selltotal }
       get potentialYearlyDividend() {//use with Watchlist to calcualte a $500 investment for one year
             if (this.est_annual_income !== 3.33 && this.est_annual_income !== 0) { // added specifically for dividend aristocrats
@@ -99,7 +93,7 @@ export class Security {
       }
       get watchQuantity() { return Math.floor(Security.initialInvestment / this.yahooPrice) }
       get effectiveRange() { return this.effective_year_low.toString() + "-" + this.effective_year_high.toString(); }
-      get glwdiv() { return Number((this._marketvalue + this.selltotal + this.actual_dividend - this.totalcost).toFixed(2)); }
+      get glwdiv() { return Number((this.marketvalue + this.selltotal + this.actual_dividend - this.totalcost).toFixed(2)); }
       get fifty50_200DayAvg() {
             if (this.fiftyDayAverage && this.twoHundredDayAverage) {
                   return this.fiftyDayAverage.toFixed(4) + " , " + this.twoHundredDayAverage.toFixed(4);
@@ -135,14 +129,14 @@ export class Security {
       static getTotalMarketValue(arr: Security[]): number {
             let sum = 0;
             arr.forEach((sec) => {
-                  sum += sec._marketvalue;
+                  sum += sec.marketvalue;
             })
             return sum;
       }
       static getTotalGainLoss(arr: Security[]): number {
             let sum = 0;
             arr.forEach((sec) => {
-                  sum += sec._gainloss;
+                  sum += sec.gainloss;
             })
             return sum;
       }
