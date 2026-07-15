@@ -31,15 +31,15 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   matOrig = true;
   //Table columns will be displayed in the same order of values in the array
   colToDisplay: string[] = ['ticker', 'comment', 'getYahooPrice', 'fiftytwowkrng', 'percentage', 'category', 'quantity', 'dividendYield', 'potentialYearlyDividend',];
-  securityFiles: string[] = ["morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "Stocks.json", "growth_global.json", "dividendarist.json",
+  securityFiles: string[] = ["Stocks.json", "morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "growth_global.json", "dividendarist.json",
     "dividendetf.json", "allenergy.json", "chatgpt.json", "smtchatg.json", "realwatchlist.json", "allgits.json", "empower.json"]
-  thefileOutput: string = "";
+  thefileOutput: string = "Stocks.json";
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
   constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets, private renderer: Renderer2) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
-    this.preinitial(this.securityFiles[0])
+    this.preinitial(this.securityFiles[0]); //make Stocks.json my default file
   }
 
   ngOnChanges(changes: SimpleChanges): void {
