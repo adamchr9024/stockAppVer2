@@ -10,6 +10,18 @@ button {
       margin: 5px 5px;
 }
 
+.button21 {
+      margin: 1px 1px;
+      background-image: linear-gradient(90deg, #fa80d2, #fed757);
+      height: 40px;
+      font-size: medium;
+      /* display: inline-block; */
+      border: 3px rgba(255, 0, 238, 0.952) dashed;
+      text-align: center;
+      color: black;
+      font-weight: bold;
+}
+
 label {
       margin: 5px 5px;
 }
@@ -17,6 +29,10 @@ label {
 input {
       margin: 5px 5px;
       font-size: larger;
+}
+
+#tickers {
+      text-transform: uppercase;
 }
 
 .firstDiv1 {
@@ -31,6 +47,12 @@ input {
 
 mfrac {
       font-size: larger;
+}
+
+summary {
+      color: rgba(255, 0, 238, 0.952);
+      font-size: x-large;
+      margin-left: 1rem;
 }
 
 /* .headerDiv1 {

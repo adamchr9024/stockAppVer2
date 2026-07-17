@@ -1,134 +1,154 @@
-<div class="body">
-      <div class="firstDiv">
-            <a href="https://www.investopedia.com/financial-term-dictionary-4769738" target="_blank"
-                  title="Investopedia Terms">
-                  <img src="investopedia.svg" alt="Investopedia">
-            </a>
-            <h3>Todo: See if FinHub has better data since we are only making one request</h3>
-            <h3>https://finnhub.io/docs/api/financials-reported</h3>
-            <h3>Rapid APIs are INTERMITTENT!!! Consider that during you coding!!</h3>
-            <label style="font-size: 25px;"
-                  [ngClass]="{'loss':waiting.includes('ERROR') || (waiting !== 'ready to fetch' && waiting !== 'done')}">{{waiting}}</label>
-            <div>
-                  <label class="button3">Enter Ticker:</label>
-                  <input type="text" name="ticker" [(ngModel)]="ticker">
-                  <button class="button2" (click)="analyze()" [disabled]="ticker.trim().length ===0">Fetch
-                        Financials</button>
-            </div>
-            <h5>Financials for ticker: {{ticker.toUpperCase()}}</h5>
-            <!-- {{financialstring}} -->
-            <div class="headerDiv1">
-                  <span class="firstDiv1">
-                        <span> <label>currentPrice: </label> {{financialdata?.currentPrice?.raw}} </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label class="loss">profitMargins:</label> {{financialdata?.profitMargins?.fmt}}
-                              <strong class="cb">
-                                    <math display="inline">
-                                          <mfrac>
-                                                <mi>Net_Sales - COGS</mi>
-                                                <mn>COGS</mn>
-                                          </mfrac>
-                                    </math>
-                              </strong>​
+<details>
+      <summary>Stock Metrics</summary>
+      <div class="body">
+            <div class="firstDiv">
+                  <a href="https://www.investopedia.com/financial-term-dictionary-4769738" target="_blank"
+                        title="Investopedia Terms">
+                        <img src="investopedia.svg" alt="Investopedia">
+                  </a>
+                  <h3>Todo: See if FinHub has better data since we are only making one request</h3>
+                  <h3>https://finnhub.io/docs/api/financials-reported</h3>
+                  <!-- <h3>Rapid APIs are INTERMITTENT!!! Consider that during you coding!!</h3> -->
+                  <label style="font-size: 25px;"
+                        [ngClass]="{'loss':waiting.includes('ERROR') || (waiting !== 'ready to fetch' && waiting !== 'done')}">{{waiting}}</label>
+                  <div>
+                        <label class="button3">Enter Ticker:</label>
+                        <input type="text" name="ticker" [(ngModel)]="ticker">
+                        <button class="button2" (click)="analyze()" [disabled]="ticker.trim().length ===0">Fetch
+                              Financials</button>
+                  </div>
+                  <h5>Financials for ticker: {{ticker.toUpperCase()}}</h5>
+                  <!-- {{financialstring}} -->
+                  <div class="headerDiv1">
+                        <span class="firstDiv1">
+                              <span> <label>currentPrice: </label> {{financialdata?.currentPrice?.raw}} </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label class="loss">profitMargins:</label> {{financialdata?.profitMargins?.fmt}}
+                                    <strong class="cb">
+                                          <math display="inline">
+                                                <mfrac>
+                                                      <mi>Net_Sales - COGS</mi>
+                                                      <mn>COGS</mn>
+                                                </mfrac>
+                                          </math>
+                                    </strong>​
+                              </span>
+                              <hr height="3px" width="100%" />
+                              <span><label>targetHighPrice:</label> {{financialdata?.targetHighPrice?.raw}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>targetLowPrice:</label>{{financialdata?.targetLowPrice?.raw}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label> targetMeanPrice:</label>{{financialdata?.targetMeanPrice?.raw}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>targetMedianPrice:</label>{{financialdata?.targetMedianPrice?.raw}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>recommendationMean:</label>{{json.stringify(financialdata?.recommendationMean)}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>recommendationKey:</label> {{financialdata?.recommendationKey}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>numberOfAnalystOpinions:</label>
+                                    {{json.stringify(financialdata?.numberOfAnalystOpinions)}}
+                              </span>
                         </span>
-                        <hr height="3px" width="100%" />
-                        <span><label>targetHighPrice:</label> {{financialdata?.targetHighPrice?.raw}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>targetLowPrice:</label>{{financialdata?.targetLowPrice?.raw}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label> targetMeanPrice:</label>{{financialdata?.targetMeanPrice?.raw}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>targetMedianPrice:</label>{{financialdata?.targetMedianPrice?.raw}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>recommendationMean:</label>{{json.stringify(financialdata?.recommendationMean)}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>recommendationKey:</label> {{financialdata?.recommendationKey}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>numberOfAnalystOpinions:</label>
-                              {{json.stringify(financialdata?.numberOfAnalystOpinions)}}
+                        <span class="firstDiv1">
+                              <span><label class="loss">totalCash:</label> {{financialdata?.totalCash?.longFmt}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>totalCashPerShare:</label>{{json.stringify(financialdata?.totalCashPerShare)}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label
+                                          title="earnings before interest, taxes, depreciation, and amortization (EBITDA).">ebitda:
+                                    </label>
+                                    {{json.stringify(financialdata?.ebitda)}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>totalDebt:</label>{{financialdata?.totalDebt?.longFmt}}</span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>quickRatio:</label> {{json.stringify(financialdata?.quickRatio)}} &nbsp;
+                                    <strong class="cb">
+                                          <math display="inline">
+                                                <mfrac>
+                                                      <mi>Quick Assests</mi>
+                                                      <mn>Current Liabilities</mn>
+                                                </mfrac>
+                                          </math></strong></span>
+                              <hr height="3px" width="100%" />
+                              <span> <label> currentRatio: </label>{{json.stringify(financialdata?.currentRatio)}}
+                                    &nbsp;
+                                    <strong class="cb">
+                                          <math display="inline">
+                                                <mfrac>
+                                                      <mi>Current Assests</mi>
+                                                      <mn>Current Liabilities</mn>
+                                                </mfrac>
+                                          </math></strong></span>
+                              <hr height="3px" width="100%" />
+                              <span> <label class="loss">
+                                          totalRevenue:</label>{{financialdata?.totalRevenue?.longFmt}}</span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>debtToEquity:</label>{{json.stringify(financialdata?.debtToEquity)}}</span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>revenuePerShare: </label>{{financialdata?.revenuePerShare?.raw}} </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>returnOnAssets:</label>{{financialdata?.returnOnAssets?.raw}} <strong
+                                          class="cv">
+                                          <math display="inline">
+                                                <mfrac>
+                                                      <mi>Net_Income</mi>
+                                                      <mn>Total Assets</mn>
+                                                </mfrac>
+                                          </math>
+                                    </strong>Larger the better </span>
                         </span>
-                  </span>
-                  <span class="firstDiv1">
-                        <span><label class="loss">totalCash:</label> {{financialdata?.totalCash?.longFmt}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>totalCashPerShare:</label>{{json.stringify(financialdata?.totalCashPerShare)}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label title="earnings before interest, taxes, depreciation, and amortization (EBITDA).">ebitda:
-                              </label>
-                              {{json.stringify(financialdata?.ebitda)}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>totalDebt:</label>{{financialdata?.totalDebt?.longFmt}}</span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>quickRatio:</label> {{json.stringify(financialdata?.quickRatio)}} &nbsp; <strong
-                                    class="cb">
-                                    <math display="inline">
-                                          <mfrac>
-                                                <mi>Quick Assests</mi>
-                                                <mn>Current Liabilities</mn>
-                                          </mfrac>
-                                    </math></strong></span>
-                        <hr height="3px" width="100%" />
-                        <span> <label> currentRatio: </label>{{json.stringify(financialdata?.currentRatio)}} &nbsp;
-                              <strong class="cb">
-                                    <math display="inline">
-                                          <mfrac>
-                                                <mi>Current Assests</mi>
-                                                <mn>Current Liabilities</mn>
-                                          </mfrac>
-                                    </math></strong></span>
-                        <hr height="3px" width="100%" />
-                        <span> <label class="loss"> totalRevenue:</label>{{financialdata?.totalRevenue?.longFmt}}</span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>debtToEquity:</label>{{json.stringify(financialdata?.debtToEquity)}}</span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>revenuePerShare: </label>{{financialdata?.revenuePerShare?.raw}} </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>returnOnAssets:</label>{{financialdata?.returnOnAssets?.raw}} <strong class="cv">
-                                    <math display="inline">
-                                          <mfrac>
-                                                <mi>Net_Income</mi>
-                                                <mn>Total Assets</mn>
-                                          </mfrac>
-                                    </math>
-                              </strong>Larger the better </span>
-                  </span>
-                  <span class="firstDiv1">
-                        <span> <label>returnOnEquity:</label>{{financialdata?.returnOnEquity?.raw}} <strong class="cv">
-                                    <math display="inline">
-                                          <mfrac>
-                                                <mi>Net_Income</mi>
-                                                <mn>ShareHolders' Equity</mn>
-                                          </mfrac>
-                                    </math>
-                              </strong>Larger the better </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label
-                                    class="purplelabel">grossProfits:</label>{{financialdata?.grossProfits?.longFmt}}&nbsp;<strong
-                                    class="cb">Net_Sales -
-                                    COGS</strong> </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>freeCashflow:</label>{{json.stringify(financialdata?.freeCashflow)}}</span>
+                        <span class="firstDiv1">
+                              <span> <label>returnOnEquity:</label>{{financialdata?.returnOnEquity?.raw}} <strong
+                                          class="cv">
+                                          <math display="inline">
+                                                <mfrac>
+                                                      <mi>Net_Income</mi>
+                                                      <mn>ShareHolders' Equity</mn>
+                                                </mfrac>
+                                          </math>
+                                    </strong>Larger the better </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label
+                                          class="purplelabel">grossProfits:</label>{{financialdata?.grossProfits?.longFmt}}&nbsp;<strong
+                                          class="cb">Net_Sales -
+                                          COGS</strong> </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>freeCashflow:</label>{{json.stringify(financialdata?.freeCashflow)}}</span>
 
-                        <hr height="3px" width="100%" />
-                        <span> <label> operatingCashflow:</label>{{financialdata?.operatingCashflow?.longFmt}} </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label> earningsGrowth:</label>{{financialdata?.earningsGrowth?.raw}} </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>revenueGrowth:</label>{{financialdata?.revenueGrowth?.raw}} </span>
-                        <hr height="3px" width="100%" />
-                        <span><label>grossMargins: </label>{{financialdata?.grossMargins?.raw}} <strong class="cb">
-                                    <math display="inline">
-                                          <mfrac>
-                                                <mi>Net_Sales - COGS</mi>
-                                                <mn>Net_Sales * 100</mn>
-                                          </mfrac>
-                                    </math>
-                              </strong> </span>
-                        <hr height="3px" width="100%" />
-                        <span> <label>ebitdaMargins:</label> {{financialdata?.ebitdaMargins?.raw}}</span>
-                        <hr height="3px" width="100%" />
-                        <span><label>operatingMargins:</label>{{financialdata?.operatingMargins?.raw}} </span>
-                  </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label> operatingCashflow:</label>{{financialdata?.operatingCashflow?.longFmt}}
+                              </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label> earningsGrowth:</label>{{financialdata?.earningsGrowth?.raw}} </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>revenueGrowth:</label>{{financialdata?.revenueGrowth?.raw}} </span>
+                              <hr height="3px" width="100%" />
+                              <span><label>grossMargins: </label>{{financialdata?.grossMargins?.raw}} <strong
+                                          class="cb">
+                                          <math display="inline">
+                                                <mfrac>
+                                                      <mi>Net_Sales - COGS</mi>
+                                                      <mn>Net_Sales * 100</mn>
+                                                </mfrac>
+                                          </math>
+                                    </strong> </span>
+                              <hr height="3px" width="100%" />
+                              <span> <label>ebitdaMargins:</label> {{financialdata?.ebitdaMargins?.raw}}</span>
+                              <hr height="3px" width="100%" />
+                              <span><label>operatingMargins:</label>{{financialdata?.operatingMargins?.raw}} </span>
+                        </span>
+                  </div>
             </div>
       </div>
+</details>
+<hr width="100%" color="blue" />
+<div class="headerDiv" style="margin-left:10%">
+      <label class="button21" title=",NEE for single">(Auto UpperCase) Enter Tickers Seperated By
+            Commas:</label>
+      <input id="tickers" type="text" name="tickers" #tickers>
+      <button class="button3" (click)="quickGet(tickers.value.toUpperCase())">Quick Fetch
+      </button>
+
 </div>
+<app-aristocrat-table [stocks]="stocks" thefile=""></app-aristocrat-table>

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, inject, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild, Renderer2 } from '@angular/core';
-import { RapidapiService } from '../rapidapi.service';
+//import { RapidapiService } from '../rapidapi.service';
 import { Category, Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -68,7 +68,10 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   waiting: string = "ready to fetch"
   //signalsService = inject(SignalswatchlistService);
+
   preinitial(securityFile: string) {
+    //should I clear stocksArray as well?
+    this.stocksArray.length = 0;
     //clear stocksmap
     this.stocksmap.clear();
     this.waiting = "...fetching";

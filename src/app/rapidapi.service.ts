@@ -180,5 +180,16 @@ export class RapidapiService {
     }
 
   }
+  //this method takes a map and an array of ticker and loads the security into the map
+  getSecuritiesFromTickerArray(stocksmap: Map<string, Security>, tickers: string[]) {
+    let security: Security;
+    tickers.forEach(ticker => { //ticker already converted to uppercase
+      security = new Security(ticker, 3, 2.50, 3.10, Category.WatchList, "2-5", "quick security",
+        1.1, 2.2, 1.01, 0.5, 0.1, 0.3, 0, 0, 0, 250
+      )
+      stocksmap.set(ticker, security);
+    })
+
+  }
 
 }
