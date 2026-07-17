@@ -1,4 +1,4 @@
-<details>
+<details open>
       <summary>Stock Metrics</summary>
       <div class="body">
             <div class="firstDiv">
@@ -144,10 +144,10 @@
 </details>
 <hr width="100%" color="blue" />
 <div class="headerDiv" style="margin-left:10%">
-      <label class="button21" title=",NEE for single">(Auto UpperCase) Enter Tickers Seperated By
+      <label class="button21">(Auto UpperCase) Enter Tickers Seperated By
             Commas:</label>
-      <input id="tickers" type="text" name="tickers" #tickers>
-      <button class="button3" (click)="quickGet(tickers.value.toUpperCase())">Quick Fetch
+      <input id="tickers" type="text" name="tickers" (change)="handleChange($event)">
+      <button class="button3" (click)="quickGet()" [disabled]="ticker2split.trim().length===0">Quick Fetch
       </button>
 
 </div>
