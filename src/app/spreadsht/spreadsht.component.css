@@ -34,3 +34,7 @@ p {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       width: fit-content;
 }
+
+a {
+      margin: 1rem;
+}
