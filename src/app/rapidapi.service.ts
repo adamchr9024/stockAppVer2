@@ -191,5 +191,37 @@ export class RapidapiService {
     })
 
   }
+  getFetchHeader() {
+    return { 'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com', 'x-rapidapi-key': environment.rapidapi_keyvalue }
+  }
+  async fetchMutualFundPrices(tickers: string[]) {
+
+    try {
+      let joinOn = '%2C'
+      this.initalizeheader2();
+      let urltickers = tickers.slice(0, tickers.length - 1).join(joinOn)
+      let mutualurl = this.urlTwo + urltickers + joinOn + tickers[tickers.length - 1];
+      let request = new Request(mutualurl, {
+        method: "GET",
+        headers: this.getFetchHeader()
+        //headers:{(`'${this.hostheader2}':'${this.hostvalue2}','${this.keyheader2}':'${this.keyvalue}'`)}
+      })
+
+      let response = await fetch(request)
+
+      if (response.status !== 200) {
+        throw new Error("Error in fetch status=" + response.status);
+      }
+      let data = await response.json();
+      //console.log("data", data)
+      return data.body;
+
+
+    } catch (err: any) {
+      console.error("error caught rethrown in rapidapiService.getMutualFundPrices try catch", err?.message);
+      throw err;
+    }
+
+  }
 
 }
