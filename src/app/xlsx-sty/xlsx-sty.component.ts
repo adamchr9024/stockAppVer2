@@ -220,6 +220,7 @@ export class XlsxStyComponent implements OnDestroy {
         //   for(val of val2)
         // console.log("test range:", typeof val[9] === "string");
         security = new Security(val[0], val[1], val[2], val[3], val[4], val[5], val[9], val[6], val[7], 4.4, 2.2, 4.3, 4.11, val[8], val[10]);
+        //changed need here for percent to read correctly
         this.stocksmap.set(security.ticker, security);
         // [ "AGG", 17, 98, 102.93, "Fixed Income", "95.74 - 102.04", 96, 102, 64.65, "safe dividend" ]
       });
@@ -257,6 +258,33 @@ export class XlsxStyComponent implements OnDestroy {
 
     }
     if (this.subscription) { this.subscription.unsubscribe(); }
+  }
+  async callYahooFetch() {
+    this.waiting = 'fetching';
+    try {
+      let moresymbols = Array.from(this.stocksmap.keys());
+      let body = await this.rapidApiService.fetchMutualFundPrices(moresymbols);
+      body.forEach((val2: any) => {
+        let updt = this.stocksmap.get(val2.symbol);
+        if (updt) {
+          updt.dividendYield = val2?.dividendYield;
+          updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
+          updt.setYahooPrice = val2?.regularMarketPrice;
+          updt.fiftyDayAverage = val2?.fiftyDayAverage;
+          updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
+          updt.twoHundredDayAverage = val2?.twoHundredDayAverage;
+          updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
+          updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
+
+        }
+      })
+      this.stocksArray = Array.from(this.stocksmap.values());
+      this.waiting = 'done';
+    }
+    catch (err: any) {
+      console.error("error caught in xlsx-style callYahoo", err?.message);
+    }
+
   }
 
 }
