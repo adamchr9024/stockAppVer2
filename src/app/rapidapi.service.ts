@@ -191,9 +191,9 @@ export class RapidapiService {
     })
 
   }
-  getFetchHeader() {
-    return { 'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com', 'x-rapidapi-key': environment.rapidapi_keyvalue }
-  }
+  // getFetchHeader() {// todo get rid of this and add below
+  //   return { 'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com', 'x-rapidapi-key': environment.rapidapi_keyvalue }
+  // }
   async fetchMutualFundPrices(tickers: string[]) {
 
     try {
@@ -203,10 +203,8 @@ export class RapidapiService {
       let mutualurl = this.urlTwo + urltickers + joinOn + tickers[tickers.length - 1];
       let request = new Request(mutualurl, {
         method: "GET",
-        headers: this.getFetchHeader()
-        //headers:{(`'${this.hostheader2}':'${this.hostvalue2}','${this.keyheader2}':'${this.keyvalue}'`)}
+        headers: { 'x-rapidapi-host': 'yahoo-finance15.p.rapidapi.com', 'x-rapidapi-key': environment.rapidapi_keyvalue }
       })
-
       let response = await fetch(request)
 
       if (response.status !== 200) {

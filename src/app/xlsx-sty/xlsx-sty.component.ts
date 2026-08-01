@@ -14,6 +14,7 @@ import { PercentDirective } from '../percent.directive';
   templateUrl: './xlsx-sty.component.html',
   styleUrl: './xlsx-sty.component.css'
 })
+//todo use OnInit to load the file so selection will not be necessary
 export class XlsxStyComponent implements OnDestroy {
   subscription!: Subscription;
   stocksmap: Map<string, Security> = new Map()
