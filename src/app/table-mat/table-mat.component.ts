@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, } from '@angular/core';
 //import { SignalswatchlistService } from '../signalswatchlist.service';
 //import { RapidapiService } from '../rapidapi.service';
-import { Category, Security } from '../../model/security';
+import { Category, DayChangeType, Security } from '../../model/security';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from "@angular/material/table";
@@ -25,6 +25,7 @@ import { RapidApiGets, SignalServiceGets } from '../../utility/rapidApiGets';
 })
 export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   constructorSubscription!: Subscription;
+  dayChangeData: DayChangeType[] = [];
   apiSubscription!: Subscription;
   stocksmap: Map<string, Security> = new Map();
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
@@ -45,6 +46,9 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log("stockmap", this.stocksmap.size);
         this.stocksArray = Array.from(this.stocksmap.values());
         this.tableDataSource.data = this.stocksArray;
+        //call to dayChange data
+        this.dayChangeData = utilRapidGets.getDayChangeData().filter(item => !(item.symbol.endsWith("XX")));
+        //console.log("dayChangeData[0]", this.dayChangeData[0]);
       })
   }
   ngOnDestroy(): void {
@@ -88,7 +92,9 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   filterData(event: any) {
     const filterValue = event.target.value;
     this.tableDataSource.filter = filterValue.trim().toLowerCase()
-    //  console.log("in filter", filterValue)
+    //todo filter 
+    //  console.log("in filter", filterValue) no handling case sensitivity
+    //this.dayChangeData = this.utilRapidGets.getDayChangeData().filter(ele => JSON.stringify(ele).includes(filterValue.trim().toLowerCase()))
   }
   getTotalLosses() {
     return Security.getTotalGainLoss(this.stocksArray).toFixed(2);

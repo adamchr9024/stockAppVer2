@@ -8,6 +8,29 @@
       font-weight: bolder;
 }
 
+
+
+.noBorder,
+tr,
+th,
+td {
+      font-size: larger;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: 4px solid #bbbbbb;
+}
+
+table {
+      border: none;
+}
+
+summary {
+      color: rgba(255, 0, 238, 0.952);
+      font-size: x-large;
+      margin-left: 1rem;
+}
+
 .button2 {
       background-image: linear-gradient(90deg, #fa80d2, #fed757);
       /* height: 40px; */
@@ -27,7 +50,7 @@
 }
 
 thead {
-      top: 0;
+      /* top: -3; */
       position: sticky;
 }
 

@@ -1,81 +1,138 @@
-<div class="firstDiv">
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button
-                  style="margin-left: 3px; margin-bottom: 3px;" (click)="initialize()">Refresh/Fetch
-                  Stocks</button></label>
-      <!-- </div>
-<div style="width:95%; margin:10px;"> -->
-      <mat-form-field style="width:40%">
-            <mat-label>Filter</mat-label>
-            <input matInput (input)="filterData($event)">
-      </mat-form-field>
-      <mat-table #table [dataSource]="tableDataSource" matSort>
-            <ng-container cdkColumnDef="ticker">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
-            </ng-container>
-            <!-- ticker category -->
-            <ng-container cdkColumnDef="totalcost">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Total Cost </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.totalcost}} </mat-cell>
-            </ng-container>
-            <!-- quantity Definition -->
-            <ng-container cdkColumnDef="quantity">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.quantity}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="marketvalue">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Market Value </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.marketvalue}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="unitcost">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Unit Cost </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.unitcost}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="costbasis">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Cost Basis </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.costbasis}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="getDivGain">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Gain-DvDEst </mat-header-cell>
-                  <mat-cell [ngClass]="{'button2':row.getDivGain>0}" *cdkCellDef="let row"> {{row.getDivGain}}
-                  </mat-cell>
-            </ng-container>
+<details name="tableMat" open>
+      <summary>Table Material</summary>
+      <div class="firstDiv">
+            <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button
+                        style="margin-left: 3px; margin-bottom: 3px;" (click)="initialize()">Refresh/Fetch
+                        Stocks</button></label>
+            <!-- </div>
+            <div style="width:95%; margin:10px;"> -->
+            <mat-form-field style="width:40%">
+                  <mat-label>Filter</mat-label>
+                  <input matInput (input)="filterData($event)">
+            </mat-form-field>
+            <mat-table #table [dataSource]="tableDataSource" matSort>
+                  <ng-container cdkColumnDef="ticker">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.ticker}} </mat-cell>
+                  </ng-container>
+                  <!-- ticker category -->
+                  <ng-container cdkColumnDef="totalcost">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Total Cost </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.totalcost}} </mat-cell>
+                  </ng-container>
+                  <!-- quantity Definition -->
+                  <ng-container cdkColumnDef="quantity">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.quantity}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="marketvalue">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Market Value </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.marketvalue}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="unitcost">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Unit Cost </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.unitcost}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="costbasis">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Cost Basis </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.costbasis}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="getDivGain">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Gain-DvDEst </mat-header-cell>
+                        <mat-cell [ngClass]="{'button2':row.getDivGain>0}" *cdkCellDef="let row">
+                              {{row.getDivGain}}
+                        </mat-cell>
+                  </ng-container>
 
-            <ng-container cdkColumnDef="getYahooPrice">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
-                  <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.getYahooPrice}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="fiftytwowkrng">
-                  <mat-header-cell *cdkHeaderCellDef> 52 Week Range </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="percentage">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header
-                        title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price-%-tile</mat-header-cell>
-                  <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="effectivePercentage">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header
-                        title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Effective-%</mat-header-cell>
-                  <mat-cell *cdkCellDef="let row" [appPercent]="row.effectivePercentage"> {{row.effectivePercentage}}
-                  </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="dividendYield">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="glwdiv">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain/Loss With DvD </mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
-            </ng-container>
-            <ng-container cdkColumnDef="selltotalval">
-                  <mat-header-cell *cdkHeaderCellDef mat-sort-header>Sell Total</mat-header-cell>
-                  <mat-cell *cdkCellDef="let row"> {{row.selltotalval}} </mat-cell>
-            </ng-container>
+                  <ng-container cdkColumnDef="getYahooPrice">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Yahoo Price </mat-header-cell>
+                        <mat-cell class="bordergreen" *cdkCellDef="let row"> {{row.getYahooPrice}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="fiftytwowkrng">
+                        <mat-header-cell *cdkHeaderCellDef> 52 Week Range </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.fiftytwowkrng}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="percentage">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                              title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Price-%-tile</mat-header-cell>
+                        <mat-cell *cdkCellDef="let row" [appPercent]="row.percentage"> {{row.percentage}}
+                        </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="effectivePercentage">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header
+                              title="yellow: potential sell, green: sell,  pink: potential buy,  and red: buy">Effective-%</mat-header-cell>
+                        <mat-cell *cdkCellDef="let row" [appPercent]="row.effectivePercentage">
+                              {{row.effectivePercentage}}
+                        </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="dividendYield">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Dividend Yield </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.dividendYield}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="glwdiv">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Gain/Loss With DvD </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.glwdiv}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="selltotalval">
+                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Sell Total</mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.selltotalval}} </mat-cell>
+                  </ng-container>
 
-            <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
-            <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
-      </mat-table>
-      <p>Total Gains/Losses:&nbsp;&nbsp;{{getTotalLosses()}} Total Market Value:&nbsp;&nbsp;{{getTotalMarketValues()}}
-      </p>
-</div>
+                  <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
+                  <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
+            </mat-table>
+            <p>Total Gains/Losses:&nbsp;&nbsp;{{getTotalLosses()}} Total Market
+                  Value:&nbsp;&nbsp;{{getTotalMarketValues()}}
+            </p>
+      </div>
+</details>
+<details name="tableMat">
+      <summary>DayChange</summary>
+      <div class="headerDiv1">
+            <table>
+                  <thead>
+                        <tr>
+                              <th>Symbol</th>
+                              <th>Price</th>
+                              <th>Change</th>
+                              <th>Change %</th>
+                              <th>Volume</th>
+                              <th>Avg Vol</th>
+                              <th>Prev Close</th>
+                              <th>Open</th>
+                              <th>Day Range</th>
+                              <th>52W Range</th>
+                        </tr>
+                  </thead>
+                  @for(item of dayChangeData; track item.symbol){
+                  <tr>
+                        <td>{{item.symbol}}</td>
+                        <td>{{item.regularMarketPrice}}</td>
+                        <td [ngClass]="{'loss':item.regularMarketChange<0,'gain':item.regularMarketChange>0}">
+                              {{item.regularMarketChange|number:'1.2-2'}}</td>
+                        <td
+                              [ngClass]="{'loss':item.regularMarketChangePercent<0,'gain':item.regularMarketChangePercent>0}">
+                              {{item.regularMarketChangePercent|number:'1.2-2'}}</td>
+                        <td>{{item.regularMarketVolume}}</td>
+                        <td>{{item.averageDailyVolume3Month}}</td>
+                        <td>{{item.regularMarketPreviousClose}}</td>
+                        <td>{{item.regularMarketOpen}}</td>
+                        <td>{{item.regularMarketDayRange}}</td>
+                        <td>{{item.fiftyTwoWeekRange}}</td>
+                  </tr>
+                  <!-- <hr style="height:3px; width:100%"> -->
+                  <!--                       
+                        Symbol --symbol
+                        Price --regularMarketPrice
+                        Change --regularMarketChange
+                        Change % --regularMarketChangePercent
+                        Volume --regularMarketVolume
+                        Avg Vol --averageDailyVolume3Month, averageDailyVolume10Day
+                        Prev Close  --regularMarketPreviousClose
+                        Open --regularMarketOpen
+                        Day Range --regularMarketDayRange
+                        52W Range --fiftyTwoWeekRange -->
+                  }
+            </table>
+      </div>
+</details>
