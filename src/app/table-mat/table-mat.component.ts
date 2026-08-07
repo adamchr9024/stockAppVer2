@@ -49,6 +49,7 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
         //call to dayChange data
         this.dayChangeData = utilRapidGets.getDayChangeData().filter(item => !(item.symbol.endsWith("XX")));
         //console.log("dayChangeData[0]", this.dayChangeData[0]);
+        this.addRanges();
       })
   }
   ngOnDestroy(): void {
@@ -102,4 +103,29 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
   getTotalMarketValues() {
     return Security.getTotalMarketValue(this.stocksArray).toFixed(2);
   }
+  addRanges() {
+    this.dayChangeData.forEach(val => {
+      let fifty_twowkrng = val.fiftyTwoWeekRange
+      let min, max;
+      let small_large = fifty_twowkrng?.split("-");
+      if (small_large) {
+        min = +small_large[0];
+        max = +small_large[1];
+        val.fiftyTwoWeekRangeMin = min || 1;
+        val.fiftyTwoWeekRangeMax = max || 10;
+      }
+      fifty_twowkrng = val.regularMarketDayRange;
+      small_large = fifty_twowkrng?.split("-");
+      if (small_large) {
+
+        min = +small_large[0];
+        max = +small_large[1];
+        val.regularMarketDayRangeMin = min || 1;
+        val.regularMarketDayRangeMax = max || 10
+      }
+
+    })
+
+  }
+
 }

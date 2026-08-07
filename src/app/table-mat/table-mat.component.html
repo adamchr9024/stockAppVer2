@@ -117,21 +117,15 @@
                         <td>{{item.averageDailyVolume3Month}}</td>
                         <td>{{item.regularMarketPreviousClose}}</td>
                         <td>{{item.regularMarketOpen}}</td>
-                        <td>{{item.regularMarketDayRange}}</td>
-                        <td>{{item.fiftyTwoWeekRange}}</td>
+                        <td>{{item.regularMarketDayRangeMin|number:'1.2-2'}}<input class="slider" disabled type="range"
+                                    [min]="item.regularMarketDayRangeMin" [max]='item.regularMarketDayRangeMax'
+                                    [value]="item.regularMarketPrice">{{item.regularMarketDayRangeMax|number:'1.2-2'}}
+                        </td>
+                        <td>{{item.fiftyTwoWeekRangeMin|number:'1.2-2'}}<input class="slider" disabled type="range"
+                                    [min]="item.fiftyTwoWeekRangeMin" [max]='item.fiftyTwoWeekRangeMax'
+                                    [value]="item.regularMarketPrice">{{item.fiftyTwoWeekRangeMax|number:'1.2-2'}}</td>
                   </tr>
-                  <!-- <hr style="height:3px; width:100%"> -->
-                  <!--                       
-                        Symbol --symbol
-                        Price --regularMarketPrice
-                        Change --regularMarketChange
-                        Change % --regularMarketChangePercent
-                        Volume --regularMarketVolume
-                        Avg Vol --averageDailyVolume3Month, averageDailyVolume10Day
-                        Prev Close  --regularMarketPreviousClose
-                        Open --regularMarketOpen
-                        Day Range --regularMarketDayRange
-                        52W Range --fiftyTwoWeekRange -->
+
                   }
             </table>
       </div>
