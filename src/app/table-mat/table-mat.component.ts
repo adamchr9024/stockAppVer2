@@ -46,10 +46,13 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log("stockmap", this.stocksmap.size);
         this.stocksArray = Array.from(this.stocksmap.values());
         this.tableDataSource.data = this.stocksArray;
-        //call to dayChange data
+        //call to dayChange data    filterout money market funds
         this.dayChangeData = utilRapidGets.getDayChangeData().filter(item => !(item.symbol.endsWith("XX")));
         //console.log("dayChangeData[0]", this.dayChangeData[0]);
         this.addRanges();
+        this.dayChangeData.forEach(data => {
+          data.percentage = this.stocksmap.get(data.symbol)?.percentage;
+        })
       })
   }
   ngOnDestroy(): void {

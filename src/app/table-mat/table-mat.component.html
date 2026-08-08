@@ -88,7 +88,7 @@
 </details>
 <details name="tableMat">
       <summary>DayChange</summary>
-      <div class="headerDiv1">
+      <div class="headerDiv1" style="width:100%">
             <table>
                   <thead>
                         <tr>
@@ -102,6 +102,7 @@
                               <th>Open</th>
                               <th>Day Range</th>
                               <th>52W Range</th>
+                              <th>52W %tile</th>
                         </tr>
                   </thead>
                   @for(item of dayChangeData; track item.symbol){
@@ -115,15 +116,18 @@
                               {{item.regularMarketChangePercent|number:'1.2-2'}}</td>
                         <td>{{item.regularMarketVolume}}</td>
                         <td>{{item.averageDailyVolume3Month}}</td>
-                        <td>{{item.regularMarketPreviousClose}}</td>
+                        <td>{{item.regularMarketPreviousClose|number:'1.2-2'}}</td>
                         <td>{{item.regularMarketOpen}}</td>
-                        <td>{{item.regularMarketDayRangeMin|number:'1.2-2'}}<input class="slider" disabled type="range"
+                        <td>{{item.regularMarketDayRangeMin|number:'1.2-2'}}<input disabled class="slider" type="range"
                                     [min]="item.regularMarketDayRangeMin" [max]='item.regularMarketDayRangeMax'
-                                    [value]="item.regularMarketPrice">{{item.regularMarketDayRangeMax|number:'1.2-2'}}
+                                    [value]="item.regularMarketPrice"
+                                    step=".5">{{item.regularMarketDayRangeMax|number:'1.2-2'}}
                         </td>
-                        <td>{{item.fiftyTwoWeekRangeMin|number:'1.2-2'}}<input class="slider" disabled type="range"
+                        <td>{{item.fiftyTwoWeekRangeMin|number:'1.2-2'}}<input disabled class="slider" type="range"
                                     [min]="item.fiftyTwoWeekRangeMin" [max]='item.fiftyTwoWeekRangeMax'
-                                    [value]="item.regularMarketPrice">{{item.fiftyTwoWeekRangeMax|number:'1.2-2'}}</td>
+                                    [value]="item.regularMarketPrice"
+                                    step=".25">{{item.fiftyTwoWeekRangeMax|number:'1.2-2'}}</td>
+                        <td>{{item.percentage}}</td>
                   </tr>
 
                   }

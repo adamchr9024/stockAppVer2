@@ -184,8 +184,7 @@ export type SecurityType = {
       est_annual_income?: number,
       actual_dividend?: number,
       selltotal?: number,
-      totalcost?: number
-
+      totalcost?: number,
 }
 export type DayChangeType = {
       symbol: string,
@@ -202,8 +201,7 @@ export type DayChangeType = {
       fiftyTwoWeekRangeMax?: number,
       regularMarketDayRangeMin?: number,
       regularMarketDayRangeMax?: number,
-
-
+      percentage?: number
 }
 export const test_securitys = [
       { "priceEpsCurrentYear": 35.588608, "bookValue": 4.431, "fiftyDayAverage": 243.541, "fiftyDayAverageChange": 19.907211, "fiftyDayAverageChangePercent": 0.0817407, "twoHundredDayAverage": 222.37805, "twoHundredDayAverageChange": 41.07016, "twoHundredDayAverageChangePercent": 0.18468621, "marketCap": 3909674074112, "forwardPE": 31.70255, "priceToBook": 59.455696, "sourceInterval": 15, "exchangeDataDelayedBy": 0, "averageAnalystRating": "2.0 - Buy", "tradeable": false, "cryptoTradeable": false, "regularMarketChangePercent": 1.4901862, "regularMarketPrice": 263.4482, "marketState": "REGULAR", "hasPrePostMarketData": true, "firstTradeDateMilliseconds": 345479400000, "priceHint": 2, "regularMarketChange": 3.868225, "regularMarketDayHigh": 264.13, "regularMarketDayRange": "259.18 - 264.13", "regularMarketDayLow": 259.18, "regularMarketVolume": 25871653, "regularMarketPreviousClose": 259.58, "bid": 263.43, "ask": 263.29, "bidSize": 1, "askSize": 1, "fullExchangeName": "NasdaqGS", "financialCurrency": "USD", "regularMarketOpen": 261.19, "averageDailyVolume3Month": 54759101, "averageDailyVolume10Day": 47327910, "fiftyTwoWeekLowChange": 94.238205, "fiftyTwoWeekLowChangePercent": 0.5569304, "fiftyTwoWeekRange": "169.21 - 265.29", "fiftyTwoWeekHighChange": -1.8417969, "fiftyTwoWeekHighChangePercent": -0.006942579, "fiftyTwoWeekLow": 169.21, "fiftyTwoWeekHigh": 265.29, "fiftyTwoWeekChangePercent": 12.1732, "dividendDate": 1755129600, "trailingAnnualDividendRate": 1.01, "trailingPE": 39.976967, "dividendRate": 1.04, "trailingAnnualDividendYield": 0.0038909009, "dividendYield": 0.4, "epsTrailingTwelveMonths": 6.59, "epsForward": 8.31, "epsCurrentYear": 7.4026, "shortName": "Apple Inc.", "longName": "Apple Inc.", "displayName": "Apple", "symbol": "AAPL" },
