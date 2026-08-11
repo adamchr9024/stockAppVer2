@@ -11,15 +11,15 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 import { RapidApiGets, SignalServiceGets } from '../../utility/rapidApiGets';
-import { AristocratTableComponent } from '../aristocrat-table/aristocrat-table.component';
+//import { AristocratTableComponent } from '../aristocrat-table/aristocrat-table.component';
 //import { PercentDirective } from '../percent.directive';
 import { MatSort } from '@angular/material/sort'
 import { Subscription, concatMap } from 'rxjs';
-
+import { FiveDayMedianAverageComponent } from '../five-day-median-average/five-day-median-average.component';
 @Component({
   selector: 'app-day-material',
   standalone: true,
-  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule,],
+  imports: [MatFormFieldModule, MatTableModule, CommonModule, MatInputModule, CdkTableModule, MatSortModule, FiveDayMedianAverageComponent],
   templateUrl: './day-material.component.html',
   styleUrl: './day-material.component.css'
 })
@@ -35,8 +35,7 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
     regularMarketDayRangeMin: 4, regularMarketDayRangeMax: 4.7, percentage: 52.4
   }]
   tableDataSource: MatTableDataSource<DayChangeType>;
-  //dayChangeData: DayChangeType[] = [];
-  //Table columns will be displayed in the same order of values in the array
+
   colToDisplay: string[] = [
     'symbol',
     'regularMarketPrice',
@@ -48,10 +47,6 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
     'regularMarketOpen',
     'regularMarketDayRange',
     'fiftyTwoWeekRange',
-    //'fiftyTwoWeekRangeMin?: number,
-    //fiftyTwoWeekRangeMax?: number,
-    //regularMarketDayRangeMin?: number,
-    //regularMarketDayRangeMax?: number,
     'percentage'
   ];
   securityFiles: string[] = ["Stocks.json", "morehyetfs.json", "recenthyetfs.json", "new_watchlist.json", "growth_global.json", "dividendarist.json",
@@ -87,6 +82,7 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   preinitial(securityFile: string) {
     //should I clear stocksArray as well?
+    this.dayChangeData.length = 0;
     this.stocksArray.length = 0;
     //clear stocksmap
     this.stocksmap.clear();
@@ -100,9 +96,9 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
         this.waiting = "done"
         console.log("stockmap", this.stocksmap.size, securityFile);
         this.stocksArray = Array.from(this.stocksmap.values());
-        this.tableDataSource.data = this.dayChangeData;
         //call to dayChange data    filterout money market funds
         this.getDayChangeData();
+        this.tableDataSource.data = this.dayChangeData;
       })
     //})
   }
@@ -135,6 +131,10 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
         val.regularMarketDayRangeMin = min || 1;
         val.regularMarketDayRangeMax = max || 10
       }
+      else {
+        val.regularMarketDayRangeMin = val.regularMarketPrice
+        val.regularMarketDayRangeMax = val.regularMarketPrice
+      }
 
     })
 
@@ -148,8 +148,8 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
         .subscribe(() => {
           this.waiting = "done";
           this.stocksArray = Array.from(this.stocksmap.values());
-          this.tableDataSource.data = this.dayChangeData;
           this.getDayChangeData();
+          this.tableDataSource.data = this.dayChangeData;  //is this needed again
         });
     }
     catch (err: any) {

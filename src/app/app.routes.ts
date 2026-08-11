@@ -11,6 +11,7 @@ import { StmcComponent } from './stmc/stmc.component';
 import { FuturesComponent } from './futures/futures.component';
 import { FiveDayMedianAverageComponent } from './five-day-median-average/five-day-median-average.component';
 import { CrudComponent } from './crud/crud.component';
+import { DayMaterialComponent } from './day-material/day-material.component';
 export const routes: Routes = [
       { path: "", redirectTo: "sprdsht", pathMatch: "full" },
       { path: "home", component: HomeComponent, },
@@ -22,6 +23,6 @@ export const routes: Routes = [
       { path: "analyze", component: AnalysisComponent },
       { path: "smtc", component: StmcComponent },
       { path: "futures", component: FuturesComponent },
-      { path: "fdlowmedavg", component: FiveDayMedianAverageComponent },
+      { path: "fdlowmedavg", component: DayMaterialComponent },
       { path: "crud", component: CrudComponent }
 ];   

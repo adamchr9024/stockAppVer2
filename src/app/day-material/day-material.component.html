@@ -1,88 +1,101 @@
-<div class="firstDiv">
-      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin: 3px 3px;"
-                  (click)="initialize()">Refresh/Fetch
-                  Stocks</button></label>
+<app-five-day-median-average></app-five-day-median-average>
+<details name="dayMetrics" open>
+      <summary>Day Change</summary>
+      <div class="firstDiv">
+            <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button style="margin: 3px 3px;"
+                        (click)="initialize()">Refresh/Fetch
+                        Stocks</button></label>
 
-      <div class="headerDiv3">
-            <mat-form-field>
-                  <mat-label>Filter</mat-label>
-                  <input #filterInput matInput (input)="filterData($event)">
-            </mat-form-field>
+            <div class="headerDiv3">
+                  <mat-form-field>
+                        <mat-label>Filter</mat-label>
+                        <input #filterInput matInput (input)="filterData($event)">
+                  </mat-form-field>
 
-            <select #mySelect class="button1" (change)="handleInputFileChange(mySelect.value)"
-                  [disabled]="!(waiting=='done')">
-                  <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
-            </select>
+                  <select #mySelect class="button1" (change)="handleInputFileChange(mySelect.value)"
+                        [disabled]="!(waiting=='done')">
+                        <option *ngFor="let filename of securityFiles" [value]="filename">{{filename}}</option>
+                  </select>
+            </div>
+            <div style="width:95%; margin:15px;">
+
+                  <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource"
+                        matSort>
+                        <ng-container cdkColumnDef="symbol">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"> {{row.symbol}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container cdkColumnDef="regularMarketPrice">
+                              <mat-header-cell *cdkHeaderCellDef>Price </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"> {{row.regularMarketPrice|number:'1.2-2'}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container cdkColumnDef="regularMarketChange">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header> Change </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"
+                                    [ngClass]="{'loss':row.regularMarketChange<0,'gain':row.regularMarketChange>0}">
+                                    {{row.regularMarketChange|number:'1.2-2'}} </mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="regularMarketChangePercent">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header> Change % </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"
+                                    [ngClass]="{'loss':row.regularMarketChangePercent<0,'gain':row.regularMarketChangePercent>0}">
+                                    {{row.regularMarketChangePercent|number:'1.2-2'}}</mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="regularMarketVolume">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header> Volume </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"> {{row.regularMarketVolume}} </mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="averageDailyVolume3Month">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>Avg Vol</mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"> {{row.averageDailyVolume3Month}} </mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="regularMarketPreviousClose">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>Prev Close</mat-header-cell>
+                              <mat-cell *cdkCellDef="let row">
+                                    {{row.regularMarketPreviousClose|number:'1.2-2'}}</mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="regularMarketOpen">
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header title="">Open</mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"> {{row.regularMarketOpen}} </mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="regularMarketDayRange">
+                              <mat-header-cell *cdkHeaderCellDef class="longer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Day
+                                    Range
+                              </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row"
+                                    class="longer">{{row.regularMarketDayRangeMin|number:'1.2-2'}}<input disabled
+                                          class="slider" type="range" [min]="row.regularMarketDayRangeMin"
+                                          [max]='row.regularMarketDayRangeMax' [value]="row.regularMarketPrice"
+                                          step=".5">{{row.regularMarketDayRangeMax|number:'1.2-2'}}</mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="fiftyTwoWeekRange">
+                              <mat-header-cell *cdkHeaderCellDef class="longer"
+                                    style="margin-left: 5px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 52 Week Range
+                              </mat-header-cell>
+                              <mat-cell *cdkCellDef="let row" class="longer" style="padding-left: 0px;">
+                                    {{row.fiftyTwoWeekRangeMin|number:'1.2-2'}}<input disabled class="slider"
+                                          type="range" [min]="row.fiftyTwoWeekRangeMin" [max]='row.fiftyTwoWeekRangeMax'
+                                          [value]="row.regularMarketPrice"
+                                          step=".25">{{row.fiftyTwoWeekRangeMax|number:'1.2-2'}} </mat-cell>
+                        </ng-container>
+                        <ng-container cdkColumnDef="percentage">
+                              <mat-header-cell *cdkHeaderCellDef style="margin-left: 5px;" mat-sort-header> 52W
+                                    %tile</mat-header-cell>
+                              <mat-cell *cdkCellDef="let row" [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
+                              'sell':row.percentage >=80 && row.percentage <=100,
+                               'potentialsell':row.percentage >=70 && row.percentage <=79,
+                                'potentialbuy':row.percentage >=20 && row.percentage <=30
+                        }"> {{row.percentage}}
+                              </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
+                        <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
+
+                  </mat-table>
+
+            </div>
       </div>
-      <div style="width:95%; margin:15px;">
-
-            <mat-table #table style="width: 100%;" class="mat-elevation-z2" [dataSource]="tableDataSource" matSort>
-                  <ng-container cdkColumnDef="symbol">
-                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Ticker </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.symbol}} </mat-cell>
-                  </ng-container>
-
-                  <ng-container cdkColumnDef="regularMarketPrice">
-                        <mat-header-cell *cdkHeaderCellDef>Price </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.regularMarketPrice}} </mat-cell>
-                  </ng-container>
-
-                  <ng-container cdkColumnDef="regularMarketChange">
-                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Change </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"
-                              [ngClass]="{'loss':row.regularMarketChange<0,'gain':row.regularMarketChange>0}">
-                              {{row.regularMarketChange|number:'1.2-2'}} </mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="regularMarketChangePercent">
-                        <mat-header-cell *cdkHeaderCellDef mat-sort-header> Change % </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"
-                              [ngClass]="{'loss':row.regularMarketChangePercent<0,'gain':row.regularMarketChangePercent>0}">
-                              {{row.regularMarketChangePercent|number:'1.2-2'}}</mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="regularMarketVolume">
-                        <mat-header-cell *cdkHeaderCellDef> Volume </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.regularMarketVolume}} </mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="averageDailyVolume3Month">
-                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Avg Vol</mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.averageDailyVolume3Month}} </mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="regularMarketPreviousClose">
-                        <mat-header-cell *cdkHeaderCellDef mat-sort-header>Prev Close</mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.regularMarketPreviousClose|number:'1.2-2'}} </mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="regularMarketOpen">
-                        <mat-header-cell *cdkHeaderCellDef mat-sort-header
-                              title="0-NaN try dividend calculator or manual">Open</mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.regularMarketOpen}} </mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="regularMarketDayRange">
-                        <mat-header-cell *cdkHeaderCellDef class="longer">Day Range
-                        </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"
-                              class="longer">{{row.regularMarketDayRangeMin|number:'1.2-2'}}<input disabled
-                                    class="slider" type="range" [min]="row.regularMarketDayRangeMin"
-                                    [max]='row.regularMarketDayRangeMax' [value]="row.regularMarketPrice"
-                                    step=".5">{{row.regularMarketDayRangeMax|number:'1.2-2'}}</mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="fiftyTwoWeekRange">
-                        <mat-header-cell *cdkHeaderCellDef class="longer" style="margin-left: 5px"> 52 Week Range
-                        </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row" class="longer">
-                              {{row.fiftyTwoWeekRangeMin|number:'1.2-2'}}<input disabled class="slider" type="range"
-                                    [min]="row.fiftyTwoWeekRangeMin" [max]='row.fiftyTwoWeekRangeMax'
-                                    [value]="row.regularMarketPrice"
-                                    step=".25">{{row.fiftyTwoWeekRangeMax|number:'1.2-2'}} </mat-cell>
-                  </ng-container>
-                  <ng-container cdkColumnDef="percentage">
-                        <mat-header-cell *cdkHeaderCellDef style="margin-left: 5px;"> 52W %tile</mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.percentage}} </mat-cell>
-                  </ng-container>
-
-                  <mat-header-row *cdkHeaderRowDef="colToDisplay"></mat-header-row>
-                  <mat-row *cdkRowDef="let row; columns: colToDisplay"></mat-row>
-
-            </mat-table>
-
-      </div>
-</div>
+</details>
