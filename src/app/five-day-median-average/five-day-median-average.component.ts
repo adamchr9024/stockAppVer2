@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { fivelowmedianaverage } from '../../model/security'
 import { FormsModule } from '@angular/forms';
+import { DayMaterialComponent } from '../day-material/day-material.component';
 @Component({
   selector: 'app-five-day-median-average',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, DayMaterialComponent],
   templateUrl: './five-day-median-average.component.html',
   styleUrl: './five-day-median-average.component.css'
 })
