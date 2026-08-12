@@ -108,7 +108,7 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
     //console.log("dayChangeData[0]", this.dayChangeData[0]);
     this.addRanges();
     this.dayChangeData.forEach(data => {
-      data.percentage = this.stocksmap.get(data.symbol)?.percentage;
+      data.percentage = this.stocksmap.get(data.symbol)!.percentage;
       data.comment = this.stocksmap.get(data.symbol)?.comment;
     })
   }

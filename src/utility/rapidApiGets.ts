@@ -84,6 +84,7 @@ export class RapidApiGets {
                 regularMarketOpen,
                 regularMarketDayRange,
                 fiftyTwoWeekRange,
+                percentage: 1
             });
         })
         return dayChangeData;

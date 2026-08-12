@@ -127,7 +127,7 @@
                                     [min]="item.fiftyTwoWeekRangeMin" [max]='item.fiftyTwoWeekRangeMax'
                                     [value]="item.regularMarketPrice"
                                     step=".25">{{item.fiftyTwoWeekRangeMax|number:'1.2-2'}}</td>
-                        <td>{{item.percentage}}</td>
+                        <td [appPercent]="item.percentage">{{item.percentage}}</td>
                   </tr>
 
                   }
