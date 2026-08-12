@@ -72,6 +72,7 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     //throw new Error('Method not implemented.');
     this.tableDataSource.sort = this.sort;
+    //this.renderer.setProperty
   }
   ngOnInit(): void {
     //ADD CODE
@@ -108,6 +109,7 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
     this.addRanges();
     this.dayChangeData.forEach(data => {
       data.percentage = this.stocksmap.get(data.symbol)?.percentage;
+      data.comment = this.stocksmap.get(data.symbol)?.comment;
     })
   }
 

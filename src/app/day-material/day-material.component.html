@@ -81,13 +81,12 @@
                                           step=".25">{{row.fiftyTwoWeekRangeMax|number:'1.2-2'}} </mat-cell>
                         </ng-container>
                         <ng-container cdkColumnDef="percentage">
-                              <mat-header-cell *cdkHeaderCellDef style="margin-left: 5px;" mat-sort-header> 52W
+                              <mat-header-cell *cdkHeaderCellDef mat-sort-header>&nbsp;&nbsp;&nbsp;&nbsp;52W
                                     %tile</mat-header-cell>
-                              <mat-cell *cdkCellDef="let row" [ngClass]="{'buy':row.percentage >=0 && row.percentage <=20,
-                              'sell':row.percentage >=80 && row.percentage <=100,
-                               'potentialsell':row.percentage >=70 && row.percentage <=79,
-                                'potentialbuy':row.percentage >=20 && row.percentage <=30
-                        }"> {{row.percentage}}
+                              <mat-cell *cdkCellDef="let row" [ngStyle]="{'background-color':(row.percentage >=0 && row.percentage <=20)?'red':
+                              row.percentage >=80 && row.percentage <=100?'green':row.percentage >=70 && row.percentage <=79?'yellow':
+                                row.percentage >=20 && row.percentage <=30?'pink':''}">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{row.percentage}}
                               </mat-cell>
                         </ng-container>
 
