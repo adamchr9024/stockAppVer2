@@ -68,7 +68,7 @@
                                     class="longer">{{row.regularMarketDayRangeMin|number:'1.2-2'}}<input disabled
                                           class="slider" type="range" [min]="row.regularMarketDayRangeMin"
                                           [max]='row.regularMarketDayRangeMax' [value]="row.regularMarketPrice"
-                                          step=".5">{{row.regularMarketDayRangeMax|number:'1.2-2'}}</mat-cell>
+                                          step=".25">{{row.regularMarketDayRangeMax|number:'1.2-2'}}</mat-cell>
                         </ng-container>
                         <ng-container cdkColumnDef="fiftyTwoWeekRange">
                               <mat-header-cell *cdkHeaderCellDef class="longer"

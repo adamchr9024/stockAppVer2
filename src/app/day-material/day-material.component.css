@@ -1,9 +1,11 @@
-input {
-      /* background-color: #f680fafd; */
-      background-color: yellowgreen;
-      ;
+html {
+      --mat-sidenav-content-text-color: #1a1b1f;
+      --mat-sidenav-content-background-color: #faf9fd;
 }
 
+mat-row:nth-child(even) {
+      background-color: aquamarine;
+}
 
 .headerDiv2 {
       display: flex;
@@ -41,6 +43,8 @@ mat-header-cell {
       border: none;
       padding: 0px 0px 0px 5px;
       border-bottom: 4px solid #bbbbbb;
+
+
 }
 
 mat-header-row {
@@ -48,12 +52,17 @@ mat-header-row {
       position: sticky;
       border: none;
       padding: 0;
+      background-color: lightgreen;
+      font-size: larger;
+      font-weight: bold;
+
 }
 
 mat-table {
       width: 100%;
       border: none;
       padding: 0;
+      background: inherit;
 }
 
 
