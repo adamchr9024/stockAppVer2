@@ -28,7 +28,8 @@
 
                         <ng-container cdkColumnDef="regularMarketPrice">
                               <mat-header-cell *cdkHeaderCellDef>Price </mat-header-cell>
-                              <mat-cell *cdkCellDef="let row"> {{row.regularMarketPrice|number:'1.2-2'}} </mat-cell>
+                              <mat-cell style="border: 2px solid gold;" *cdkCellDef="let row">
+                                    {{row.regularMarketPrice|number:'1.2-2'}} </mat-cell>
                         </ng-container>
 
                         <ng-container cdkColumnDef="regularMarketChange">

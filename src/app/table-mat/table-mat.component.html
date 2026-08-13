@@ -108,7 +108,7 @@
                   @for(item of dayChangeData; track item.symbol){
                   <tr>
                         <td>{{item.symbol}}</td>
-                        <td>{{item.regularMarketPrice}}</td>
+                        <td style="border: 2px solid gold;">{{item.regularMarketPrice}}</td>
                         <td [ngClass]="{'loss':item.regularMarketChange<0,'gain':item.regularMarketChange>0}">
                               {{item.regularMarketChange|number:'1.2-2'}}</td>
                         <td

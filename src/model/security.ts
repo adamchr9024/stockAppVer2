@@ -60,7 +60,7 @@ export class Security {
       set dividendYield(val: number) { this._dividendYield = val; }
       get fiftytwowkrng() { return this.fifty_twowkrng; }
       get dividendYield() { return this._dividendYield; }
-      get percentage(): number { return this._percentage }
+      get percentage() { return this._percentage }
       get getYahooPrice() { return this.yahooPrice; }
       get gainloss() { return Number((this.marketvalue - this.costbasis).toFixed(2)); }
       get marketvalue() { return Number((this.quantity * this.yahooPrice).toFixed(2)); }
