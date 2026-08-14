@@ -1,3 +1,7 @@
+/* * {
+      box-sizing: border-box;
+} */
+
 .sell {
       background-color: lightgreen;
       font-weight: bolder;
@@ -12,8 +16,9 @@
       display: flex;
       flex-direction: row;
       height: fit-content;
-      justify-content: space-around;
+      /* justify-content: space-around; */
       width: 100%;
+      align-items: center;
 }
 
 .noBorder,
@@ -30,6 +35,7 @@ td {
 
 table {
       border: none;
+      width: 98%;
 }
 
 summary {
