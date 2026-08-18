@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DayMaterialComponent } from './day-material.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('DayMaterialComponent', () => {
   let component: DayMaterialComponent;
@@ -8,9 +11,10 @@ describe('DayMaterialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DayMaterialComponent]
+      imports: [DayMaterialComponent],
+      providers: [provideHttpClientTesting, HttpHandler, HttpClient, provideAnimations()]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DayMaterialComponent);
     component = fixture.componentInstance;

@@ -18,10 +18,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'StockAppNg18' title`, () => {
+  it(`should have the 'StockAppVer3.0' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('StockAppNg18');
+    expect(app.title).toEqual('StockAppVer3.0');
   });
 
   // it('should render title', () => {

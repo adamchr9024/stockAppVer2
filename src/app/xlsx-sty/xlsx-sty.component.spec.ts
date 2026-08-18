@@ -78,7 +78,7 @@ describe('XlsxStyComponent', () => { //
     // component.callYahoo();
     //fetchButton.nativeElement.dispatchEvent(new Event('click'));
     // fetchButton.nativeElement.click();
-    debugger;
+    //debugger;
     fetchButton.triggerEventHandler('click', null);
     fixture.detectChanges();
     //debugger;
