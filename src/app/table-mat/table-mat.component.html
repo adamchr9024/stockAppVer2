@@ -1,9 +1,11 @@
+<div class="headerDiv" style="justify-content: center;">
+      <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button
+                  style="margin-left: 3px; margin-bottom: 3px;" (click)="initialize()">Refresh/Fetch
+                  Stocks</button></label>
+</div>
 <details name="tableMat" open>
       <summary>Table Material</summary>
       <div class="firstDiv">
-            <label [ngClass]="{'loss':waiting.includes('ERROR')}">{{waiting}}<button
-                        style="margin-left: 3px; margin-bottom: 3px;" (click)="initialize()">Refresh/Fetch
-                        Stocks</button></label>
             <!-- </div>
             <div style="width:95%; margin:10px;"> -->
             <mat-form-field style="width:40%">

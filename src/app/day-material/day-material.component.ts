@@ -94,7 +94,7 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
           return this.utilRapidGets.getKeys(this.stocksmap);
         })
       ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
-        this.waiting = "done"
+        this.waiting = "done"; //need error handler here
         console.log("stockmap", this.stocksmap.size, securityFile);
         this.stocksArray = Array.from(this.stocksmap.values());
         //call to dayChange data    filterout money market funds

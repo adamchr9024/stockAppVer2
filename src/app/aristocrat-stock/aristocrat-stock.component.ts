@@ -36,7 +36,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   thefileOutput: string = "Stocks.json";
 
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
+  // @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
   constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets, private renderer: Renderer2) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
     this.preinitial(this.securityFiles[0]); //make Stocks.json my default file
@@ -113,7 +113,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   handleInputFileChange(theFile: string) {
     //clear filter text box    should I use look in notes Renderer2
-    this.renderer.setProperty(this.filterinput.nativeElement, 'value', "");
+    //  this.renderer.setProperty(this.filterinput.nativeElement, 'value', "");
     //this.filterinput.nativeElement.value = "";
     this.tableDataSource.filter = "";
     this.thefileOutput = theFile;

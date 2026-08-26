@@ -87,6 +87,12 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
           this.waiting = "done";
           this.stocksArray = Array.from(this.stocksmap.values());
           this.tableDataSource.data = this.stocksArray;
+          this.dayChangeData = this.utilRapidGets.getDayChangeData().filter(item => !(item.symbol.endsWith("XX")));
+          //console.log("dayChangeData[0]", this.dayChangeData[0]);
+          this.addRanges();
+          this.dayChangeData.forEach(data => {
+            data.percentage = this.stocksmap.get(data.symbol)!.percentage;
+          })
         });
     }
     catch (err: any) {
