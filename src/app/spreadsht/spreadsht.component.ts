@@ -37,11 +37,19 @@ export class SpreadshtComponent implements OnInit, AfterViewInit {
         concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
           return utilRapidGets.getKeys(this.stocksmap);
         })
-      ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
-        this.waiting = "done"
-        console.log("stockmap", this.stocksmap.size);
-        this.stocksArray = Array.from(this.stocksmap.values());
-        this.tableDataSource.data = this.stocksArray;
+      ).subscribe({
+        next: () => { //the values a updated by passing by reference and nothing is returned from observable
+          this.waiting = "done"; //need error handler here
+          console.log("stockmap", this.stocksmap.size);
+          this.stocksArray = Array.from(this.stocksmap.values());
+          this.tableDataSource.data = this.stocksArray;
+
+        },
+        error: err => {
+          console.error("spreadsheet fetch error: ", err?.message);
+          this.waiting = "error message:  " + err?.message;
+        },
+        complete: () => { console.log("complete called in spreadsheet "); }
       })
   }
   ngOnDestroy(): void {
