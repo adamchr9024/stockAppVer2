@@ -93,13 +93,20 @@ export class DayMaterialComponent implements OnInit, AfterViewInit, OnDestroy {
         concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
           return this.utilRapidGets.getKeys(this.stocksmap);
         })
-      ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
-        this.waiting = "done"; //need error handler here
-        console.log("stockmap", this.stocksmap.size, securityFile);
-        this.stocksArray = Array.from(this.stocksmap.values());
-        //call to dayChange data    filterout money market funds
-        this.getDayChangeData();
-        this.tableDataSource.data = this.dayChangeData;
+      ).subscribe({
+        next: () => { //the values a updated by passing by reference and nothing is returned from observable
+          this.waiting = "done"; //need error handler here
+          console.log("stockmap", this.stocksmap.size, securityFile);
+          this.stocksArray = Array.from(this.stocksmap.values());
+          //call to dayChange data    filterout money market funds
+          this.getDayChangeData();
+          this.tableDataSource.data = this.dayChangeData;
+        },
+        error: err => {
+          console.error("day-material fetch error: ", err?.message);
+          this.waiting = "error message:  " + err?.message;
+        },
+        complete: () => { console.log("complete called in day-material"); }
       })
     //})
   }

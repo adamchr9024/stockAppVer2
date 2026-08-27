@@ -41,18 +41,25 @@ export class TableMatComponent implements OnInit, AfterViewInit, OnDestroy {
         concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
           return utilRapidGets.getKeys(this.stocksmap);
         })
-      ).subscribe(() => { //the values a updated by passing by reference and nothing is returned from observable
-        this.waiting = "done"
-        console.log("stockmap", this.stocksmap.size);
-        this.stocksArray = Array.from(this.stocksmap.values());
-        this.tableDataSource.data = this.stocksArray;
-        //call to dayChange data    filterout money market funds
-        this.dayChangeData = utilRapidGets.getDayChangeData().filter(item => !(item.symbol.endsWith("XX")));
-        //console.log("dayChangeData[0]", this.dayChangeData[0]);
-        this.addRanges();
-        this.dayChangeData.forEach(data => {
-          data.percentage = this.stocksmap.get(data.symbol)!.percentage;
-        })
+      ).subscribe({
+        next: () => { //the values a updated by passing by reference and nothing is returned from observable
+          this.waiting = "done"
+          console.log("stockmap", this.stocksmap.size);
+          this.stocksArray = Array.from(this.stocksmap.values());
+          this.tableDataSource.data = this.stocksArray;
+          //call to dayChange data    filterout money market funds
+          this.dayChangeData = utilRapidGets.getDayChangeData().filter(item => !(item.symbol.endsWith("XX")));
+          //console.log("dayChangeData[0]", this.dayChangeData[0]);
+          this.addRanges();
+          this.dayChangeData.forEach(data => {
+            data.percentage = this.stocksmap.get(data.symbol)!.percentage;
+          })
+        },
+        error: err => {
+          console.error("table-mat fetch error: ", err?.message);
+          this.waiting = "error message:  " + err?.message;
+        },
+        complete: () => { console.log("complete called in table-mat"); }
       })
   }
   ngOnDestroy(): void {
