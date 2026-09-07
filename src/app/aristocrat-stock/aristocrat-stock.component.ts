@@ -25,7 +25,7 @@ import { Subscription, concatMap } from 'rxjs';
 export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   constructorSubscription!: Subscription;
   apiSubscription!: Subscription;
-  stocksmap: Map<string, Security> = new Map();
+  //stocksmap: Map<string, Security> = new Map();
   stocksArray: Array<Security> = [new Security("aapl", 3, 5.67, 5.61, Category.Stock, "4-5.9")]
   tableDataSource: MatTableDataSource<Security>;
   matOrig = true;
@@ -36,7 +36,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   thefileOutput: string = "Stocks.json";
 
   @ViewChild(MatSort) sort!: MatSort;
-  // @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
+  @ViewChild("filterInput") filterinput!: ElementRef;//this was a guess
   constructor(private utilRapidGets: RapidApiGets, private utilSignalGet: SignalServiceGets, private renderer: Renderer2) {
     this.tableDataSource = new MatTableDataSource(this.stocksArray);
     this.preinitial(this.securityFiles[0]); //make Stocks.json my default file
@@ -52,6 +52,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     if (this.apiSubscription) {
       this.apiSubscription.unsubscribe();
     }
+    //clear globalStocksMap???
   }
   ngAfterViewInit(): void {
     //  console.log("sort", this.sort);
@@ -73,18 +74,26 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
     //should I clear stocksArray as well?
     this.stocksArray.length = 0;
     //clear stocksmap
-    this.stocksmap.clear();
+    //this.stocksmap.clear();
+    this.utilRapidGets.clearGlobalStocksMap();
     this.waiting = "...fetching";
-    this.constructorSubscription = this.utilSignalGet.getSecurityByFileName(securityFile, this.stocksmap)
+    // this.constructorSubscription = this.utilSignalGet.getSecurityByFileName(securityFile, this.stocksmap)
+    this.constructorSubscription = this.utilSignalGet.getSecurityByFileName(securityFile, this.utilRapidGets.getGlobalStocksMap())
       .pipe(
         concatMap(() => { //wait for stocksmap to be filled before calling rapidApi
-          return this.utilRapidGets.getKeys(this.stocksmap);
+          // return this.utilRapidGets.getKeys(this.stocksmap);
+          // return this.utilRapidGets.getKeys(this.utilRapidGets.getGlobalStocksMap());
+          return this.utilRapidGets.getKeysGlobalStockMap(); //getKeys(this.utilRapidGets.getGlobalStocksMap());
         })
       ).subscribe({
         next: () => { //the values a updated by passing by reference and nothing is returned from observable
           this.waiting = "done"; //need error handler here
-          console.log("stockmap", this.stocksmap.size, securityFile);
-          this.stocksArray = Array.from(this.stocksmap.values());
+          //  console.log("stockmap", this.stocksmap.size, securityFile);
+          console.log("stockmap", this.utilRapidGets.getGlobalStocksMap().size, securityFile);
+
+          // this.stocksArray = Array.from(this.stocksmap.values());
+          this.stocksArray = Array.from(this.utilRapidGets.getGlobalStocksMap().values());
+
           this.tableDataSource.data = this.stocksArray;
         },
         error: err => {
@@ -97,12 +106,17 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   initialize() { //used to refresh securities
     try {
       this.waiting = "...fetching";
-      console.log("initialize aristocrat " + this.stocksmap.size)
+      //  console.log("initialize aristocrat " + this.stocksmap.size);
+      console.log("initialize aristocrat " + this.utilRapidGets.getGlobalStocksMap().size);
+
       // let moresymbols = Array.from(this.stocksmap.keys());
-      this.apiSubscription = this.utilRapidGets.getKeys(this.stocksmap)
+      // this.apiSubscription = this.utilRapidGets.getKeys(this.stocksmap)
+      this.apiSubscription = this.utilRapidGets.getKeysGlobalStockMap()
         .subscribe(() => {
           this.waiting = "done";
-          this.stocksArray = Array.from(this.stocksmap.values());
+          // this.stocksArray = Array.from(this.stocksmap.values());
+          this.stocksArray = Array.from(this.utilRapidGets.getGlobalStocksMap().values());
+
           this.tableDataSource.data = this.stocksArray;
         });
     }
@@ -120,7 +134,7 @@ export class AristocratStockComponent implements OnInit, AfterViewInit, OnDestro
   }
   handleInputFileChange(theFile: string) {
     //clear filter text box    should I use look in notes Renderer2
-    //  this.renderer.setProperty(this.filterinput.nativeElement, 'value', "");
+    this.renderer.setProperty(this.filterinput.nativeElement, 'value', "");
     //this.filterinput.nativeElement.value = "";
     this.tableDataSource.filter = "";
     this.thefileOutput = theFile;

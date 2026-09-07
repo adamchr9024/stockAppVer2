@@ -16,6 +16,24 @@ import { SignalswatchlistService } from '../app/signalswatchlist.service';
 export class RapidApiGets {
     constructor(private rapidApiService: RapidapiService) { }
     fetchedData: DayChangeType[] = [];
+    private globalStocksmap: Map<string, Security> = new Map();
+    clearGlobalStocksMap() {
+        this.globalStocksmap.clear();
+    }
+    setGlobalStocksMap(security: Security) {
+        this.globalStocksmap.set(security.ticker, security)
+    }
+    getGlobalStocksMap() {
+        return this.globalStocksmap;
+    }
+    getTicker(ticker: string) {
+        if (this.globalStocksmap.has(ticker)) {
+            return this.globalStocksmap.get(ticker);
+        }
+        else {
+            throw new Error("ticker not found in globalStocksmap")
+        }
+    }
     getKeys(stocksmap: Map<string, Security>) {
         try {
             let moresymbols = Array.from(stocksmap.keys());
@@ -47,6 +65,41 @@ export class RapidApiGets {
         }
         catch (err: any) {
             console.error("error caught in RapidApiGets.getKeys()", err?.message);
+            throw err;
+        }
+    }
+
+    getKeysGlobalStockMap() {
+        try {
+            let moresymbols = Array.from(this.globalStocksmap.keys());
+            return this.rapidApiService.getMutualFundPrices(moresymbols)
+                .pipe(
+                    take(1),
+                    switchMap(async (n: any) => {
+                        this.fetchedData = n;
+                        await n.forEach((val2: any) => {
+                            let updt = this.globalStocksmap.get(val2.symbol);
+                            if (updt) {
+                                updt.dividendYield = val2?.dividendYield;
+                                updt.fiftytwowkrng = val2?.fiftyTwoWeekRange;
+                                updt.setYahooPrice = val2?.regularMarketPrice;
+                                updt.fiftyDayAverage = val2?.fiftyDayAverage;
+                                updt.fiftyDayAverageChange = val2?.fiftyDayAverageChange;
+                                updt.twoHundredDayAverage = val2?.twoHundredDayAverage; //twoHundredDayAverage
+                                updt.twoHundredDayAverageChange = val2?.twoHundredDayAverageChange;
+                                updt.trailingAnnualDividendRate = val2?.trailingAnnualDividendRate;
+
+                            }
+                        })
+                    }),
+                    catchError(err => {
+                        console.error("error caught and rethrown in RapidApiGets.getKeysGlobalStockMap() getMutualFund call", err);
+                        throw err;
+                    })
+                )
+        }
+        catch (err: any) {
+            console.error("error caught in RapidApiGets.getKeysGlobalStockMap()", err?.message);
             throw err;
         }
     }
